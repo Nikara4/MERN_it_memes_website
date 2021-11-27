@@ -32,7 +32,7 @@ For now the project is in MVP stage and will be expanded in the future with addi
 
 ## Setup
 
-[live preview](https://codesandbox.io/s/nifty-hofstadter-qnwyh)
+[live preview](https://codesandbox.io/s/react-meme-generator-qnwyh)
 Styles are to be updated.
 
 ## Features
