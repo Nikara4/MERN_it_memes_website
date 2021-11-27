@@ -1,13 +1,13 @@
 import {
-  Button,
-  Caption,
-  Gallery,
+  //   Button,
+  //   Caption,
+  //   Gallery,
   MemeGenerator,
-  Picture,
+  //   Picture,
 } from './../components/MemeGenerator';
 
 const PageMemeGenerator = () => {
-  return <h1>Hello world!</h1>;
+  return <MemeGenerator />;
 };
 
 export default PageMemeGenerator;

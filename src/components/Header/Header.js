@@ -1,13 +1,15 @@
+import { Heading, Text, Container } from '@chakra-ui/react';
+
 const Header = () => {
   return (
-    <>
-      <div>
-        <h1>Random Meme Generator</h1>
-      </div>
-      <div>
-        <p>Add your own captions to random meme that generates!</p>
-      </div>
-    </>
+    <Container className="header" maxW="container.xl">
+      <Heading as="h2" size="2xl" className="header--heading">
+        Random Meme Generator
+      </Heading>
+      <Text fontSize="xl" className="text--heading">
+        Add your own captions to random meme that generates!
+      </Text>
+    </Container>
   );
 };
 

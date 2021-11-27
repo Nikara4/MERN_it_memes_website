@@ -1,16 +1,8 @@
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
+import { ChakraProvider, Box, VStack, Grid, theme } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import PageMemeGenerator from './Pages/MemeGenerator';
 import Header from './components/Header';
+import './styles/styles.css';
 
 function App() {
   return (
