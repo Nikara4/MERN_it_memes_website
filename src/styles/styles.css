@@ -1,0 +1,66 @@
+.header {
+    position: absolute;
+    top: 15px;
+    left: 20%;
+    width: 50%;
+    text-align: left;
+}
+
+.header--heading {
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+}
+
+.header--text {
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.form {
+    width: 58vw;
+    position: relative;
+}
+
+.form--input {
+    width: 80%;
+    margin-bottom: 5px;
+}
+.form--button {
+    position: fixed;
+    top: -64vh;
+    left: 22vw;
+}
+
+.form--meme {
+    position: relative;
+    margin: 10px 150px;
+    max-height: 60vh;
+    /* width: 60%; */
+}
+
+.form--picture {
+    position: absolute;
+    margin: 20px auto;
+    z-index: -1;
+    min-height: 65vh;
+    max-height: 65vh;
+    min-width: 35vw;
+}
+
+.picture--heading__bottom, .picture--heading__top {
+    position: absolute;
+    color: white;
+    text-shadow: 0 1px 8px rgba(45,	52,	54, 0.4);
+    text-transform: uppercase;
+    font-size: 40px;
+}
+
+.picture--heading__top {
+    left: 50%;
+    top: 33px;
+}
+
+.picture--heading__bottom {
+    left: 50%;
+    bottom: -95px;
+}

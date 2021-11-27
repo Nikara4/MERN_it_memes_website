@@ -6,7 +6,7 @@ const Header = () => {
       <Heading as="h2" size="2xl" className="header--heading">
         Random Meme Generator
       </Heading>
-      <Text fontSize="xl" className="text--heading">
+      <Text fontSize="xl" className="header--text">
         Add your own captions to random meme that generates!
       </Text>
     </Container>

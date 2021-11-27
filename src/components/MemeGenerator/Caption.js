@@ -2,11 +2,10 @@ import { Input } from '@chakra-ui/react';
 
 const Caption = props => {
   return (
-    <div>
+    <div className="form--input">
       <Input
-        className="form--input"
         size="md"
-        variant="flushed"
+        variant="outline"
         type="text"
         name={props.name}
         placeholder={props.placeholder}
