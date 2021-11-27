@@ -1,68 +1,74 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and is using [chakra UI](https://chakra-ui.com/).
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- [General info](#general-info)
+- [Technologies](#technologies)
+- [Libraries](#libraries)
+- [Features](#features)
+- [Status](#status)
+- [Updates](#updates)
+- [Inspiration](#inspiration)
 
-### `npm start`
+## General info
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The project has been created as part of my 'Szkoła Reacta' course. It is intended to be my final individual project. The source is provided below.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The scope of the course is to use what I have learned during the course about React, API, backend, testing, etc.
 
-### `npm test`
+For now the project is in MVP stage and will be expanded in the future with additional features.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies
 
-### `npm run build`
+- React, JavaScript, JSX
+- HTML 5
+- CSS, Sass
+- Node.js
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Libraries used
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- Sass
+- chakra UI
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Setup
 
-### `npm run eject`
+[live preview]()
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The project is designed for desktop version.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Status
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Project is: in progress.
 
-## Learn More
+For now the live preview shows a basic version of a Random Meme Generator. The user can insert their own captions and they will be visible alongside the meme generated. It is a simple application with flaws (the pictures are of different shapes and sizes and they sometimes render incorrectly).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+COMPLETED:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- basic components of the Meme Generator,
+- basic implementation of styles,
+- working JS code.
 
-### Code Splitting
+The following are planned to be implemented:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- users can choose from a gallery which meme to use,
+- pictures and captions will work better alongside each other,
+- some memes can me saved in the gallery and viewed by others,
+- I intend to implement commenting and rating system,
+- subscription for weekly e-mails with IT memes and other things,
+- how to instructions.
 
-### Analyzing the Bundle Size
+## Updates
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+None for now.
 
-### Making a Progressive Web App
+## Inspiration
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+The project has been inspired by a few Meme Generator apps that have been created:
+AnjaliSharma1234 [Random Meme Generator](https://github.com/AnjaliSharma1234/Random-meme-generator)
+lijinke666 [react-meme-generator](https://github.com/lijinke666/react-meme-generator)
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+I have also googled some tutorials and React project ideas:
+[10 Cool React Projects Ideas You Should Build In 2021](https://hackr.io/blog/react-projects#project-overview-6)
+[Learn React by Building a Meme Generator](https://www.freecodecamp.org/news/learn-react-by-building-a-meme-generator/)
