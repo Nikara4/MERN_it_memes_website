@@ -1,25 +1,24 @@
-import Link from 'next/link'
+import NavLink from './NavLink/NavLink';
+import { Box, List } from '@mui/material';
+import { styles } from './styles';
 
 const NavMenu = () => {
-    return(
-        <ul>
-      <li>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/about">
-          <a>About Us</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/blog/hello-world">
-          <a>Blog Post</a>
-        </Link>
-      </li>
-    </ul>
-    )
-}
+  return (
+    <Box
+      style={styles.box}
+      sx={{ width: '100%', maxWidth: 360, bgcolor: 'transparent' }}
+    >
+      <nav aria-label='main mailbox folders'>
+        <List>
+          <NavLink to='/' icon='>' path='Home' />
+          <NavLink to='/about' icon='>' path='About' />
+          <NavLink to='/' icon='>' path='Upload a meme' />
+          <NavLink to='/' icon='>' path='Generate a meme' />
+          <NavLink to='/' icon='>' path='Subscribe to weekly mail' />
+        </List>
+      </nav>
+    </Box>
+  );
+};
 
 export default NavMenu;
