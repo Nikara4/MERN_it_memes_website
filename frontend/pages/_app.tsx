@@ -5,7 +5,7 @@ import { Header, NavMenu } from '../components';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Container maxWidth='lg'>
+    <Container maxWidth='lg' style={{ justifyContent: 'space-evenly' }}>
       <Header />
       <Grid container spacing={2}>
         <Grid item xs={6} md={3}>

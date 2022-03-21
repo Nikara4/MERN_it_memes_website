@@ -1,6 +1,9 @@
+import { Container } from '@mui/material';
+import { styles } from '../styles/index';
+
 const About = () => {
   return (
-    <>
+    <Container maxWidth='lg' style={styles.container}>
       <div>
         <h1>Imma working, bro!.</h1>
         <p>
@@ -14,7 +17,7 @@ const About = () => {
           vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor.
         </p>
       </div>
-    </>
+    </Container>
   );
 };
 

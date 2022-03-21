@@ -1,3 +1,6 @@
+import '@fontsource/roboto/500.css';
+import { variables } from '../../styles/variables';
+
 interface HeaderStyles {
   appBar: object;
   heading: object;
@@ -10,20 +13,18 @@ interface HeaderStyles {
 
 export const styles: HeaderStyles = {
   appBar: {
-    borderRadius: '17px',
+    borderRadius: `${variables.borderRadius}`,
     margin: '1rem 0px',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0.3rem 2rem',
-    backgroundColor: 'rgba(255, 255, 255, .25)',
+    flex: `${variables.flex}`,
+    padding: '0.7rem 2rem',
+    backgroundColor: '#54ADB5',
     backdropFilter: 'blur(5px)',
   },
   heading: {
-    color: '#f5f6fa',
     textDecoration: 'none',
     fontSize: '2.4rem',
+    fontWeight: '500',
+    color: '#ECECEC',
   },
   image: {
     marginLeft: '15px',

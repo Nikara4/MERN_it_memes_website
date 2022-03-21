@@ -1,3 +1,5 @@
+import { variables } from '../../styles/variables';
+
 interface MenuStyles {
   box: object;
   nav: object;
@@ -6,28 +8,14 @@ interface MenuStyles {
 
 export const styles: MenuStyles = {
   box: {
-    borderRadius: '17px',
-    margin: '1rem 0px',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0.3rem 2rem',
-    backgroundColor: 'rgba(255, 255, 255, .25)',
-    backdropFilter: 'blur(5px)',
+    borderRadius: `${variables.borderRadius}`,
+    margin: `${variables.margin}`,
+    flex: `${variables.flex}`,
+    padding: '0.3rem 0.7rem',
+    backgroundColor: `${variables.backgroundColor}`,
+    backdropFilter: `${variables.backdropFilter}`,
+    boxShadow: `${variables.boxShadow}`,
   },
-  nav: {
-    borderRadius: '17px',
-    margin: '1rem 0px',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0.3rem 2rem',
-    backgroundColor: 'rgba(255, 255, 255, .25)',
-    backdropFilter: 'blur(5px)',
-  },
-  list: {
-    marginLeft: '15px',
-  },
+  nav: {},
+  list: {},
 };
