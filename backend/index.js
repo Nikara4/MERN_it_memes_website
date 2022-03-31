@@ -16,6 +16,7 @@ require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+const connect_1 = __importDefault(require("./db/connect"));
 // importy routes
 const app = (0, express_1.default)();
 // middleware
@@ -27,7 +28,7 @@ app.use((0, cors_1.default)());
 const PORT = process.env.PORT || 5000;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // await connectDB(process.env.MONGO_URI);
+        yield (0, connect_1.default)(process.env.MONGO_URI);
         app.listen(PORT);
         console.log(`Server is running on port: ${PORT}...`);
     }

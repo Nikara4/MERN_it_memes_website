@@ -17,7 +17,7 @@ export const styles: HeaderStyles = {
     margin: '1rem 0px',
     flex: `${variables.flex}`,
     padding: '0.7rem 2rem',
-    backgroundColor: '#54ADB5',
+    backgroundColor: '#7d5fff',
     backdropFilter: 'blur(5px)',
   },
   heading: {
