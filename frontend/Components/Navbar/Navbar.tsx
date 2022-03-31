@@ -7,7 +7,7 @@ import {
   MenuOutlined,
 } from '@mui/icons-material';
 
-const NavMenu = () => {
+const Navbar = () => {
   return (
     <Box style={styles.box} sx={{ width: '100%', maxWidth: 360 }}>
       <nav>
@@ -27,4 +27,4 @@ const NavMenu = () => {
   );
 };
 
-export default NavMenu;
+export default Navbar;

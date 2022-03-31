@@ -1,9 +1,9 @@
 import { Container } from '@mui/material';
-import { styles } from '../styles/index';
+import styles from '../styles/index.module.css';
 
 const About = () => {
   return (
-    <Container maxWidth='lg' style={styles.container}>
+    <Container maxWidth='lg' className={styles.container}>
       <div>
         <h1>Imma working, bro!.</h1>
         <p>

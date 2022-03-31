@@ -9,7 +9,7 @@ export const styles: MenuStyles = {
   listItem: {},
   listButton: {},
   listIcon: {
-    minWidth: '35px',
+    minWidth: '35clpx',
     fontSize: '1.5rem',
   },
   listText: {},
