@@ -16,6 +16,7 @@ require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+const posts_js_1 = __importDefault(require("./routes/posts.js"));
 // importy routes
 const app = (0, express_1.default)();
 // middleware
@@ -23,6 +24,11 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ limit: '30mb', extended: true }));
 app.use((0, cors_1.default)());
 // routes
+app.use('/posts', posts_js_1.default);
+app.get("/", (req, res) => {
+    res.send("Hello to Memes API");
+});
+// app.use(errorHandlerMiddleware);
 // inicjalizacja serwera
 const PORT = process.env.PORT || 5000;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {

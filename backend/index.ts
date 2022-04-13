@@ -1,10 +1,12 @@
 import "dotenv/config";
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import connectDB from './db/connect'
+import connectDB from './db/connect';
+import postRoutes from './routes/posts.js';
+import errorHandlerMiddleware from './middleware/errorHandler.js';
 // importy routes
 
 const app = express();
@@ -16,6 +18,14 @@ app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
 app.use(cors());
 
 // routes
+
+app.use('/posts', postRoutes);
+
+app.get("/", (req, res) => {
+    res.send("Hello to Memes API");
+  });
+
+// app.use(errorHandlerMiddleware);
 
 // inicjalizacja serwera
 
