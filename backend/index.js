@@ -16,6 +16,7 @@ require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+const connect_1 = __importDefault(require("./db/connect"));
 const posts_js_1 = __importDefault(require("./routes/posts.js"));
 // importy routes
 const app = (0, express_1.default)();
@@ -30,10 +31,11 @@ app.get("/", (req, res) => {
 });
 // app.use(errorHandlerMiddleware);
 // inicjalizacja serwera
-const PORT = process.env.PORT || 5000;
+const PORT = process.env["PORT"] || 5000;
+const mongoDB = process.env["MONGO_URI"];
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // await connectDB(process.env.MONGO_URI);
+        yield (0, connect_1.default)(mongoDB);
         app.listen(PORT);
         console.log(`Server is running on port: ${PORT}...`);
     }

@@ -1,1 +1,2 @@
-export { default as Header } from './Header/Header';
+export { default as Posts } from './Posts/Posts';
+export { default as UploadForm } from './UploadForm/UploadForm';

@@ -9,7 +9,7 @@ const posts_js_1 = require("../controller/posts.js");
 const router = express_1.default.Router();
 router.get("/", posts_js_1.getPosts);
 router.get("/:id", posts_js_1.getSinglePost);
-router.post("/", posts_js_1.createPost);
+router.post("/", posts_js_1.uploadPost);
 router.patch("/:id", posts_js_1.updatePost);
 router.delete("/:id", posts_js_1.deletePost);
 router.patch("/:id/likePost", posts_js_1.likePost);

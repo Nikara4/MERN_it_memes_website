@@ -29,11 +29,12 @@ app.get("/", (req, res) => {
 
 // inicjalizacja serwera
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env["PORT"] || 5000;
+const mongoDB: string = process.env["MONGO_URI"]
 
 const start = async () => {
     try {
-        // await connectDB(process.env.MONGO_URI);
+        await connectDB(mongoDB);
         app.listen(PORT);
         console.log(`Server is running on port: ${PORT}...`);
     } catch (error) {
@@ -41,5 +42,5 @@ const start = async () => {
     }
 }
 
-start()
+start();
 

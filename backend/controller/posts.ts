@@ -1,79 +1,121 @@
 import mongoose from 'mongoose';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import PostMeme from '../models/postMeme.js';
-import { asyncWrapper } from '../middleware/asyncWrapper.js';
-import { createCustomError } from '../middleware/customError.js';
 
-export const getPosts = asyncWrapper(async (req: Request, res: Response) => {
+export const getPosts = async (req: Request, res: Response) => {
+    try {
         const postMemes = await PostMeme.find({});
-        res.status(200).json({ postMemes });
-})
-
-export const getSinglePost = asyncWrapper(async (req: Request, res: Response, next: NextFunction) => {
-    const { id: postID } = req.params;
-    const singlePost = await PostMeme.findOne({ _id: postID });
-    if (!singlePost) next(createCustomError(`No post with ID: ${postID}`, 404));
-    res.status(201).json(singlePost);
-})
-
-export const createPost = async (req: Request, res: Response) => {
-    const post = req.body;
-    const newPost = new PostMeme(post);
-    await newPost.save();
-    res.status(201).json(newPost);
+        return res.status(200).json({ data: postMemes });
+    } catch (error) {
+        return res.status(404).json({ error });
+    }
 }
 
-export const updatePost = asyncWrapper(async (req: Request, res: Response, next: NextFunction) => {
-    const { id: postID } = req.params;
-    const post = req.body;
+export const getSinglePost = async (req: Request, res: Response) => {
+    try {
+        const { id: postID } = req.params;
+        const singlePost = await PostMeme.findById({ _id: postID });
 
-    if(!mongoose.Types.ObjectId.isValid(postID)) next(createCustomError(`No post with ID: ${postID}`, 404));
+        if (!mongoose.Types.ObjectId.isValid(postID)) {
+            return res.status(404).send({data: `No post with ID: ${postID}`})
+        };
 
-    const updatedPost = await PostMeme.findByIdAndUpdate(
-        postID,
-        { ...post, postID },
-        { new: true }
-    );
-
-    res.status(204).json(updatedPost);
-});
-
-export const deletePost = asyncWrapper(async (req: Request, res: Response, next: NextFunction) => {
-    const { id: postID } = req.params;
-
-    if(!mongoose.Types.ObjectId.isValid(postID)) next(createCustomError(`No post with ID: ${postID}`, 404));
-
-    const post = await PostMeme.findByIdAndDelete(postID);
-
-    res.status(204).json(post);
-});
-
-export const likePost = async (req: Request, res: Response,  next: NextFunction) => {
-    const { id: postID } = req.params;
-
-    if(!mongoose.Types.ObjectId.isValid(postID)) next(createCustomError(`No post with ID: ${postID}`, 404));
-
-    const post = await PostMeme.findById(postID);
-    const updatedPost = await PostMeme.findByIdAndUpdate(
-        postID,
-        { likeCount: post.likeCount + 1 },
-        { new: true }
-    );
-
-    res.status(204).json(updatedPost);
+        return res.status(200).json({ data: singlePost });
+    } catch (error) {
+        return res.status(404).json({ data: error });
+    }
 }
 
-export const dislikePost = async (req: Request, res: Response,  next: NextFunction) => {
-    const { id: postID } = req.params;
+export const uploadPost = async (req: Request, res: Response) => {
+    try {
+        const post = req.body;
+        const newPost = new PostMeme(post);
 
-    if(!mongoose.Types.ObjectId.isValid(postID)) next(createCustomError(`No post with ID: ${postID}`, 404));
+        await newPost.save();
+        return res.status(201).json({ data: newPost });
+    } catch (error) {
+        return res.status(409).json(error);
+    }
+}
 
-    const post = await PostMeme.findById(postID);
-    const updatedPost = await PostMeme.findByIdAndUpdate(
-        postID,
-        { dislike: post.dislike + 1 },
-        { new: true }
-    );
+export const updatePost = async (req: Request, res: Response) => {
+    try {
+        const { id: postID } = req.params;
+        const post = req.body;
 
-    res.status(204).json(updatedPost);
+        if (!mongoose.Types.ObjectId.isValid(postID)) {
+            return res.status(404).send({data: `No post with ID: ${postID}`})
+        };
+
+        const updatedPost = await PostMeme.findByIdAndUpdate(
+            postID,
+            { ...post, postID },
+            { new: true }
+        );
+
+        return res.status(204).json({ data: updatedPost });
+    } catch (error) {
+        return res.status(404).json({ error });
+    }
+};
+
+export const deletePost = async (req: Request, res: Response) => {
+    try {
+        const { id: postID } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(postID)) {
+            return res.status(404).send({data: `No post with ID: ${postID}`})
+        };
+
+        const post = await PostMeme.findByIdAndDelete(postID);
+
+        return res.status(204).json({
+            data: post,
+            message: `Post with ID: ${postID} has been successfully deleted.`
+        });
+    } catch (error) {
+        return res.status(404).json({ error });
+    }
+};
+
+export const likePost = async (req: Request, res: Response) => {
+    try {
+        const { id: postID } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(postID)) {
+            return res.status(404).send({data: `No post with ID: ${postID}`})
+        };
+
+        const post = await PostMeme.findById(postID);
+        const updatedPost = await PostMeme.findByIdAndUpdate(
+            postID,
+            { likeCount: post.likeCount + 1 },
+            { new: true }
+        );
+
+        return res.status(204).json({ data: updatedPost });
+    } catch (error) {
+        return res.status(404).json({ error });
+    }
+}
+
+export const dislikePost = async (req: Request, res: Response) => {
+    try {
+        const { id: postID } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(postID)) {
+            return res.status(404).send({data: `No post with ID: ${postID}`})
+        };
+
+        const post = await PostMeme.findById(postID);
+        const updatedPost = await PostMeme.findByIdAndUpdate(
+            postID,
+            { dislike: post.dislike + 1 },
+            { new: true }
+        );
+
+        return res.status(204).json({ data: updatedPost });
+    } catch (error) {
+        return res.status(404).json({ error });
+    }
 }

@@ -3,7 +3,7 @@ import express from 'express';
 // import { auth } from '../middleware/auth.js'
 import { getPosts,
     getSinglePost,
-    createPost,
+    uploadPost,
     updatePost,
     deletePost,
     dislikePost,
@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get("/", getPosts);
 router.get("/:id", getSinglePost);
-router.post("/", createPost);
+router.post("/", uploadPost);
 router.patch("/:id", updatePost);
 router.delete("/:id", deletePost);
 router.patch("/:id/likePost", likePost);

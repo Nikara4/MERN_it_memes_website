@@ -14,7 +14,7 @@ const Navbar = () => {
         <List>
           <NavLink to='/' icon={<HomeOutlined />} path='Home' />
           <NavLink to='/about' icon={<LightbulbOutlined />} path='About' />
-          <NavLink to='/' icon={<MenuOutlined />} path='Upload a meme' />
+          <NavLink to='/submit' icon={<MenuOutlined />} path='Upload a meme' />
           <NavLink to='/' icon={<MenuOutlined />} path='Generate a meme' />
           <NavLink
             to='/'
