@@ -3,10 +3,10 @@ import { TextField, Button, Typography, Paper } from '@mui/material';
 // import FileBase64 from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { uploadPost } from '../../state/reducers/posts';
+import { uploadPost } from '../../state/actions/posts';
 import useStyles from './styles';
 
-type TextAdsInterface = {
+type PostInterface = {
   id: string,
   author: string;
   title: string;
@@ -18,7 +18,7 @@ type TextAdsInterface = {
 };
 
 const UploadForm = ({ posts }: any) => {
-  const [postData, setPostData] = useState<TextAdsInterface>({
+  const [postData, setPostData] = useState<PostInterface>({
     ...posts,
     title: '',
     tags: [],

@@ -1,9 +1,9 @@
 import * as api from '../../pages/api';
-// import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Dispatch } from 'redux'
+import { Dispatch } from 'redux';
 
-import { AppThunk, MemePost, MemePostsArray } from '../types/posts';
-import { posts } from '../constants/posts';
+import { postActionTypes } from '../constants/posts';
+import { AppThunk } from '../Store';
+import { PostInterface } from '../types'
 
 const {
     FETCH_ALL_POSTS,
@@ -13,9 +13,7 @@ const {
     DELETE_POST,
     LIKE_POST,
     DISLIKE_POST }
-    = posts;
-
-
+    = postActionTypes;
 
 // Action Creators
 
@@ -25,7 +23,7 @@ export const getPosts = (): AppThunk => async (dispatch: Dispatch) => {
         dispatch({
             type: FETCH_ALL_POSTS,
             payload: data
-        })
+        });
     } catch (e) {
         console.log(e);
     }
@@ -37,13 +35,13 @@ export const getSinglePost = (id: string): AppThunk => async (dispatch: Dispatch
         dispatch({
             type: FETCH_SINGLE_POST,
             payload: data
-        })
+        });
     } catch (e) {
         console.log(e);
     }
 }
 
-export const uploadPost = (post: MemePost): AppThunk => async (dispatch: Dispatch) => {
+export const uploadPost = (post: PostInterface): AppThunk => async (dispatch: Dispatch) => {
     try {
         const { data } = await api.createPost(post);
         dispatch({
@@ -55,7 +53,7 @@ export const uploadPost = (post: MemePost): AppThunk => async (dispatch: Dispatc
     }
 }
 
-export const updatePost = (id: string, post: MemePost): AppThunk => async (dispatch: Dispatch) => {
+export const updatePost = (id: string, post: PostInterface): AppThunk => async (dispatch: Dispatch) => {
     try {
         const { data } = await api.updatePost(id, post);
         dispatch({

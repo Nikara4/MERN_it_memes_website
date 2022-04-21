@@ -1,6 +1,6 @@
-import { MemePostsType, MemePost, MemeActionTypes } from '../types/posts';
-// import { AnyAction } from 'redux';
+import { AnyAction } from 'redux'
 import { postActionTypes } from '../constants/posts';
+import { PostTypeState } from '../types'
 
 const {
     FETCH_ALL_POSTS,
@@ -12,38 +12,30 @@ const {
     DISLIKE_POST }
     = postActionTypes;
 
-interface DefaultMemeType {
-    posts?: MemePostsType,
-}
-
-const memePostsInitialState: DefaultMemeType = {}
+const initialState = {
+    posts: [],
+} as PostTypeState;
 
 // eslint-disable-next-line import/no-anonymous-default-export
 const postsReducer = (
-    state: DefaultMemeType = memePostsInitialState,
-    action: MemeActionTypes
-    ): DefaultMemeType => {
+    state = initialState,
+    action: AnyAction
+    ) => {
     switch (action.type) {
         case FETCH_ALL_POSTS:
-            return action.payload;
-        // case FETCH_SINGLE_POST:
-        //     return state;
+            return action['payload'];
+        case FETCH_SINGLE_POST:
+            return action['payload'];
         case UPLOAD_POST:
-              return {
-                ...state.posts, action?.payload
-              }
+            return [...state.posts, action['payload']];
         case UPDATE_POST:
         case LIKE_POST:
         case DISLIKE_POST:
-            return posts.map((post: MemePost) => post.id === action.payload.id ? action.payload : post);
+            return state.posts.map((post) =>
+        post.id === action?.['payload']?._id ? action['payload'] : post
+      );
         case DELETE_POST:
-            const updatedPosts: MemePost[] = state.posts.filter(
-                post => post.id !== action['payload'].id
-              )
-              return {
-                ...state,
-                posts: updatedPosts,
-              }
+            return state.posts.filter((post) => post.id !== action['payload']);
         default:
             return state;
     }

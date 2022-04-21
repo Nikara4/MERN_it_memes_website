@@ -4,8 +4,22 @@ import Image from 'next/image';
 import { Container, Grow, Grid } from '@mui/material';
 import styles from '../styles/index.module.css';
 import { Posts } from '../containers';
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+// import useStyles from "./styles";
+import { getPosts } from "../state/actions/posts";
 
 const Home: NextPage = () => {
+  const [currentId, setCurrentId] = useState(null);
+  // const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [currentId, dispatch]);
+
+  console.log(currentId)
+
   return (
     <>
       <Head>
@@ -20,7 +34,7 @@ const Home: NextPage = () => {
           justifyContent="space-between"
           alignItems="stretch" spacing={3}>
             <Grid item xs={12} sm={7}>
-              <Posts />
+              <Posts currentId={currentId} setCurrentId={setCurrentId} />
             </Grid>
         </Grid>
       </Grow>

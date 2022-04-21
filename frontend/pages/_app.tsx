@@ -3,9 +3,9 @@ import type { AppProps } from 'next/app';
 import { Grid, Typography, AppBar, Container, Toolbar } from '@mui/material';
 import { Provider } from 'react-redux';
 
-import { store } from '../state/reducers/rootReducer';
-import { Header } from '../components';
-import { Navbar } from '../components';
+import { store } from '../state/Store';
+import { Header } from '../Components';
+import { Navbar } from '../Components';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

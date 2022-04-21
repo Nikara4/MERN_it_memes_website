@@ -1,10 +1,24 @@
-import { createStore, applyMiddleware } from "redux";
-import RootReducer from "./reducers/rootReducer";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
+import thunk, { ThunkMiddleware, ThunkAction } from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware, AnyAction } from 'redux';
+import postsReducer from "./reducers/posts";
+import { createLogger } from 'redux-logger';
 
-const Store = createStore(RootReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const rootReducer = combineReducers({ posts: postsReducer });
 
-export type RootStore = ReturnType<typeof RootReducer>
+type RootState = ReturnType<typeof rootReducer>;
+// Inferred type: {posts}
+export type AppDispatch = typeof rootReducer;
 
-export default Store;
+const logger = createLogger();
+
+export const store = createStore<RootState, AnyAction, {}, {}>(
+  rootReducer,
+  applyMiddleware(thunk as ThunkMiddleware<RootState, AnyAction>, logger)
+);
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  AnyAction
+>
