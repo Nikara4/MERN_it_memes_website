@@ -10,7 +10,7 @@ import {
 import { ThumbUpAlt, ThumbUpOffAlt, Delete, MoreHoriz, ThumbDown, ThumbDownOffAlt } from '@mui/icons-material';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, updatePost, likePost, dislikePost, getPosts } from '../../../state/actions/posts';
+import { deletePost, updatePost, likePost, dislikePost, getPosts } from '../../state/actions/posts';
 import { useEffect, useState } from 'react';
 
 type PostInterface = {

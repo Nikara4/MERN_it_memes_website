@@ -1,2 +1,2 @@
-export { default as Posts } from './Posts/Posts';
+export { default as Post } from './Post/Post';
 export { default as UploadForm } from './UploadForm/UploadForm';
