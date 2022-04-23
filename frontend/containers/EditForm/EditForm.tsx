@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { TextField, Button, Typography, Paper } from '@mui/material';
 import FileBase64 from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { PostInterface } from '../../state/types';
-import { uploadPost } from '../../state/actions/posts';
+import { PostInterface, PostTypeState } from "../../state/types";
+import { updatePost } from '../../state/actions/posts';
 import useStyles from './styles';
+import { ConstructionOutlined } from '@mui/icons-material';
 
-const UploadForm = ({ post, currentId }: any) => {
+const EditForm = ({ post, currentId }: any) => {
   const [postData, setPostData] = useState<PostInterface>({
     ...post,
     title: '',
@@ -17,22 +17,22 @@ const UploadForm = ({ post, currentId }: any) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const updatedPost = useSelector((state: { posts: PostTypeState }) =>
+    currentId ? state.posts.data.find((post) => post._id === currentId) : null
+  );
+
+  useEffect(() => {
+    setPostData(updatedPost);
+  }, [updatedPost]);
+
   // const user = JSON.parse(localStorage.getItem('profile'));
 
-  const clearForm = () => {
-    setPostData({
-      ...post,
-      title: '',
-      tags: [],
-      selectedFile: '',
-    });
-  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    dispatch(uploadPost({ ...postData }));
-    clearForm();
+    dispatch(updatePost(currentId, postData));
+    console.log('Post has been updated.')
 
     //name: user?.result?.name
   };
@@ -50,8 +50,7 @@ const UploadForm = ({ post, currentId }: any) => {
   //         </Paper>
   //     )
   // }
-
-  // console.log(currentId);
+  console.log(currentId)
   return (
     <Paper className={classes.paper}>
       <form
@@ -61,7 +60,7 @@ const UploadForm = ({ post, currentId }: any) => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">
-          Upload a new post
+          Edit post
         </Typography>
 
         <TextField
@@ -101,7 +100,7 @@ const UploadForm = ({ post, currentId }: any) => {
           >
             Submit
           </Button>
-          <Button
+          {/* <Button
             variant="contained"
             color="secondary"
             size="small"
@@ -109,11 +108,11 @@ const UploadForm = ({ post, currentId }: any) => {
             fullWidth
           >
             Clear
-          </Button>
+          </Button> */}
         </div>
       </form>
     </Paper>
   );
 };
 
-export default UploadForm;
+export default EditForm;

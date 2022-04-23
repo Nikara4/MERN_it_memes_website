@@ -1,5 +1,5 @@
 export interface PostInterface {
-        id: string;
+        _id: string;
         author: string;
         title: string;
         tags: string[];
@@ -10,5 +10,5 @@ export interface PostInterface {
 };
 
 export type PostTypeState = {
-    posts: PostInterface[],
+    data: PostInterface[];
 }

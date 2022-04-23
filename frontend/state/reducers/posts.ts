@@ -13,7 +13,7 @@ const {
     = postActionTypes;
 
 const initialState = {
-    posts: [],
+    data: [],
 } as PostTypeState;
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -27,15 +27,15 @@ const postsReducer = (
         case FETCH_SINGLE_POST:
             return action['payload'];
         case UPLOAD_POST:
-            return [...state.posts, action['payload']];
+            return [...state.data, action['payload']];
         case UPDATE_POST:
         case LIKE_POST:
         case DISLIKE_POST:
-            return state.posts.map((post) =>
-        post.id === action?.['payload']?._id ? action['payload'] : post
+            return state.data.map((post) =>
+        post._id === action?.['payload']?._id ? action['payload'] : post
       );
         case DELETE_POST:
-            return state.posts.filter((post) => post.id !== action['payload']);
+            return state.data.filter((post) => post._id !== action['payload']);
         default:
             return state;
     }

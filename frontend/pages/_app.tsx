@@ -1,11 +1,12 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
+
 import { Grid, Typography, AppBar, Container, Toolbar } from '@mui/material';
 import { Provider } from 'react-redux';
 
 import { store } from '../state/Store';
-import { Header } from '../Components';
-import { Navbar } from '../Components';
+import { Header } from '../components';
+import { Navbar } from '../components';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,9 +17,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Grid item xs={6} md={3}>
             <Navbar />
           </Grid>
-          <Grid item xs={6} md={8}>
-            <Component {...pageProps} />
-          </Grid>
+            <Grid item xs={6} md={8}>
+              <Component {...pageProps} />
+            </Grid>
         </Grid>
       </Container>
     </Provider>
