@@ -7,7 +7,7 @@ import { PostInterface } from '../../state/types';
 import { uploadPost } from '../../state/actions/posts';
 import useStyles from './styles';
 
-const UploadForm = ({ post, currentId }: any) => {
+const UploadForm = ({ post }: any) => {
   const [postData, setPostData] = useState<PostInterface>({
     ...post,
     title: '',
