@@ -18,10 +18,10 @@ const postMeme_js_1 = __importDefault(require("../models/postMeme.js"));
 const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postMemes = yield postMeme_js_1.default.find({});
-        return res.status(200).json({ data: postMemes });
+        return res.status(200).json(postMemes);
     }
     catch (error) {
-        return res.status(404).json({ error });
+        return res.status(404).json(error);
     }
 });
 exports.getPosts = getPosts;
@@ -33,10 +33,10 @@ const getSinglePost = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return res.status(404).send({ data: `No post with ID: ${postID}` });
         }
         ;
-        return res.status(200).json({ data: singlePost });
+        return res.status(200).json(singlePost);
     }
     catch (error) {
-        return res.status(404).json({ data: error });
+        return res.status(404).json(error);
     }
 });
 exports.getSinglePost = getSinglePost;
@@ -45,7 +45,7 @@ const uploadPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const post = req.body;
         const newPost = new postMeme_js_1.default(post);
         yield newPost.save();
-        return res.status(201).json({ data: newPost });
+        return res.status(201).json(newPost);
     }
     catch (error) {
         return res.status(409).json(error);
@@ -61,10 +61,10 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         ;
         const updatedPost = yield postMeme_js_1.default.findByIdAndUpdate(postID, Object.assign(Object.assign({}, post), { postID }), { new: true });
-        return res.status(204).json({ data: updatedPost });
+        return res.json(updatedPost);
     }
     catch (error) {
-        return res.status(404).json({ error });
+        return res.status(404).json(error);
     }
 });
 exports.updatePost = updatePost;
@@ -76,13 +76,13 @@ const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
         ;
         const post = yield postMeme_js_1.default.findByIdAndDelete(postID);
-        return res.status(204).json({
-            data: post,
+        return res.json({
+            post,
             message: `Post with ID: ${postID} has been successfully deleted.`
         });
     }
     catch (error) {
-        return res.status(404).json({ error });
+        return res.status(404).json(error);
     }
 });
 exports.deletePost = deletePost;
@@ -94,11 +94,11 @@ const likePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         ;
         const post = yield postMeme_js_1.default.findById(postID);
-        const updatedPost = yield postMeme_js_1.default.findByIdAndUpdate(postID, { likeCount: post.likeCount + 1 }, { new: true });
-        return res.status(204).json({ data: updatedPost });
+        const updatedPost = yield postMeme_js_1.default.findByIdAndUpdate(postID, { likes: post.likes + 1 }, { new: true });
+        return res.json(updatedPost);
     }
     catch (error) {
-        return res.status(404).json({ error });
+        return res.status(404).json(error);
     }
 });
 exports.likePost = likePost;
@@ -110,11 +110,11 @@ const dislikePost = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
         ;
         const post = yield postMeme_js_1.default.findById(postID);
-        const updatedPost = yield postMeme_js_1.default.findByIdAndUpdate(postID, { dislike: post.dislike + 1 }, { new: true });
-        return res.status(204).json({ data: updatedPost });
+        const updatedPost = yield postMeme_js_1.default.findByIdAndUpdate(postID, { dislikes: post.dislikes + 1 }, { new: true });
+        return res.json(updatedPost);
     }
     catch (error) {
-        return res.status(404).json({ error });
+        return res.status(404).json(error);
     }
 });
 exports.dislikePost = dislikePost;

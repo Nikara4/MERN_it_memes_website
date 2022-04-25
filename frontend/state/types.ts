@@ -10,5 +10,5 @@ export interface PostInterface {
 };
 
 export type PostTypeState = {
-    data: PostInterface[];
+    posts: PostInterface[];
 }

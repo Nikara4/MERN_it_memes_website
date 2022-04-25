@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Container, Grow, Grid, CircularProgress } from '@mui/material';
-import { Post } from '../containers';
+import { Post } from '../components';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../state/actions/posts';
@@ -14,13 +14,12 @@ const Home: NextPage = () => {
   const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
   const posts = useSelector(
-    (state: { posts: PostTypeState }) => state.posts.data
+    (state: PostTypeState) => state.posts
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
-    console.log(currentId)
   }, [currentId, dispatch]);
 
   const handleClickOpen = () => {
@@ -31,6 +30,7 @@ const Home: NextPage = () => {
     setCurrentId(null);
     setOpen(false);
   };
+
 
   return (
     <>

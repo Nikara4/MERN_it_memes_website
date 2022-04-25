@@ -14,15 +14,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 const express_1 = __importDefault(require("express"));
-const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const connect_1 = __importDefault(require("./db/connect"));
 const posts_js_1 = __importDefault(require("./routes/posts.js"));
 // importy routes
 const app = (0, express_1.default)();
 // middleware
-app.use(body_parser_1.default.json());
-app.use(body_parser_1.default.urlencoded({ limit: '30mb', extended: true }));
+app.use(express_1.default.json({
+    limit: '100mb'
+}));
+app.use(express_1.default.text({
+    limit: '100mb',
+}));
+app.use(express_1.default.urlencoded({
+    limit: '100mb',
+    extended: true,
+    parameterLimit: 1000000
+}));
 app.use((0, cors_1.default)());
 // routes
 app.use('/posts', posts_js_1.default);

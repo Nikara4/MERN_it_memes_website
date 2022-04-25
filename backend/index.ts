@@ -13,8 +13,17 @@ const app = express();
 
 // middleware
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
+app.use(express.json({
+    limit: '100mb'
+}));
+app.use(express.text({
+    limit: '100mb',
+}));
+app.use(express.urlencoded({
+    limit: '100mb',
+    extended: true,
+    parameterLimit: 1000000
+}))
 app.use(cors());
 
 // routes

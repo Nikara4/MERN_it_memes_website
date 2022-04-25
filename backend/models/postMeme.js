@@ -19,15 +19,15 @@ const postSchema = new mongoose_1.default.Schema({
     selectedFile: {
         type: String,
         default: '',
-        // required: true,
+        required: true,
     },
     likes: {
-        type: [String],
-        default: [],
+        type: Number,
+        default: 0,
     },
     dislikes: {
-        type: [String],
-        default: [],
+        type: Number,
+        default: 0,
     },
     createdAt: {
         type: Date,

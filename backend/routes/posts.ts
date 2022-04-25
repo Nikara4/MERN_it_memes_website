@@ -16,7 +16,7 @@ router.get("/:id", getSinglePost);
 router.post("/", uploadPost);
 router.patch("/:id", updatePost);
 router.delete("/:id", deletePost);
-router.patch("/:id/likePost", likePost);
+router.patch("/:id/like", likePost);
 router.patch("/:id/dislike", dislikePost);
 
 export default router;

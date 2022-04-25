@@ -13,7 +13,7 @@ export const updatePost = (id: string, updatedPost: PostInterface) => axios.patc
 
 export const deletePost = (id: string) => axios.delete(`${url}/${id}`);
 
-export const likePost = (id: string) => axios.patch(`${url}/${id}/likePost`);
+export const likePost = (id: string) => axios.patch(`${url}/${id}/like`);
 
-export const dislikePost = (id: string) => axios.patch(`${url}/${id}/dislikePost`);
+export const dislikePost = (id: string) => axios.patch(`${url}/${id}/dislike`);
 

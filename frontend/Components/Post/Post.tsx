@@ -41,67 +41,67 @@ const Post = ({
 
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  const LikingPost = () => {
-    if (post.likes.length > 0) {
-      return post.likes.find(
-        (like) => like === (user?.result?.googleId || user?.result?._id)
-      ) ? (
-        <>
-          <ThumbUpAlt fontSize='small' />
-          &nbsp;
-          {post.likes.length > 2
-            ? `You and ${post.likes.length - 1} others`
-            : `${post.likes.length} like${post.likes.length > 2 ? 's' : ''}`}
-        </>
-      ) : (
-        <>
-          <ThumbUpOffAlt fontSize='small' />
-          &nbsp;
-          {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
-        </>
-      );
-    }
-    return (
-      <>
-        <ThumbUpOffAlt fontSize='small' />
-        &nbsp;
-        {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
-      </>
-    );
-  };
+  // const LikingPost = () => {
+  //   if (post.likes.length > 0) {
+  //     return post.likes.find(
+  //       (like) => like === (user?.result?.googleId || user?.result?._id)
+  //     ) ? (
+  //       <>
+  //         <ThumbUpAlt fontSize='small' />
+  //         &nbsp;
+  //         {post.likes.length > 2
+  //           ? `You and ${post.likes.length - 1} others`
+  //           : `${post.likes.length} like${post.likes.length > 2 ? 's' : ''}`}
+  //       </>
+  //     ) : (
+  //       <>
+  //         <ThumbUpOffAlt fontSize='small' />
+  //         &nbsp;
+  //         {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+  //       </>
+  //     );
+  //   }
+  //   return (
+  //     <>
+  //       <ThumbUpOffAlt fontSize='small' />
+  //       &nbsp;
+  //       {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+  //     </>
+  //   );
+  // };
 
-  const DislikingPost = () => {
-    if (post.dislikes.length > 0) {
-      return post.dislikes.find(
-        (like) => like === (user?.result?.googleId || user?.result?._id)
-      ) ? (
-        <>
-          <ThumbDown fontSize='small' />
-          &nbsp;
-          {post.dislikes.length > 2
-            ? `You and ${post.dislikes.length - 1} others`
-            : `${post.dislikes.length} dislike${
-                post.dislikes.length > 2 ? 's' : ''
-              }`}
-        </>
-      ) : (
-        <>
-          <ThumbDownOffAlt fontSize='small' />
-          &nbsp;
-          {post.dislikes.length}{' '}
-          {post.dislikes.length === 1 ? 'Dislike' : 'Dislikes'}
-        </>
-      );
-    }
-    return (
-      <>
-        <ThumbDownOffAlt fontSize='small' />
-        &nbsp;
-        {post.dislikes.length}{' '}
-        {post.dislikes.length === 1 ? 'Dislike' : 'Dislikes'}
-      </>
-    );
-  };
+  // const DislikingPost = () => {
+  //   if (post.dislikes.length > 0) {
+  //     return post.dislikes.find(
+  //       (like) => like === (user?.result?.googleId || user?.result?._id)
+  //     ) ? (
+  //       <>
+  //         <ThumbDown fontSize='small' />
+  //         &nbsp;
+  //         {post.dislikes.length > 2
+  //           ? `You and ${post.dislikes.length - 1} others`
+  //           : `${post.dislikes.length} dislike${
+  //               post.dislikes.length > 2 ? 's' : ''
+  //             }`}
+  //       </>
+  //     ) : (
+  //       <>
+  //         <ThumbDownOffAlt fontSize='small' />
+  //         &nbsp;
+  //         {post.dislikes.length}{' '}
+  //         {post.dislikes.length === 1 ? 'Dislike' : 'Dislikes'}
+  //       </>
+  //     );
+  //   }
+  //   return (
+  //     <>
+  //       <ThumbDownOffAlt fontSize='small' />
+  //       &nbsp;
+  //       {post.dislikes.length}{' '}
+  //       {post.dislikes.length === 1 ? 'Dislike' : 'Dislikes'}
+  //     </>
+  //   );
+  // };
 
   const handleDelete = async () => {
     await dispatch(deletePost(post._id))
@@ -163,17 +163,17 @@ const Post = ({
           size='small'
           onClick={() => dispatch(likePost(post._id))}
           style={{ color: '#8481EC' }}
-          disabled={!user?.result}
+          // disabled={!user?.result}
         >
-          <LikingPost />
+          Like{" "}{post.likes}
         </Button>
         <Button
           size='small'
           onClick={() => dispatch(dislikePost(post._id))}
           style={{ color: '#8481EC' }}
-          disabled={!user?.result}
+          // disabled={!user?.result}
         >
-          <DislikingPost />
+          Dislike{" "}{post.dislikes}
         </Button>
         {(user?.result?.googleId === post?.author ||
           user?.result?._id === post?.author) && (
