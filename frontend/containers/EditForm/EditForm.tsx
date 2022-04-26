@@ -26,7 +26,7 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
   const dispatch = useDispatch();
   const updatedPost = useSelector((state: { posts: PostTypeState }) =>
     currentId
-      ? state?.posts?.data?.find((post) => post._id === currentId)
+      ? state?.posts?.find((post) => post._id === currentId)
       : null
   );
 
@@ -41,7 +41,6 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
       dispatch(updatePost(currentId, postData));
       console.log('Post has been updated.');
       handleClose();
-      // dispatch(getPosts());
 
     //name: user?.result?.name
   };
@@ -88,11 +87,11 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
             <TextField
               name='tags'
               variant='outlined'
-              label='Tags'
+              label="Tags (separate by comma)"
               fullWidth
               value={postData?.tags}
               onChange={(e) =>
-                setPostData({ ...postData, tags: e.target.value.split(',') })
+                setPostData({ ...postData, tags: e.target.value.split(', ') })
               }
             />
             <div className={classes.fileInput}>

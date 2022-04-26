@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { TextField, Button, Typography, Paper } from '@mui/material';
+import { useState } from 'react';
 import FileBase64 from 'react-file-base64';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
+import { TextField, Button, Typography, Paper } from '@mui/material';
 
 import { PostInterface } from '../../state/types';
 import { uploadPost } from '../../state/actions/posts';
@@ -76,18 +76,18 @@ const UploadForm = ({ post }: any) => {
         <TextField
           name="tags"
           variant="outlined"
-          label="Tags"
+          label="Tags (separate by comma)"
           fullWidth
           value={postData.tags}
           onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(",") })
+            setPostData({ ...postData, tags: e.target.value.split(", ") })
           }
         />
         <div className={classes.fileInput}>
           <FileBase64
             type="File"
             multiple={false}
-            onDone={({ base64 }) =>
+            onDone={({ base64 }: any) =>
               setPostData({ ...postData, selectedFile: base64 })
             }
           />

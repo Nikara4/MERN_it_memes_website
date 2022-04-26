@@ -1,16 +1,26 @@
-interface MenuStyles {
-  listItem: object;
-  listButton: object;
-  listIcon: object;
-  listText: object;
-}
+import { createUseStyles } from 'react-jss';
 
-export const styles: MenuStyles = {
-  listItem: {},
-  listButton: {},
-  listIcon: {
-    minWidth: '35clpx',
-    fontSize: '1.5rem',
+export default createUseStyles({
+  listItemButton: {
+    overflow: 'hidden',
+    background: 'linear-gradient(to right, #009432, #009432 50%, #fff 50%)',
+    backgroundClip: "text",
+    webkitBackgroundClip: "text",
+    webkitTextFillColor: "transparent",
+    backgroundSize: "200% 100%",
+    backgroundPosition: "100%",
+    transition: 'background-position 275ms ease',
+    '&:hover': {
+        backgroundPosition: '0 100%',
+      },
+    },
+  listItemIcon: {
+    minWidth: '40px',
   },
-  listText: {},
-};
+  listItemText: {
+    '& span': {
+      fontFamily: 'Poppins, sans-serif',
+      fontSize: 16,
+    },
+  },
+});

@@ -1,29 +1,37 @@
 import { createUseStyles } from 'react-jss';
 
 export default createUseStyles({
-    appBar: {
-        borderRadius: 15,
-        margin: "30px 0",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-      },
-      heading: {
-        color: "#B31F48",
-      },
-      image: {
-        marginLeft: "15px",
-      },
-      '@media (min-width: 640px)': {
-        mainContainer: {
-          flexDirection: "column-reverse",
-        },
-        heading: {
-          fontSize: 40,
-        },
-        image: {
-          height: 40,
-        },
-      },
-  });
+  wrapper: {
+    position: 'relative',
+    width: '100%',
+    height: '20vh',
+    backgroundColor: '#E5E4E2',
+    marginBottom: 50,
+  },
+  container: {
+    margin: 0,
+  },
+  heading: {
+    position: 'absolute',
+    bottom: 20,
+    left: 350,
+    fontFamily: 'Poppins, sans-serif',
+    fontSize: 38,
+    fontWeight: 600,
+    textAlign: 'left',
+  },
+  image: {
+    marginLeft: '15px',
+  },
+  '@media (max-width: 640px)': {
+    mainContainer: {
+      flexDirection: 'column-reverse',
+    },
+    heading: {
+      fontSize: 40,
+    },
+    image: {
+      height: 40,
+    },
+  },
+});

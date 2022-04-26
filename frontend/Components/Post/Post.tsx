@@ -1,4 +1,5 @@
 import useStyles from './styles';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Card,
   CardActions,
@@ -15,9 +16,9 @@ import {
   ThumbDownOffAlt,
 } from '@mui/icons-material';
 import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
-import { deletePost, likePost, dislikePost, getPosts } from '../../state/actions/posts';
-import { PostTypeState, PostInterface } from '../../state/types';
+import { useDispatch } from 'react-redux';
+import { deletePost, likePost, dislikePost } from '../../state/actions/posts';
+import { PostInterface } from '../../state/types';
 
 interface PostPropsInterface {
   currentId: string;
@@ -103,85 +104,74 @@ const Post = ({
   //   );
   // };
 
-  const handleDelete = async () => {
-    await dispatch(deletePost(post._id))
-    console.log('Post has been deleted.');
-    dispatch(getPosts());
-  }
-
   return (
     <Card className={classes.card}>
+      <div className={classes.tagsWrapper}>
+        {post.tags.map((tag) => (
+          <div key={uuidv4()}>
+            <Typography
+              variant='body2'
+              color='textSecondary'
+              component='p'
+              className={classes.tags}
+            >
+              {tag}
+            </Typography>
+          </div>
+        ))}
+      </div>
+      <Typography className={classes.title} variant='h6' gutterBottom>
+        {post.title}
+      </Typography>
+      <Typography variant='body2' color='textSecondary' component='p'>
+        {`${Number(post.likes) + Number(post.dislikes)} Votes`}
+      </Typography>
       <CardMedia
         className={classes.media}
         image={post.selectedFile}
         title={post.title}
       />
-
-      <div className={classes.overlay}>
-        <Typography variant='body2'>
-          {moment(post.createdAt).fromNow()}
-        </Typography>
-      </div>
-
-      {(user?.result?.googleId === post?.author ||
-        user?.result?._id === post?.author) && (
-        <div className={classes.overlay2}>
-          <Button
-            style={{ color: 'white' }}
-            size='small'
-            onClick={() => {
-              setCurrentId(post._id);
-              handleClickOpen();
-            }}
-          >
-            <MoreHoriz fontSize='medium' />
-          </Button>
-        </div>
-      )}
-
-      <div className={classes.details}>
-        <Typography
-          variant='body2'
-          style={{ fontSize: 12 }}
-          color='textSecondary'
-          component='p'
-        >
-          {post.tags.map((tag) => `#${tag} `)}
-        </Typography>
-      </div>
-      <Typography
-        className={classes.title}
-        variant='h6'
-        gutterBottom
-        style={{ color: '#326D90' }}
-      >
-        {post.title}
-      </Typography>
-
-      <CardActions className={classes.cardActions}>
-        <Button
-          size='small'
-          onClick={() => dispatch(likePost(post._id))}
-          style={{ color: '#8481EC' }}
-          // disabled={!user?.result}
-        >
-          Like{" "}{post.likes}
-        </Button>
-        <Button
-          size='small'
-          onClick={() => dispatch(dislikePost(post._id))}
-          style={{ color: '#8481EC' }}
-          // disabled={!user?.result}
-        >
-          Dislike{" "}{post.dislikes}
-        </Button>
+      <CardActions className={classes.infoWrapper}>
         {(user?.result?.googleId === post?.author ||
           user?.result?._id === post?.author) && (
+          <div className={classes.overlay}>
+            <Button
+              size='small'
+              onClick={() => {
+                setCurrentId(post._id);
+                handleClickOpen();
+              }}
+            >
+              Edit
+            </Button>
+          </div>
+        )}
+        <div className={classes.overlay}>
+          <Typography variant='body2'>
+            {moment(post.createdAt).fromNow()}
+          </Typography>
+        </div>
+      </CardActions>
+      <CardActions className={classes.cardActions}>
+        <div className={classes.overlay2}>
           <Button
             size='small'
-            onClick={handleDelete}
-            style={{ color: '#8481EC' }}
+            onClick={() => dispatch(likePost(post._id))}
+            // disabled={!user?.result}
           >
+            Like&nbsp;{post.likes}
+          </Button>
+          <Button
+            size='small'
+            onClick={() => dispatch(dislikePost(post._id))}
+            // disabled={!user?.result}
+          >
+            Dislike&nbsp;{post.dislikes}
+          </Button>
+        </div>
+        {(user?.result?.googleId === post?.author ||
+          user?.result?._id === post?.author) && (
+          <Button size='small' onClick={() => dispatch(deletePost(post._id))}>
             <Delete fontSize='small' />
             Delete
           </Button>

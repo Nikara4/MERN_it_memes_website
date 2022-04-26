@@ -7,12 +7,6 @@ import { getPosts } from "../state/actions/posts";
 
 
 const SubmitForm = () => {
-  const posts = useSelector((state: { posts: PostTypeState }) => state.posts.data);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
 
   return (
     <Container maxWidth='lg'>

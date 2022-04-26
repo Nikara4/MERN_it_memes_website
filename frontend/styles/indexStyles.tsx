@@ -11,4 +11,5 @@ export default createUseStyles({
     actionDiv: {
       textAlign: "center",
     },
+    gridItem: {padding: '15px !important'},
   });

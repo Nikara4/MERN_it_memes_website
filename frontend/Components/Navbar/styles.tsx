@@ -1,21 +1,13 @@
-import { variables } from '../../styles/variables';
+import { createUseStyles } from 'react-jss';
 
-interface MenuStyles {
-  box: object;
-  nav: object;
-  list: object;
-}
-
-export const styles: MenuStyles = {
-  box: {
-    borderRadius: `${variables.borderRadius}`,
-    margin: `${variables.margin}`,
-    flex: `${variables.flex}`,
-    padding: '0.3rem 0.7rem',
-    backgroundColor: `${variables.backgroundColor}`,
-    backdropFilter: `${variables.backdropFilter}`,
-    boxShadow: `${variables.boxShadow}`,
+export default createUseStyles({
+  title: {
+    margin: 0,
+    fontSize: 20,
+    fontFamily: 'Poppins, sans-serif',
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    fontWeight: 600,
+    color: 'black',
   },
-  nav: {},
-  list: {},
-};
+});

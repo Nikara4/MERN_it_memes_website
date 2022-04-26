@@ -5,16 +5,16 @@ import { Post } from '../components';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../state/actions/posts';
-import { PostTypeState } from '../state/types';
 import useStyles from '../styles/indexStyles';
 import { EditForm } from '../containers';
+import { PostTypeState } from '../state/types';
 
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const classes = useStyles();
   const posts = useSelector(
-    (state: PostTypeState) => state.posts
+    (state: PostTypeState) => state
   );
   const dispatch = useDispatch();
 
@@ -30,7 +30,6 @@ const Home: NextPage = () => {
     setCurrentId(null);
     setOpen(false);
   };
-
 
   return (
     <>
@@ -49,7 +48,7 @@ const Home: NextPage = () => {
             spacing={3}
           >
             <Grid item xs={12} sm={12}>
-              {!posts?.length ? (
+              {!posts?.posts.length ? (
                 <CircularProgress />
               ) : (
                 <Grid
@@ -58,8 +57,8 @@ const Home: NextPage = () => {
                   alignItems='stretch'
                   spacing={3}
                 >
-                  {posts.map((post: any) => (
-                    <Grid item key={post.id} xs={12} sm={12}>
+                  {posts.posts.map((post: any) => (
+                    <Grid item key={post.id} xs={12} sm={12} className={classes.gridItem}>
                       <Post
                         post={post}
                         currentId={currentId}

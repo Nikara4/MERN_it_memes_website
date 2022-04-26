@@ -1,3 +1,4 @@
+import useStyles from './styles';
 import Link from 'next/link';
 import {
   ListItem,
@@ -5,16 +6,21 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import { styles } from './styles';
 
-const NavLink = (props: any) => {
-  const { to, icon, path } = props;
+interface NavLinkProps {
+    to: string,
+    icon: JSX.Element,
+    path: string,
+}
+
+const NavLink = ({ to, icon, path }: NavLinkProps) => {
+  const classes = useStyles();
   return (
-    <ListItem disablePadding style={styles.listItem}>
-      <ListItemButton style={styles.listButton}>
-        <ListItemIcon style={styles.listIcon}>{icon}</ListItemIcon>
+    <ListItem disablePadding>
+      <ListItemButton className={classes.listItemButton}>
+        <ListItemIcon className={classes.listItemIcon}>{icon}</ListItemIcon>
         <Link href={to} passHref>
-          <ListItemText primary={path} style={styles.listText} />
+          <ListItemText primary={path} className={classes.listItemText} />
         </Link>
       </ListItemButton>
     </ListItem>

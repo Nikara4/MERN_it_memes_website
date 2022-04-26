@@ -9,6 +9,4 @@ export interface PostInterface {
         createdAt: string;
 };
 
-export type PostTypeState = {
-    posts: PostInterface[];
-}
+export type PostTypeState = { posts: PostInterface[] };
