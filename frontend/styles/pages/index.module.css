@@ -1,0 +1,5 @@
+.container {
+  margin: 1rem;
+  display: flex;
+  padding: 0.3rem 1rem;
+}
