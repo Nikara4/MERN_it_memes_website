@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Container, Grow, Grid, CircularProgress } from '@mui/material';
-import { Post } from '../components';
+import { Post } from '../Components';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../state/actions/posts';

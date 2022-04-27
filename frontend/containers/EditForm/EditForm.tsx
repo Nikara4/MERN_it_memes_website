@@ -24,7 +24,7 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const updatedPost = useSelector((state: { posts: PostTypeState }) =>
+  const updatedPost = useSelector((state: PostTypeState) =>
     currentId
       ? state?.posts?.find((post) => post._id === currentId)
       : null
@@ -98,7 +98,7 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
               <FileBase64
                 type='File'
                 multiple={false}
-                onDone={({ base64 }) =>
+                onDone={({ base64 }: any) =>
                   setPostData({ ...postData, selectedFile: base64 })
                 }
               />
