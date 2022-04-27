@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import FileBase64 from 'react-file-base64';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { TextField, Button, Typography, Paper } from '@mui/material';
 
 import { PostInterface } from '../../state/types';
@@ -55,58 +55,63 @@ const UploadForm = ({ post }: any) => {
   return (
     <Paper className={classes.paper}>
       <form
-        autoComplete="off"
+        autoComplete='off'
         noValidate
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">
-          Upload a new post
+        <Typography variant='h6' className={classes.formTitle}>
+          Upload a new meme
         </Typography>
 
         <TextField
-          name="title"
-          variant="outlined"
-          label="Title"
+          className={classes.formTextField}
+          name='title'
+          variant='standard'
+          label='Title'
           fullWidth
+          size='small'
           value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
 
         <TextField
-          name="tags"
-          variant="outlined"
-          label="Tags (separate by comma)"
+          className={classes.formTextField}
+          name='tags'
+          variant='standard'
+          label='Tags (separate by comma)'
           fullWidth
+          size='small'
           value={postData.tags}
           onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(", ") })
+            setPostData({ ...postData, tags: e.target.value.split(', ') })
           }
         />
-        <div className={classes.fileInput}>
-          <FileBase64
-            type="File"
-            multiple={false}
-            onDone={({ base64 }: any) =>
-              setPostData({ ...postData, selectedFile: base64 })
-            }
-          />
+
+          <div className={classes.formFileInput}>
+            <FileBase64
+              type='file'
+              id='file-upload-input'
+              multiple={false}
+              onDone={({ base64 }: any) =>
+                setPostData({ ...postData, selectedFile: base64 })
+              }
+            />
+          </div>
+          <div className={classes.formSubmit}>
           <Button
-            className={classes.buttonSubmit}
-            variant="contained"
-            color="primary"
-            size="large"
-            type="submit"
-            fullWidth
+            className={classes.formButton}
+            variant='outlined'
+            size='medium'
+            type='submit'
           >
             Submit
           </Button>
           <Button
-            variant="contained"
-            color="secondary"
-            size="small"
+          className={classes.formButton}
+            variant='outlined'
+            size='medium'
             onClick={clearForm}
-            fullWidth
           >
             Clear
           </Button>

@@ -1,4 +1,4 @@
-import useStyles from './Navbar/styles';
+import useStyles from './styles';
 import NavLink from './NavLink/NavLink';
 import { Box, List, Typography } from '@mui/material';
 import {
