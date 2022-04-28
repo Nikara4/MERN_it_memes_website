@@ -1,25 +1,55 @@
 import useStyles from './styles';
+import useMobile from '../../utils/hooks/useMobile';
 import {
   Typography,
-  Container,
   AppBar,
   Toolbar,
   Box,
   InputBase,
   IconButton,
+  Button,
 } from '@mui/material';
+import { Menu, Close } from '@mui/icons-material';
 
 import { Search, AccountCircle } from '@mui/icons-material';
 
-const Header = () => {
+interface HeaderMobile {
+  showMobileMenu: boolean;
+  isMobile: boolean;
+  setShowMobileMenu: Function;
+}
+
+const Header = ({
+  showMobileMenu,
+  isMobile,
+  setShowMobileMenu,
+}: HeaderMobile) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.headerWrapper}>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position='static' className={classes.headerAppBar}>
-            <Toolbar className={classes.headerToolbar}>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position='fixed' className={classes.headerAppBar}>
+        <Toolbar className={classes.headerToolbar}>
+          {isMobile && (
+            <Button
+              className={classes.navButton}
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+            >
+              {!showMobileMenu ? <Menu /> : <Close />}
+            </Button>
+          )}
+          <Typography
+            className={classes.headerTitle}
+            variant='h6'
+            noWrap
+            component='div'
+            // sx={{ display: 'block' }}
+          >
+            Memes from IT
+          </Typography>
 
+          {!isMobile ? (
+            <>
               <div className={classes.headerSearch}>
                 <div className={classes.headerSearchIcon}>
                   <Search />
@@ -30,37 +60,26 @@ const Header = () => {
                   className={classes.headerSearchInput}
                 />
               </div>
-              <Box sx={{ flexGrow: 1 }} />
-              <Typography
-                className={classes.headerTitle}
-                variant='h6'
-                noWrap
-                component='div'
-                sx={{ display: { xs: 'none', sm: 'block' } }}
-              >
-                Memes from IT
-              </Typography>
-
-              <Box sx={{ flexGrow: 1 }} />
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton
-                  size='large'
-                  edge='end'
-                  aria-label='account of current user'
-                  // aria-controls={menuId}
-                  aria-haspopup='true'
-                  // onClick={handleProfileMenuOpen}
-                  color='inherit'
-                >
-                  <AccountCircle />
-                </IconButton>
-              </Box>
-            </Toolbar>
-          </AppBar>
-          {/* {renderMobileMenu}
+            </>
+          ) : null}
+          <Box sx={{ display: 'flex' }} className={classes.headerProfileIcon}>
+            <IconButton
+              size='large'
+              edge='end'
+              aria-label='account of current user'
+              // aria-controls={menuId}
+              aria-haspopup='true'
+              // onClick={handleProfileMenuOpen}
+              color='inherit'
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {/* {renderMobileMenu}
           {renderMenu} */}
-        </Box>
-    </div>
+    </Box>
   );
 };
 

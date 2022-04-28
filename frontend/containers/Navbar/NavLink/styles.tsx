@@ -23,4 +23,13 @@ export default createUseStyles({
       fontSize: 16,
     },
   },
+  '@media (max-width: 1024px)': {
+    listItemButton: {
+      background: 'transparent',
+      '&:hover': {
+        backgroundPosition: 'transparent',
+      },
+    }
+  }
+
 });

@@ -123,7 +123,12 @@ const Post = ({
       <Typography className={classes.title} variant='h6' gutterBottom>
         {post.title}
       </Typography>
-      <Typography variant='body2' color='textSecondary' component='p'>
+      <Typography
+        variant='body2'
+        color='textSecondary'
+        component='p'
+        className={classes.overlay}
+      >
         {`${Number(post.likes) + Number(post.dislikes)} Votes`}
       </Typography>
       <CardMedia

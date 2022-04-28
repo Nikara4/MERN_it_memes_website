@@ -3,24 +3,43 @@ import { createUseStyles } from 'react-jss';
 export default createUseStyles({
   wrapperContainer: {
     maxWidth: 1200,
+    marginTop: '100px'
   },
-  mainGridItem:{
+  wrapperGridItem: {
     minWidth: '70%',
   },
-    mainContainer: {
-      display: "flex",
-      alignItems: "center",
+  mainGridContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  smMargin: {
+    margin: 10,
+  },
+  actionDiv: {
+    textAlign: 'center',
+  },
+  gridItem: { padding: '15px !important' },
+  mainGridItem: {},
+  '@media (max-width: 1024px)': {
+    wrapperContainer: {
+      marginTop: '80px'
     },
-    smMargin: {
-      margin: 10,
+  },
+  '@media (max-width: 915px)': {
+    wrapperContainer: {
+      marginTop: '60px'
     },
-    actionDiv: {
-      textAlign: "center",
+  },
+  '@media (max-width: 899px)': {
+    wrapperContainer: {
+      marginTop: '10px'
     },
-    gridItem: {padding: '15px !important'},
-    '@media (max-width: 1200px)': {
-      mainGridItem:{
-        minWidth: '75%',
-      },
-    }
-  });
+    wrapperGridItem: {
+      minWidth: '90%',
+      marginTop: '65px'
+    },
+    mainGridItem: {
+      width: '95vw',
+    },
+  },
+});

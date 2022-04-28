@@ -1,27 +1,35 @@
 import '../styles/globals.css';
 import useStyles from '../styles/indexStyles';
-// import '../pages/index.module.css';
+import { useState } from 'react';
 import type { AppProps } from 'next/app';
-import { Grid, Typography, AppBar, Container, Toolbar } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import { Provider } from 'react-redux';
 
 import { store } from '../state/Store';
 import { Header } from '../components';
-import { Navbar } from '../components';
+import { Navbar } from '../containers';
+import useMobile from '../utils/hooks/useMobile';
 
 function MyApp({ Component, pageProps }: AppProps) {
-   const classes = useStyles();
+  const classes = useStyles();
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const isMobile = useMobile();
+
   return (
     <Provider store={store}>
-       <Header />
+      <Header
+        showMobileMenu={showMobileMenu}
+        isMobile={isMobile}
+        setShowMobileMenu={setShowMobileMenu}
+      />
       <Container maxWidth='lg' style={{ justifyContent: 'space-evenly' }}>
         <Grid container spacing={2} className={classes.wrapperContainer}>
           <Grid item xs={6} md={3}>
-            <Navbar />
+            <Navbar isMobile={isMobile} showMobileMenu={showMobileMenu} />
           </Grid>
-            <Grid item xs={6} md={8} className={classes.mainGridItem}>
-              <Component {...pageProps} />
-            </Grid>
+          <Grid item xs={6} md={8} className={classes.wrapperGridItem}>
+            <Component {...pageProps} />
+          </Grid>
         </Grid>
       </Container>
     </Provider>

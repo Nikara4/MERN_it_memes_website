@@ -28,10 +28,10 @@ export default createUseStyles({
   tagsWrapper: {
     display: 'flex',
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'flex-start',
     '& div': {
       padding: '1px 10px',
-      margin: '2px 0',
       backgroundColor: '#E5E4E2',
       cursor: 'pointer',
       transition: '0.2s',
@@ -75,6 +75,7 @@ export default createUseStyles({
   },
   overlay: {
     marginLeft: '0 !important',
+    fontFamily: 'Poppins, sans-serif',
     '& button': {
       fontFamily: 'Poppins, sans-serif',
       alignItems: 'left',
@@ -100,7 +101,7 @@ export default createUseStyles({
     '& p': { fontSize: 13, color: '36454F' },
   },
   title: {
-    margin: 0,
+    margin: '2px 0',
     fontSize: 24,
     fontFamily: 'Poppins, sans-serif',
     fontWeight: 600,
@@ -122,4 +123,17 @@ export default createUseStyles({
     alignItems: 'left',
     justifyContent: 'flex-start',
   },
+  '@media (max-width: 899px)': {
+    card: {
+      fontFamily: 'Poppins, sans-serif',
+      backgroundColor: 'transparent',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      borderRadius: 0,
+      boxShadow: 'none',
+      color: 'black',
+    },
+  }
 });

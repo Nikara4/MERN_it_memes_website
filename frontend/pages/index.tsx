@@ -46,13 +46,15 @@ const Home: NextPage = () => {
             justifyContent='space-between'
             alignItems='stretch'
             spacing={3}
+            xs={12} 
+            sm={12}
           >
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={12} sm={12} className={classes.mainGridItem}>
               {!posts?.posts.length ? (
                 <CircularProgress />
               ) : (
                 <Grid
-                  className={classes.mainContainer}
+                  className={classes.mainGridContainer}
                   container
                   alignItems='stretch'
                   spacing={3}
