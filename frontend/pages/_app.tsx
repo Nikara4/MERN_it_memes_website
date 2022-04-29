@@ -22,10 +22,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         isMobile={isMobile}
         setShowMobileMenu={setShowMobileMenu}
       />
-      <Container maxWidth='lg' style={{ justifyContent: 'space-evenly' }}>
-        <Grid container spacing={2} className={classes.wrapperContainer}>
-          <Grid item xs={6} md={3}>
-            <Navbar isMobile={isMobile} showMobileMenu={showMobileMenu} />
+      <Container maxWidth='lg' style={{ justifyContent: 'space-evenly' }} className={classes.wrapperContainer}>
+        <Grid container spacing={2} className={classes.wrapperGrid}>
+          <Grid item xs={6} md={3} className={classes.wrapperMenuItem}>
+            <Navbar
+              isMobile={isMobile}
+              showMobileMenu={showMobileMenu}
+              setShowMobileMenu={setShowMobileMenu}
+            />
           </Grid>
           <Grid item xs={6} md={8} className={classes.wrapperGridItem}>
             <Component {...pageProps} />

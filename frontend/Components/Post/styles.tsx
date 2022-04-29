@@ -10,18 +10,18 @@ export default createUseStyles({
     justifyContent: 'space-between',
     borderRadius: 0,
     boxShadow: 'none',
-    color: 'black',
+    color: '#F9F6EE',
     '& button': {
-      color: 'black',
+      color: '#F9F6EE',
       padding: 0,
       fontSize: '14px',
-      transition: '0.2s',
+      transition: '0.1s',
       fontFamily: 'Poppins, sans-serif',
       fontWeight: '600',
       justifyContent: 'flex-start',
       '&:hover': {
         backgroundColor: 'transparent',
-        color: '#009432',
+        color: '#50C878',
       },
     },
   },
@@ -34,9 +34,9 @@ export default createUseStyles({
       padding: '1px 10px',
       backgroundColor: '#E5E4E2',
       cursor: 'pointer',
-      transition: '0.2s',
+      transition: '0.1s',
       '&:hover': {
-        backgroundColor: '#009432',
+        backgroundColor: '#50C878',
       },
     },
   },
@@ -81,35 +81,36 @@ export default createUseStyles({
       alignItems: 'left',
       justifyContent: 'flex-start',
       padding: '4px 0',
-      color: 'black',
+      color: '#F9F6EE',
       fontSize: 14,
       fontWeight: '600',
-      transition: '0.2s',
+      transition: '0.1s',
       '&:hover': {
         backgroundColor: 'transparent',
-        color: '#009432',
+        color: '#50C878',
       },
     },
     '& p': {
       fontFamily: 'Poppins, sans-serif',
+      fontWeight: 300
     },
   },
   details: {
     display: 'flex',
     justifyContent: 'space-between',
     margin: 0,
-    '& p': { fontSize: 13, color: '36454F' },
+    '& p': { fontSize: 13, color: '#F9F6EE' },
   },
   title: {
     margin: '2px 0',
     fontSize: 24,
     fontFamily: 'Poppins, sans-serif',
     fontWeight: 600,
-    transition: '0.2s',
+    transition: '0.1s',
     cursor: 'pointer',
-    color: 'black',
+    color: '#F9F6EE',
     '&:hover': {
-      color: '#009432',
+      color: '#50C878',
     },
   },
   cardActions: {
@@ -135,5 +136,22 @@ export default createUseStyles({
       boxShadow: 'none',
       color: 'black',
     },
-  }
+    tagsWrapper: {
+      '& div': {
+        padding: '1px 7px',
+        backgroundColor: '#E5E4E2',
+        '&:hover': {
+          backgroundColor: '#E5E4E2',
+        },
+      },
+    },
+    tags: {
+      fontSize: '12px',
+      lineHeight: '14px',
+      fontWeight: '600',
+    },
+  title: {
+    fontWeight: 400,
+  },
+}
 });

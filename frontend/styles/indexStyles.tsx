@@ -1,15 +1,28 @@
 import { createUseStyles } from 'react-jss';
 
 export default createUseStyles({
-  wrapperContainer: {
+  root: {
+
+  },
+  wrapperContainer:{
+    marginTop: '10vh',
+  },
+  wrapperGrid: {
     maxWidth: 1200,
-    marginTop: '100px'
+    justifyContent: 'center',
+    margin: '0px auto',
+    width: '100%'
+  },
+  wrapperMenuItem: {
+    minWidth: '20%',
+    marginRight: '5%'
   },
   wrapperGridItem: {
     minWidth: '70%',
+    paddingLeft: '0!important',
+    padding: 0,
   },
   mainGridContainer: {
-    display: 'flex',
     alignItems: 'center',
   },
   smMargin: {
@@ -20,22 +33,17 @@ export default createUseStyles({
   },
   gridItem: { padding: '15px !important' },
   mainGridItem: {},
-  '@media (max-width: 1024px)': {
-    wrapperContainer: {
-      marginTop: '80px'
-    },
-  },
-  '@media (max-width: 915px)': {
-    wrapperContainer: {
-      marginTop: '60px'
+  '@media (max-width: 915px) and (orientation: landscape)': {
+    wrapperContainer:{
+      marginTop: '15vh',
     },
   },
   '@media (max-width: 899px)': {
-    wrapperContainer: {
-      marginTop: '10px'
+    wrapperContainer:{
+      marginTop: '0',
     },
     wrapperGridItem: {
-      minWidth: '90%',
+      minWidth: '100%',
       marginTop: '65px'
     },
     mainGridItem: {

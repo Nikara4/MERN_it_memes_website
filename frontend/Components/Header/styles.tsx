@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss';
 
 export default createUseStyles({
   headerAppBar: {
-    backgroundColor: '#E5E4E2',
+    backgroundColor: 	'#4b4b4b',
     justifyContent: 'center',
   },
   headerToolbar: {
@@ -26,6 +26,7 @@ export default createUseStyles({
     fontFamily: 'Poppins, sans-serif',
     fontWeight: '600',
     flexBasis: '80%',
+    paddingLeft: '35px'
   },
   headerSearch: {
     flexBasis: '25%',
@@ -33,10 +34,13 @@ export default createUseStyles({
     marginLeft: '0',
     marginRight: '20px',
     borderRadius: '7px',
-    backgroundColor: 'rgba(250, 249, 246, 0.6)',
+    backgroundColor: 'rgba(250, 249, 246, 0.5)',
     '&:hover': {
-      backgroundColor: 'rgba(250, 249, 246, 1)',
+      backgroundColor: 'rgba(250, 249, 246, 0.8)',
     },
+    '& input::placeholder': {
+      color: '#F9F6EE',
+    }
   },
   headerSearchIcon: {
     height: '100%',
@@ -90,6 +94,13 @@ export default createUseStyles({
     headerTitle: {
       fontSize: '24px',
       flexBasis: '55%'
+    },
+    headerSearch: {
+      flexBasis: '4%',
+      margin: '70px 10px 0 10px',
+    },
+    headerProfileIcon: {
+      flexBasis: '7%'
     },
   },
   '@media (max-width: 375px) and (orientation: portrait)': {

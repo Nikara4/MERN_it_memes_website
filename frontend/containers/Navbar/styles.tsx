@@ -8,7 +8,7 @@ export default createUseStyles({
     textTransform: 'uppercase',
     textAlign: 'center',
     fontWeight: 600,
-    color: 'black',
+    color: '#F9F6EE',
   },
   navMainBox: {
     top: '0',
@@ -21,7 +21,7 @@ export default createUseStyles({
     position: 'fixed',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: '#E5E4E2',
+    backgroundColor: '#4b4b4b',
     overflow: 'hidden',
   },
 });

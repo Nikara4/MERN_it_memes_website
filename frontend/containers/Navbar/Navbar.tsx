@@ -1,7 +1,6 @@
 import useStyles from './styles';
 import useStylesHeader from '../../components/Header/styles';
 
-
 import useMobile from '../../utils/hooks/useMobile';
 import NavLink from './NavLink/NavLink';
 import { Box, InputBase, List, Typography } from '@mui/material';
@@ -18,10 +17,14 @@ import {
 interface NavbarMenuMobile {
   showMobileMenu: boolean;
   isMobile: boolean;
+  setShowMobileMenu: Function;
 }
 
-const Navbar = ({ showMobileMenu, isMobile}: NavbarMenuMobile) => {
-
+const Navbar = ({
+  showMobileMenu,
+  isMobile,
+  setShowMobileMenu,
+}: NavbarMenuMobile) => {
   const classes = useStyles();
   const classesHeader = useStylesHeader();
 
@@ -33,38 +36,52 @@ const Navbar = ({ showMobileMenu, isMobile}: NavbarMenuMobile) => {
           className={classes.navMainBox}
         >
           <div className={classesHeader.headerSearch}>
-                <div className={classesHeader.headerSearchIcon}>
-                  <Search />
-                </div>
-                <InputBase
-                  placeholder='Search…'
-                  inputProps={{ 'aria-label': 'search' }}
-                  className={classesHeader.headerSearchInput}
-                />
-              </div>
+            <div className={classesHeader.headerSearchIcon}>
+              <Search />
+            </div>
+            <InputBase
+              placeholder='Search…'
+              inputProps={{ 'aria-label': 'search' }}
+              className={classesHeader.headerSearchInput}
+            />
+          </div>
           <nav>
             <List>
-              <NavLink to='/' icon={<HomeOutlined />} path='Home' />
+              <NavLink
+                to='/'
+                icon={<HomeOutlined />}
+                path='Home'
+                setShowMobileMenu={setShowMobileMenu}
+              />
               <NavLink
                 to='/about'
                 icon={<LightbulbOutlined />}
                 path='About us'
+                setShowMobileMenu={setShowMobileMenu}
               />
               <NavLink
                 to='/submit'
                 icon={<FileUploadOutlined />}
                 path='Upload a meme'
+                setShowMobileMenu={setShowMobileMenu}
               />
               <NavLink
                 to='/'
                 icon={<BorderColorOutlined />}
                 path='Generate a new meme'
+                setShowMobileMenu={setShowMobileMenu}
               />
-              <NavLink to='/' icon={<CollectionsOutlined />} path='Gallery' />
+              <NavLink
+                to='/'
+                icon={<CollectionsOutlined />}
+                path='Gallery'
+                setShowMobileMenu={setShowMobileMenu}
+              />
               <NavLink
                 to='/'
                 icon={<EmailOutlined />}
                 path='Subscribe to weekly mail'
+                setShowMobileMenu={setShowMobileMenu}
               />
             </List>
           </nav>
