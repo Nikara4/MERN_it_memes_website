@@ -23,7 +23,9 @@ export default createUseStyles({
     padding: 0,
   },
   mainGridContainer: {
+    flexDirection: 'column-reverse',
     alignItems: 'center',
+    margin: 0,
   },
   smMargin: {
     margin: 10,
@@ -31,8 +33,13 @@ export default createUseStyles({
   actionDiv: {
     textAlign: 'center',
   },
-  gridItem: { padding: '15px !important' },
-  mainGridItem: {},
+  gridItem: {
+    padding: '15px !important',
+    width: '100%' 
+  },
+  mainGridItem: {
+    padding: '0 !important',
+  },
   '@media (max-width: 915px) and (orientation: landscape)': {
     wrapperContainer:{
       marginTop: '15vh',
@@ -41,6 +48,7 @@ export default createUseStyles({
   '@media (max-width: 899px)': {
     wrapperContainer:{
       marginTop: '0',
+      paddingLeft: '9px'
     },
     wrapperGridItem: {
       minWidth: '100%',

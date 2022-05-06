@@ -62,6 +62,9 @@ export default createUseStyles({
   headerProfileIcon: {
     flexBasis: '7%'
   },
+  image: {
+    filter: 'invert(69%) sepia(45%) saturate(529%) hue-rotate(87deg) brightness(91%) contrast(87%)',
+  },
   '@media (max-width: 1024px) and (orientation: landscape)': {
     headerSearchInput: {
       '& input': {

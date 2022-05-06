@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import useStyles from './styles';
-import useMobile from '../../utils/hooks/useMobile';
+import Image from 'next/image'
 import {
   Typography,
   AppBar,
@@ -8,6 +9,7 @@ import {
   InputBase,
   IconButton,
   Button,
+  CardMedia
 } from '@mui/material';
 import { Menu, Close } from '@mui/icons-material';
 
@@ -26,6 +28,7 @@ const Header = ({
 }: HeaderMobile) => {
   const classes = useStyles();
 
+  const newLocal = '../../public/imgs/code.png';
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='fixed' className={classes.headerAppBar}>
@@ -45,6 +48,13 @@ const Header = ({
             component='div'
             // sx={{ display: 'block' }}
           >
+                  <CardMedia
+                  component="img"
+        className={classes.image}
+        src={newLocal}
+        title='IT icon'
+      />
+            {' '}
             Memes from IT
           </Typography>
 
