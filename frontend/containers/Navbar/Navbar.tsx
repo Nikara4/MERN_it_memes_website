@@ -1,8 +1,4 @@
 import useStyles from './styles';
-import useStylesHeader from '../../components/Header/styles';
-
-import useMobile from '../../utils/hooks/useMobile';
-import NavLink from './NavLink/NavLink';
 import { Box, InputBase, List, Typography } from '@mui/material';
 import {
   HomeOutlined,
@@ -13,6 +9,8 @@ import {
   EmailOutlined,
   Search,
 } from '@mui/icons-material';
+import useStylesHeader from '../../components/Header/styles';
+import NavLink from './NavLink/NavLink';
 
 interface NavbarMenuMobile {
   showMobileMenu: boolean;
@@ -66,19 +64,19 @@ const Navbar = ({
                 setShowMobileMenu={setShowMobileMenu}
               />
               <NavLink
-                to='/'
+                to='/generate'
                 icon={<BorderColorOutlined />}
                 path='Generate a new meme'
                 setShowMobileMenu={setShowMobileMenu}
               />
               <NavLink
-                to='/'
+                to='/gallery'
                 icon={<CollectionsOutlined />}
                 path='Gallery'
                 setShowMobileMenu={setShowMobileMenu}
               />
               <NavLink
-                to='/'
+                to='/subscription'
                 icon={<EmailOutlined />}
                 path='Subscribe to weekly mail'
                 setShowMobileMenu={setShowMobileMenu}
@@ -106,13 +104,17 @@ const Navbar = ({
                 path='Upload a meme'
               />
               <NavLink
-                to='/'
+                to='/generate'
                 icon={<BorderColorOutlined />}
                 path='Generate a new meme'
               />
-              <NavLink to='/' icon={<CollectionsOutlined />} path='Gallery' />
               <NavLink
-                to='/'
+                to='/gallery'
+                icon={<CollectionsOutlined />}
+                path='Gallery'
+              />
+              <NavLink
+                to='/subscription'
                 icon={<EmailOutlined />}
                 path='Subscribe to weekly mail'
               />

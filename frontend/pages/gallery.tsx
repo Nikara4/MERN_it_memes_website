@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import { NextPage } from 'next';
 
-const About: NextPage = () => {
+const Gallery: NextPage = () => {
   return (
     <Container maxWidth='lg' >
       <div>
@@ -14,4 +14,4 @@ const About: NextPage = () => {
   );
 };
 
-export default About;
+export default Gallery;

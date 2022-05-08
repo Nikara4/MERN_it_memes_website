@@ -63,7 +63,6 @@ const UploadForm = ({ post }: any) => {
         <Typography variant='h6' className={classes.formTitle}>
           Upload a new meme
         </Typography>
-
         <TextField
           className={classes.formTextField}
           name='title'
@@ -74,7 +73,6 @@ const UploadForm = ({ post }: any) => {
           value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
-
         <TextField
           className={classes.formTextField}
           name='tags'
@@ -87,18 +85,17 @@ const UploadForm = ({ post }: any) => {
             setPostData({ ...postData, tags: e.target.value.split(', ') })
           }
         />
-
-          <div className={classes.formFileInput}>
-            <FileBase64
-              type='file'
-              id='file-upload-input'
-              multiple={false}
-              onDone={({ base64 }: any) =>
-                setPostData({ ...postData, selectedFile: base64 })
-              }
-            />
-          </div>
-          <div className={classes.formSubmit}>
+        <div className={classes.formFileInput}>
+          <FileBase64
+            type='file'
+            id='file-upload-input'
+            multiple={false}
+            onDone={({ base64 }: any) =>
+              setPostData({ ...postData, selectedFile: base64 })
+            }
+          />
+        </div>
+        <div className={classes.formSubmit}>
           <Button
             className={classes.formButton}
             variant='outlined'
@@ -108,7 +105,7 @@ const UploadForm = ({ post }: any) => {
             Submit
           </Button>
           <Button
-          className={classes.formButton}
+            className={classes.formButton}
             variant='outlined'
             size='medium'
             onClick={clearForm}

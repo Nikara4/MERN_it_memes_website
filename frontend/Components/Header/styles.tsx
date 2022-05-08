@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss';
 
 export default createUseStyles({
   headerAppBar: {
-    backgroundColor: 	'#4b4b4b',
+    backgroundColor: '#4b4b4b',
     justifyContent: 'center',
   },
   headerToolbar: {
@@ -18,15 +18,14 @@ export default createUseStyles({
     padding: 0,
     '& svg': {
       fontFamily: 'Poppins, sans-serif',
-      fontSize: 36
-    }
+      fontSize: 36,
+    },
   },
   headerTitle: {
     fontSize: '32px',
     fontFamily: 'Poppins, sans-serif',
     fontWeight: '600',
     flexBasis: '80%',
-    paddingLeft: '35px'
   },
   headerSearch: {
     flexBasis: '25%',
@@ -40,7 +39,7 @@ export default createUseStyles({
     },
     '& input::placeholder': {
       color: '#F9F6EE',
-    }
+    },
   },
   headerSearchIcon: {
     height: '100%',
@@ -60,10 +59,13 @@ export default createUseStyles({
     },
   },
   headerProfileIcon: {
-    flexBasis: '7%'
+    flexBasis: '7%',
   },
   image: {
-    filter: 'invert(69%) sepia(45%) saturate(529%) hue-rotate(87deg) brightness(91%) contrast(87%)',
+    width: '4%',
+    margin: '10px 18px',
+    filter:
+      'invert(69%) sepia(45%) saturate(529%) hue-rotate(87deg) brightness(91%) contrast(87%)',
   },
   '@media (max-width: 1024px) and (orientation: landscape)': {
     headerSearchInput: {
@@ -95,15 +97,25 @@ export default createUseStyles({
       height: '6vh',
     },
     headerTitle: {
-      fontSize: '24px',
-      flexBasis: '55%'
+      fontSize: '32px',
+      fontFamily: 'Poppins, sans-serif',
+      fontWeight: '600',
+      flexBasis: '80%',
     },
     headerSearch: {
       flexBasis: '4%',
       margin: '70px 10px 0 10px',
     },
     headerProfileIcon: {
-      flexBasis: '7%'
+      flexBasis: '7%',
+    },
+  },
+  '@media (max-width: 767px) and (orientation: portrait)': {
+    headerTitle: {
+      display: 'none',
+    },
+    image: {
+      width: '10%',
     },
   },
   '@media (max-width: 375px) and (orientation: portrait)': {

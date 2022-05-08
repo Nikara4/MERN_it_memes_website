@@ -10,7 +10,6 @@ export default createUseStyles({
     justifyContent: 'space-between',
     borderRadius: 0,
     boxShadow: 'none',
-    color: '#F9F6EE',
     '& button': {
       color: '#F9F6EE',
       padding: 0,
@@ -76,6 +75,7 @@ export default createUseStyles({
   overlay: {
     marginLeft: '0 !important',
     fontFamily: 'Poppins, sans-serif',
+    color: '#F9F6EE',
     '& button': {
       fontFamily: 'Poppins, sans-serif',
       alignItems: 'left',

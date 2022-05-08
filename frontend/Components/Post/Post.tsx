@@ -11,7 +11,6 @@ import {
   ThumbUpAlt,
   ThumbUpOffAlt,
   Delete,
-  MoreHoriz,
   ThumbDown,
   ThumbDownOffAlt,
 } from '@mui/icons-material';
