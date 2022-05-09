@@ -4,8 +4,8 @@ import { Grid, Container } from '@mui/material';
 import { Provider } from 'react-redux';
 
 import { store } from '../state/Store';
-import { Header } from '../components';
-import { Navbar } from '../containers';
+import { Navbar } from '../components';
+import { Header } from '../containers';
 import useMobile from '../utils/hooks/useMobile';
 
 function Layout({ children }: any) {

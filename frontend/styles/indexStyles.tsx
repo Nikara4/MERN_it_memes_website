@@ -1,9 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
 export default createUseStyles({
-  root: {
-
-  },
   wrapperContainer:{
     marginTop: '10vh',
   },

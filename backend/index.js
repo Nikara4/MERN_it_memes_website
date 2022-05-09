@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,32 +7,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv/config");
-const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
-const connect_1 = __importDefault(require("./db/connect"));
-const posts_js_1 = __importDefault(require("./routes/posts.js"));
+import "dotenv/config";
+import express from 'express';
+import cors from 'cors';
+import connectDB from './db/connect.js';
+import postRoutes from './routes/posts.js';
 // importy routes
-const app = (0, express_1.default)();
+const app = express();
 // middleware
-app.use(express_1.default.json({
+app.use(express.json({
     limit: '100mb'
 }));
-app.use(express_1.default.text({
+app.use(express.text({
     limit: '100mb',
 }));
-app.use(express_1.default.urlencoded({
+app.use(express.urlencoded({
     limit: '100mb',
     extended: true,
     parameterLimit: 1000000
 }));
-app.use((0, cors_1.default)());
+app.use(cors());
 // routes
-app.use('/posts', posts_js_1.default);
+app.use('/posts', postRoutes);
 app.get("/", (req, res) => {
     res.send("Hello to Memes API");
 });
@@ -43,7 +38,7 @@ const PORT = process.env["PORT"] || 5000;
 const mongoDB = process.env["MONGO_URI"];
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, connect_1.default)(mongoDB);
+        yield connectDB(mongoDB);
         app.listen(PORT);
         console.log(`Server is running on port: ${PORT}...`);
     }

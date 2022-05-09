@@ -9,7 +9,7 @@ import {
   EmailOutlined,
   Search,
 } from '@mui/icons-material';
-import useStylesHeader from '../../components/Header/styles';
+import useStylesHeader from '../../containers/Header/styles';
 import NavLink from './NavLink/NavLink';
 
 interface NavbarMenuMobile {

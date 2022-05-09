@@ -58,15 +58,30 @@ export default createUseStyles({
       fontSize: '13px',
     },
   },
-  headerProfileIcon: {
-    flexBasis: '7%',
+  loginButton: {
+    color: '#F9F6EE',
+    padding: 0,
+    fontSize: 18,
+    transition: '0.1s',
+    fontFamily: 'Poppins, sans-serif',
+    fontWeight: 600,
+    justifyContent: 'flex-start',
+    margin: '0 20px',
+    '&:hover': {
+      color: '#50C878',
+    },
+    '& svg:hover': {
+      color: '#50C878',
+    },
   },
   image: {
     width: '4%',
     margin: '10px 18px',
     filter:
       'invert(69%) sepia(45%) saturate(529%) hue-rotate(87deg) brightness(91%) contrast(87%)',
+    cursor: 'pointer'
   },
+  avatar: {},
   '@media (max-width: 1024px) and (orientation: landscape)': {
     headerSearchInput: {
       '& input': {
@@ -108,6 +123,16 @@ export default createUseStyles({
     },
     headerProfileIcon: {
       flexBasis: '7%',
+    },
+    loginButton: {
+      justifyContent: 'flex-end',
+      margin: '0 2px',
+      '&:hover': {
+        color: '#F9F6EE',
+      },
+      '& svg':{
+        fontSize: 32,
+      },
     },
   },
   '@media (max-width: 767px) and (orientation: portrait)': {

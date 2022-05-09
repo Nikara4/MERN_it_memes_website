@@ -1,11 +1,12 @@
+import useStyles from '../styles/indexStyles';
+import { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Container, Grow, Grid, CircularProgress } from '@mui/material';
+
 import { Post } from '../components';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../state/actions/posts';
-import useStyles from '../styles/indexStyles';
+import { useDispatch, useSelector } from 'react-redux';
 import { EditForm } from '../containers';
 import { PostTypeState } from '../state/types';
 
@@ -46,8 +47,6 @@ const Home: NextPage = () => {
             justifyContent='space-between'
             alignItems='stretch'
             spacing={3}
-            xs={12} 
-            sm={12}
           >
             <Grid item xs={12} sm={12} className={classes.mainGridItem}>
               {!posts?.posts.length ? (

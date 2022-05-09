@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+import express from 'express';
 // import { auth } from '../middleware/auth.js'
-const posts_js_1 = require("../controller/posts.js");
-const router = express_1.default.Router();
-router.get("/", posts_js_1.getPosts);
-router.get("/:id", posts_js_1.getSinglePost);
-router.post("/", posts_js_1.uploadPost);
-router.patch("/:id", posts_js_1.updatePost);
-router.delete("/:id", posts_js_1.deletePost);
-router.patch("/:id/like", posts_js_1.likePost);
-router.patch("/:id/dislike", posts_js_1.dislikePost);
-exports.default = router;
+import { getPosts, getSinglePost, uploadPost, updatePost, deletePost, dislikePost, likePost } from '../controller/posts.js';
+const router = express.Router();
+router.get("/", getPosts);
+router.get("/:id", getSinglePost);
+router.post("/", uploadPost);
+router.patch("/:id", updatePost);
+router.delete("/:id", deletePost);
+router.patch("/:id/like", likePost);
+router.patch("/:id/dislike", dislikePost);
+export default router;

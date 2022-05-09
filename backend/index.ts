@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import connectDB from './db/connect';
+import connectDB from './db/connect.js';
 import postRoutes from './routes/posts.js';
 import errorHandlerMiddleware from './middleware/errorHandler.js';
 // importy routes
