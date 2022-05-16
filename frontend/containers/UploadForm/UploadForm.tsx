@@ -1,11 +1,20 @@
 import { useState } from 'react';
 import FileBase64 from 'react-file-base64';
 import { useDispatch } from 'react-redux';
-import { TextField, Button, Typography, Paper } from '@mui/material';
+import { Alert, Paper, Snackbar, Typography } from '@mui/material';
 
-import { PostInterface } from '../../state/types';
+import { PostInterface } from '../../resources/interfaces';
 import { uploadPost } from '../../state/actions/posts';
-import useStyles from './styles';
+import { FormPaper, SubmitBox, SuccessAlert } from './styled';
+import {
+  FormTitle,
+  FormTextField,
+  FormButton,
+  FormFileBox,
+  Control,
+} from '../../styles/globalComponents';
+
+let userProfile: any;
 
 const UploadForm = ({ post }: any) => {
   const [postData, setPostData] = useState<PostInterface>({
@@ -14,10 +23,14 @@ const UploadForm = ({ post }: any) => {
     tags: [],
     selectedFile: '',
   });
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
-  const classes = useStyles();
   const dispatch = useDispatch();
-  // const user = JSON.parse(localStorage.getItem('profile'));
+
+  if (typeof window !== 'undefined') {
+    userProfile = localStorage.getItem('profile');
+  }
+  const user = userProfile && JSON.parse(userProfile);
 
   const clearForm = () => {
     setPostData({
@@ -31,11 +44,23 @@ const UploadForm = ({ post }: any) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    dispatch(uploadPost({ ...postData }));
+    dispatch(uploadPost({ ...postData, userName: user?.result?.userName }));
     clearForm();
 
-    //name: user?.result?.name
+    setShowSnackbar(true);
   };
+
+  const handleCloseSnackbar = () => setShowSnackbar(!showSnackbar);
+
+  if (!user?.result.name) {
+    return (
+      <FormPaper>
+        <Typography variant='h6' align='center'>
+          Please login.
+        </Typography>
+      </FormPaper>
+    );
+  }
 
   // useEffect(() => {
   //     if (post) setPostData(post);
@@ -53,39 +78,32 @@ const UploadForm = ({ post }: any) => {
 
   // console.log(currentId);
   return (
-    <Paper className={classes.paper}>
-      <form
-        autoComplete='off'
-        noValidate
-        className={`${classes.root} ${classes.form}`}
-        onSubmit={handleSubmit}
-      >
-        <Typography variant='h6' className={classes.formTitle}>
-          Upload a new meme
-        </Typography>
-        <TextField
-          className={classes.formTextField}
+    <FormPaper>
+      <Control required>
+        <FormTitle>Upload a new meme</FormTitle>
+        <FormTextField
           name='title'
           variant='standard'
           label='Title'
           fullWidth
           size='small'
           value={postData.title}
-          onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+          onChange={(e: any) =>
+            setPostData({ ...postData, title: e.target.value })
+          }
         />
-        <TextField
-          className={classes.formTextField}
+        <FormTextField
           name='tags'
           variant='standard'
-          label='Tags (separate by comma)'
+          label='Tags (separated by comma)'
           fullWidth
           size='small'
           value={postData.tags}
-          onChange={(e) =>
-            setPostData({ ...postData, tags: e.target.value.split(', ') })
+          onChange={(e: any) =>
+            setPostData({ ...postData, tags: e.target.value.split(',') })
           }
         />
-        <div className={classes.formFileInput}>
+        <FormFileBox>
           <FileBase64
             type='file'
             id='file-upload-input'
@@ -94,27 +112,33 @@ const UploadForm = ({ post }: any) => {
               setPostData({ ...postData, selectedFile: base64 })
             }
           />
-        </div>
-        <div className={classes.formSubmit}>
-          <Button
-            className={classes.formButton}
+        </FormFileBox>
+        <SubmitBox>
+          <FormButton
             variant='outlined'
             size='medium'
             type='submit'
+            onClick={handleSubmit}
           >
             Submit
-          </Button>
-          <Button
-            className={classes.formButton}
-            variant='outlined'
-            size='medium'
-            onClick={clearForm}
-          >
+          </FormButton>
+          <FormButton variant='outlined' size='medium' onClick={clearForm}>
             Clear
-          </Button>
-        </div>
-      </form>
-    </Paper>
+          </FormButton>
+        </SubmitBox>
+        {showSnackbar && (
+          <Snackbar open autoHideDuration={6000} onClose={handleCloseSnackbar}>
+            <SuccessAlert
+              onClose={handleCloseSnackbar}
+              severity='success'
+              sx={{ width: '100%' }}
+            >
+              New meme has been added successfully. Thank you!
+            </SuccessAlert>
+          </Snackbar>
+        )}
+      </Control>
+    </FormPaper>
   );
 };
 

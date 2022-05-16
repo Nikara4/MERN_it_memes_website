@@ -7,16 +7,17 @@ import { getPosts,
     updatePost,
     deletePost,
     dislikePost,
-    likePost } from '../controller/posts.js'
+    likePost } from '../controller/posts.js';
+import auth from '../middleware/auth.js'
 
 const router = express.Router();
 
 router.get("/", getPosts);
 router.get("/:id", getSinglePost);
-router.post("/", uploadPost);
-router.patch("/:id", updatePost);
-router.delete("/:id", deletePost);
-router.patch("/:id/like", likePost);
-router.patch("/:id/dislike", dislikePost);
+router.post("/", auth, uploadPost);
+router.patch("/:id", auth, updatePost);
+router.delete("/:id", auth, deletePost);
+router.patch("/:id/like", auth, likePost);
+router.patch("/:id/dislike", auth, dislikePost);
 
 export default router;

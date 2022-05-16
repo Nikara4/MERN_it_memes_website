@@ -41,7 +41,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/Post/styled.tss"  ],
   "exclude": [
     "node_modules"
   ]

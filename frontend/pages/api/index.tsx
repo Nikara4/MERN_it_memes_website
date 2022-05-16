@@ -1,19 +1,36 @@
-import axios from "axios";
-import { PostInterface } from '../../state/types';
+import axios from 'axios';
+import { PostInterface, User } from '../../resources/interfaces';
 
-const url = 'http://localhost:5000/posts';
+const BASE_URL = 'http://localhost:5000';
 
-export const fetchPosts = () => axios.get(url);
+const API = axios.create({ baseURL: BASE_URL });
 
-export const getSinglePost = (id: string) => axios.get(`${url}/${id}`);
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem('profile')) {
+    req.headers['Authorization'] = `Bearer ${
+      JSON.parse(localStorage.getItem('profile')).token
+    }`;
+  }
 
-export const createPost = (newPost: PostInterface) => axios.post(url, newPost);
+  return req;
+});
 
-export const updatePost = (id: string, updatedPost: PostInterface) => axios.patch(`${url}/${id}`, updatedPost);
+export const fetchPosts = () => API.get('/posts');
 
-export const deletePost = (id: string) => axios.delete(`${url}/${id}`);
+export const getSinglePost = (id: string) => API.get(`/posts/${id}`);
 
-export const likePost = (id: string) => axios.patch(`${url}/${id}/like`);
+export const createPost = (newPost: PostInterface) =>
+  API.post('/posts', newPost);
 
-export const dislikePost = (id: string) => axios.patch(`${url}/${id}/dislike`);
+export const updatePost = (id: string, updatedPost: PostInterface) =>
+  API.patch(`/posts/${id}`, updatedPost);
 
+export const deletePost = (id: string) => API.delete(`/posts/${id}`);
+
+export const likePost = (id: string) => API.patch(`/posts/${id}/like`);
+
+export const dislikePost = (id: string) => API.patch(`/posts/${id}/dislike`);
+
+export const signIn = (userData: User) => API.post('/user/signin', userData);
+
+export const signUp = (userData: User) => API.post('/user/signup', userData);

@@ -6,6 +6,8 @@ const postSchema = new mongoose.Schema({
         required: true,
     },
     author: String,
+    name: String,
+    userName: String,
     tags: {
         type: [String],
         default: [],
@@ -17,12 +19,12 @@ const postSchema = new mongoose.Schema({
         required: true,
     },
     likes: {
-        type: Number,
-        default: 0,
+        type: [String],
+        default: [],
     },
     dislikes: {
-        type: Number,
-        default: 0,
+        type: [String],
+        default: [],
     },
     createdAt: {
         type: Date,

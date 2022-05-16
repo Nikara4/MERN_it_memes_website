@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import {
-  TextField,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from '@mui/material';
+import { DialogActions, DialogContent } from '@mui/material';
 import FileBase64 from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
-import { PostInterface, PostTypeState } from '../../state/types';
+import { PostInterface, PostTypeState } from '../../resources/interfaces';
 import { updatePost } from '../../state/actions/posts';
-import useStyles from './styles';
+import { EditDialog, EditDialogContent } from './styled';
+import {
+  FormTitle,
+  FormTextField,
+  FormButton,
+  FormFileBox,
+  Control,
+} from '../../styles/globalComponents';
 
 const EditForm = ({ post, currentId, handleClose, open }: any) => {
   const [postData, setPostData] = useState<PostInterface>({
@@ -21,7 +21,6 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
     selectedFile: '',
   });
 
-  const classes = useStyles();
   const dispatch = useDispatch();
   const updatedPost = useSelector((state: PostTypeState) =>
     currentId ? state?.posts?.find((post) => post._id === currentId) : null
@@ -56,19 +55,13 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
   //     )
   // }
   return (
-    <Dialog className={classes.dialog} open={open} onClose={handleClose}>
-      <DialogTitle className={classes.formTitle}>Edit post</DialogTitle>
-      <DialogContent>
-        <form
-          autoComplete='off'
-          noValidate
-          className={`${classes.root} ${classes.form}`}
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            className={classes.formTextField}
+    <EditDialog open={open} onClose={handleClose} maxWidth='sm' fullWidth>
+      <FormTitle>Edit post</FormTitle>
+      <EditDialogContent>
+        <Control required onSubmit={handleSubmit}>
+          <FormTextField
             name='title'
-            variant='outlined'
+            variant='standard'
             label='Title'
             fullWidth
             value={postData?.title}
@@ -76,18 +69,17 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
               setPostData({ ...postData, title: e.target.value })
             }
           />
-          <TextField
-            className={classes.formTextField}
+          <FormTextField
             name='tags'
-            variant='outlined'
-            label='Tags (separate by comma)'
+            variant='standard'
+            label='Tags (separated by comma)'
             fullWidth
             value={postData?.tags}
             onChange={(e) =>
-              setPostData({ ...postData, tags: e.target.value.split(', ') })
+              setPostData({ ...postData, tags: e.target.value.split(',') })
             }
           />
-          <div className={classes.formFileInput}>
+          <FormFileBox>
             <FileBase64
               type='File'
               multiple={false}
@@ -95,18 +87,14 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
                 setPostData({ ...postData, selectedFile: base64 })
               }
             />
-          </div>
-        </form>
-      </DialogContent>
+          </FormFileBox>
+        </Control>
+      </EditDialogContent>
       <DialogActions>
-        <Button className={classes.formButton} onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button className={classes.formButton} onClick={handleSubmit}>
-          Submit
-        </Button>
+        <FormButton onClick={handleClose}>Cancel</FormButton>
+        <FormButton onClick={handleSubmit}>Submit</FormButton>
       </DialogActions>
-    </Dialog>
+    </EditDialog>
   );
 };
 

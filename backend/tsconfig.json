@@ -28,7 +28,8 @@
     "allowUnusedLabels": true,
     "allowUnreachableCode": true,
     /* Completeness */
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots" : ["./src/types", "./node_modules/@types"]
   },
   "watchOptions": {
     "watchFile": "useFsEvents",

@@ -1,9 +1,9 @@
 import * as api from '../../pages/api';
 import { Dispatch } from 'redux';
 
-import { postActionTypes } from '../constants/posts';
+import { postActionTypes } from '../constants';
 import { AppThunk } from '../Store';
-import { PostInterface } from '../types'
+import { PostInterface } from '../../resources/interfaces'
 
 const {
     FETCH_ALL_POSTS,

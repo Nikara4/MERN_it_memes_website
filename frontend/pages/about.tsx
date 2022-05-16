@@ -7,7 +7,7 @@ const About: NextPage = () => {
       <div>
         <h1>IT Memes Website</h1>
         <p>
-        Some info will appear here soon.
+        Some info will appear here soon. 
         </p>
       </div>
     </Container>

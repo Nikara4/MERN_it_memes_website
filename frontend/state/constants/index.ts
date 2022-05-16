@@ -7,3 +7,8 @@ export const postActionTypes = {
     LIKE_POST: 'LIKE_POST',
     DISLIKE_POST: 'DISLIKE_POST',
 }
+
+export const authActionTypes = {
+    AUTH: 'AUTH',
+    LOGOUT: 'LOGOUT'
+}

@@ -1,5 +1,4 @@
-import useStyles from './styles';
-import { Box, InputBase, List, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import {
   HomeOutlined,
   LightbulbOutlined,
@@ -9,8 +8,14 @@ import {
   EmailOutlined,
   Search,
 } from '@mui/icons-material';
-import useStylesHeader from '../../containers/Header/styles';
+
 import NavLink from './NavLink/NavLink';
+import { NavMainBox, TitleTypography,NavMenuList } from './styled';
+import {
+  SearchBox,
+  SearchIconBox,
+  SearchInputBase,
+} from '../../styles/globalComponents';
 
 interface NavbarMenuMobile {
   showMobileMenu: boolean;
@@ -23,28 +28,22 @@ const Navbar = ({
   isMobile,
   setShowMobileMenu,
 }: NavbarMenuMobile) => {
-  const classes = useStyles();
-  const classesHeader = useStylesHeader();
-
   return (
     <>
       {isMobile && showMobileMenu && (
-        <Box
+        <NavMainBox
           sx={{ width: '100%', maxWidth: 360 }}
-          className={classes.navMainBox}
         >
-          <div className={classesHeader.headerSearch}>
-            <div className={classesHeader.headerSearchIcon}>
-              <Search />
-            </div>
-            <InputBase
+          <SearchBox>
+            <SearchInputBase
               placeholder='Search…'
               inputProps={{ 'aria-label': 'search' }}
-              className={classesHeader.headerSearchInput}
             />
-          </div>
-          <nav>
-            <List>
+                        <SearchIconBox>
+              <Search />
+            </SearchIconBox>
+          </SearchBox>
+          <NavMenuList>
               <NavLink
                 to='/'
                 icon={<HomeOutlined />}
@@ -81,17 +80,15 @@ const Navbar = ({
                 path='Subscribe to weekly mail'
                 setShowMobileMenu={setShowMobileMenu}
               />
-            </List>
-          </nav>
-        </Box>
+          </NavMenuList>
+        </NavMainBox>
       )}
       {!isMobile && (
         <Box sx={{ width: '100%', maxWidth: 360 }}>
-          <Typography className={classes.title} variant='h6' gutterBottom>
+          <TitleTypography variant='h6' gutterBottom>
             menu
-          </Typography>
-          <nav>
-            <List>
+          </TitleTypography>
+          <NavMenuList>
               <NavLink to='/' icon={<HomeOutlined />} path='Home' />
               <NavLink
                 to='/about'
@@ -118,8 +115,7 @@ const Navbar = ({
                 icon={<EmailOutlined />}
                 path='Subscribe to weekly mail'
               />
-            </List>
-          </nav>
+          </NavMenuList>
         </Box>
       )}
     </>

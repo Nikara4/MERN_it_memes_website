@@ -6,6 +6,7 @@ import cors from 'cors';
 
 import connectDB from './db/connect.js';
 import postRoutes from './routes/posts.js';
+import userRoutes from './routes/user.js';
 import errorHandlerMiddleware from './middleware/errorHandler.js';
 // importy routes
 
@@ -29,6 +30,7 @@ app.use(cors());
 // routes
 
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 
 app.get("/", (req, res) => {
     res.send("Hello to Memes API");

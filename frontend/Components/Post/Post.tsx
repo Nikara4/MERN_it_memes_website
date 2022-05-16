@@ -1,12 +1,4 @@
-import useStyles from './styles';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  Card,
-  CardActions,
-  CardMedia,
-  Button,
-  Typography,
-} from '@mui/material';
 import {
   ThumbUpAlt,
   ThumbUpOffAlt,
@@ -17,7 +9,21 @@ import {
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { deletePost, likePost, dislikePost } from '../../state/actions/posts';
-import { PostInterface } from '../../state/types';
+import { PostInterface } from '../../resources/interfaces';
+import {
+  PostCard,
+  TagsBox,
+  TagBox,
+  TagTypography,
+  TitleTypography,
+  OverlayTypography,
+  PostCardMedia,
+  PostCardActions,
+  ActionsBox,
+  PostButton,
+  LikesCardActions,
+  LikesBox,
+} from './styled';
 
 interface PostPropsInterface {
   currentId: string;
@@ -32,114 +38,97 @@ const Post = ({
   post,
   handleClickOpen,
 }: PostPropsInterface) => {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   // const currentPost = useSelector((state: { posts: PostTypeState}) =>
   // currentId ? state?.posts.data.find((post: PostInterface) => post._id === currentId) : null
   // );
 
+  console.log(post.likes.length + post.dislikes.length)
+
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  // const LikingPost = () => {
-  //   if (post.likes.length > 0) {
-  //     return post.likes.find(
-  //       (like) => like === (user?.result?.googleId || user?.result?._id)
-  //     ) ? (
-  //       <>
-  //         <ThumbUpAlt fontSize='small' />
-  //         &nbsp;
-  //         {post.likes.length > 2
-  //           ? `You and ${post.likes.length - 1} others`
-  //           : `${post.likes.length} like${post.likes.length > 2 ? 's' : ''}`}
-  //       </>
-  //     ) : (
-  //       <>
-  //         <ThumbUpOffAlt fontSize='small' />
-  //         &nbsp;
-  //         {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
-  //       </>
-  //     );
-  //   }
-  //   return (
-  //     <>
-  //       <ThumbUpOffAlt fontSize='small' />
-  //       &nbsp;
-  //       {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
-  //     </>
-  //   );
-  // };
+  const Likes = () => {
+    if (post.likes.length > 0) {
+      return post.likes.find(
+        (like) => like === (user?.result?.googleId || user?.result?._id)
+      ) ? (
+        <>
+          <ThumbUpAlt fontSize='small' />
+          &nbsp;
+          {post.likes.length > 2
+            ? `You and ${post.likes.length - 1} others`
+            : `${post.likes.length} like${post.likes.length > 2 ? 's' : ''}`}
+        </>
+      ) : (
+        <>
+          <ThumbUpOffAlt fontSize='small' />
+          &nbsp;
+          {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+        </>
+      );
+    }
+    return (
+      <>
+        <ThumbUpOffAlt fontSize='small' />
+        &nbsp;
+        {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+      </>
+    );
+  };
 
-  // const DislikingPost = () => {
-  //   if (post.dislikes.length > 0) {
-  //     return post.dislikes.find(
-  //       (like) => like === (user?.result?.googleId || user?.result?._id)
-  //     ) ? (
-  //       <>
-  //         <ThumbDown fontSize='small' />
-  //         &nbsp;
-  //         {post.dislikes.length > 2
-  //           ? `You and ${post.dislikes.length - 1} others`
-  //           : `${post.dislikes.length} dislike${
-  //               post.dislikes.length > 2 ? 's' : ''
-  //             }`}
-  //       </>
-  //     ) : (
-  //       <>
-  //         <ThumbDownOffAlt fontSize='small' />
-  //         &nbsp;
-  //         {post.dislikes.length}{' '}
-  //         {post.dislikes.length === 1 ? 'Dislike' : 'Dislikes'}
-  //       </>
-  //     );
-  //   }
-  //   return (
-  //     <>
-  //       <ThumbDownOffAlt fontSize='small' />
-  //       &nbsp;
-  //       {post.dislikes.length}{' '}
-  //       {post.dislikes.length === 1 ? 'Dislike' : 'Dislikes'}
-  //     </>
-  //   );
-  // };
+  const Dislikes = () => {
+    if (post.dislikes.length > 0) {
+      return post.dislikes.find(
+        (like) => like === (user?.result?.googleId || user?.result?._id)
+      ) ? (
+        <>
+          <ThumbDown fontSize='small' />
+          &nbsp;
+          {post.dislikes.length > 2
+            ? `You and ${post.dislikes.length - 1} others`
+            : `${post.dislikes.length} dislike${
+                post.dislikes.length > 2 ? 's' : ''
+              }`}
+        </>
+      ) : (
+        <>
+          <ThumbDownOffAlt fontSize='small' />
+          &nbsp;
+          {post.dislikes.length}{' '}
+          {post.dislikes.length === 1 ? 'Dislike' : 'Dislikes'}
+        </>
+      );
+    }
+    return (
+      <>
+        <ThumbDownOffAlt fontSize='small' />
+        &nbsp;
+        {post.dislikes.length}{' '}
+        {post.dislikes.length === 1 ? 'Dislike' : 'Dislikes'}
+      </>
+    );
+  };
 
   return (
-    <Card className={classes.card}>
-      <div className={classes.tagsWrapper}>
+    <PostCard>
+      <TagsBox>
         {post.tags.map((tag) => (
-          <div key={uuidv4()}>
-            <Typography
-              variant='body2'
-              color='textSecondary'
-              component='p'
-              className={classes.tags}
-            >
-              {tag}
-            </Typography>
-          </div>
+          <TagBox key={uuidv4()}>
+            <TagTypography variant='body2'>{tag}</TagTypography>
+          </TagBox>
         ))}
-      </div>
-      <Typography className={classes.title} variant='h6' gutterBottom>
-        {post.title}
-      </Typography>
-      <Typography
-        variant='body2'
-        color='textSecondary'
-        component='p'
-        className={classes.overlay}
-      >
-        {`${Number(post.likes) + Number(post.dislikes)} Votes`}
-      </Typography>
-      <CardMedia
-        className={classes.media}
-        image={post.selectedFile}
-        title={post.title}
-      />
-      <CardActions className={classes.infoWrapper}>
-        {(user?.result?.googleId === post?.author ||
-          user?.result?._id === post?.author) && (
-          <div className={classes.overlay}>
-            <Button
+      </TagsBox>
+      <TitleTypography variant='h6'>{post.title}</TitleTypography>
+      <OverlayTypography variant='body2'>
+        {`${post.likes.length + post.dislikes.length} Votes`}
+      </OverlayTypography>
+      <PostCardMedia image={post.selectedFile} title={post.title} />
+      <PostCardActions>
+        {(user?.result?.googleId === post.author ||
+          user?.result?._id === post.author) && (
+          <ActionsBox>
+            <PostButton
               size='small'
               onClick={() => {
                 setCurrentId(post._id);
@@ -147,41 +136,47 @@ const Post = ({
               }}
             >
               Edit
-            </Button>
-          </div>
+            </PostButton>
+          </ActionsBox>
         )}
-        <div className={classes.overlay}>
-          <Typography variant='body2'>
+        <ActionsBox>
+          <OverlayTypography variant='body2'>
+            by {post.userName}
+          </OverlayTypography>
+          <OverlayTypography variant='body2'>
             {moment(post.createdAt).fromNow()}
-          </Typography>
-        </div>
-      </CardActions>
-      <CardActions className={classes.cardActions}>
-        <div className={classes.overlay2}>
-          <Button
+          </OverlayTypography>
+        </ActionsBox>
+      </PostCardActions>
+      <LikesCardActions>
+        <LikesBox>
+          <PostButton
             size='small'
             onClick={() => dispatch(likePost(post._id))}
-            // disabled={!user?.result}
+            disabled={!user?.result}
           >
-            Like&nbsp;{post.likes}
-          </Button>
-          <Button
+            <Likes />
+          </PostButton>
+          <PostButton
             size='small'
             onClick={() => dispatch(dislikePost(post._id))}
-            // disabled={!user?.result}
+            disabled={!user?.result}
           >
-            Dislike&nbsp;{post.dislikes}
-          </Button>
-        </div>
-        {(user?.result?.googleId === post?.author ||
-          user?.result?._id === post?.author) && (
-          <Button size='small' onClick={() => dispatch(deletePost(post._id))}>
+            <Dislikes />
+          </PostButton>
+        </LikesBox>
+        {(user?.result?.googleId === post.author ||
+          user?.result?._id === post.author) && (
+          <PostButton
+            size='small'
+            onClick={() => dispatch(deletePost(post._id))}
+          >
             <Delete fontSize='small' />
             Delete
-          </Button>
+          </PostButton>
         )}
-      </CardActions>
-    </Card>
+      </LikesCardActions>
+    </PostCard>
   );
 };
 

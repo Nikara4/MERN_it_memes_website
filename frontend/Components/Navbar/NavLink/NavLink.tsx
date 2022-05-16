@@ -1,11 +1,5 @@
-import useStyles from './styles';
 import Link from 'next/link';
-import {
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import { NavItemButton, NavItemIcon, NavItemText, NavMenuItem } from './styled';
 
 interface NavLinkProps {
     to: string,
@@ -15,16 +9,15 @@ interface NavLinkProps {
 }
 
 const NavLink = ({ to, icon, path, setShowMobileMenu }: NavLinkProps) => {
-  const classes = useStyles();
   return (
-    <ListItem disablePadding>
-      <ListItemButton className={classes.listItemButton} onClick={() => setShowMobileMenu && setShowMobileMenu()}>
-        <ListItemIcon className={classes.listItemIcon}>{icon}</ListItemIcon>
+    <NavMenuItem>
+      <NavItemButton onClick={() => setShowMobileMenu && setShowMobileMenu()}>
+        <NavItemIcon>{icon}</NavItemIcon>
         <Link href={to} passHref>
-          <ListItemText primary={path} className={classes.listItemText} />
+          <NavItemText primary={path} />
         </Link>
-      </ListItemButton>
-    </ListItem>
+      </NavItemButton>
+    </NavMenuItem>
   );
 };
 

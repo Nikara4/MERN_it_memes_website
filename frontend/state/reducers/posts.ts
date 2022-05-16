@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux'
-import { postActionTypes } from '../constants/posts';
-import { PostInterface } from '../types'
+import { postActionTypes } from '../constants';
+import { PostInterface } from '../../resources/interfaces'
 
 const {
     FETCH_ALL_POSTS,
@@ -12,11 +12,9 @@ const {
     DISLIKE_POST }
     = postActionTypes;
 
-const initialState: any[] = [];
-
 // eslint-disable-next-line import/no-anonymous-default-export
 const postsReducer = (
-    state = initialState,
+    state: any,
     action: AnyAction
     ) => {
     switch (action.type) {

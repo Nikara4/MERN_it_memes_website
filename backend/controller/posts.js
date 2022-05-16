@@ -25,7 +25,6 @@ export const getSinglePost = (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (!mongoose.Types.ObjectId.isValid(postID)) {
             return res.status(404).send({ data: `No post with ID: ${postID}` });
         }
-        ;
         return res.status(200).json(singlePost);
     }
     catch (error) {
@@ -35,7 +34,9 @@ export const getSinglePost = (req, res) => __awaiter(void 0, void 0, void 0, fun
 export const uploadPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = req.body;
-        const newPost = new PostMeme(post);
+        const newPost = new PostMeme(Object.assign(Object.assign({}, post), { author: req.userId, 
+            // userName: ,
+            createdAt: new Date().toString() }));
         yield newPost.save();
         return res.status(201).json(newPost);
     }
@@ -50,7 +51,6 @@ export const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, functi
         if (!mongoose.Types.ObjectId.isValid(postID)) {
             return res.status(404).send({ data: `No post with ID: ${postID}` });
         }
-        ;
         const updatedPost = yield PostMeme.findByIdAndUpdate(postID, Object.assign(Object.assign({}, post), { postID }), { new: true });
         return res.json(updatedPost);
     }
@@ -64,11 +64,10 @@ export const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, functi
         if (!mongoose.Types.ObjectId.isValid(postID)) {
             return res.status(404).send({ data: `No post with ID: ${postID}` });
         }
-        ;
         const post = yield PostMeme.findByIdAndDelete(postID);
         return res.json({
             post,
-            message: `Post with ID: ${postID} has been successfully deleted.`
+            message: `Post with ID: ${postID} has been successfully deleted.`,
         });
     }
     catch (error) {
@@ -78,12 +77,22 @@ export const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, functi
 export const likePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id: postID } = req.params;
+        if (!req.userId)
+            return res.status(401).send({ message: `Unauthenticated.` });
         if (!mongoose.Types.ObjectId.isValid(postID)) {
             return res.status(404).send({ data: `No post with ID: ${postID}` });
         }
-        ;
         const post = yield PostMeme.findById(postID);
-        const updatedPost = yield PostMeme.findByIdAndUpdate(postID, { likes: post.likes + 1 }, { new: true });
+        const index = post.likes.findIndex((id) => id === String(req.userId));
+        if (index === -1) {
+            post.likes.push(req.userId);
+        }
+        else {
+            post.likes = post.likes.filter((like) => like !== String(req.userId));
+        }
+        const updatedPost = yield PostMeme.findByIdAndUpdate(postID, post, {
+            new: true,
+        });
         return res.json(updatedPost);
     }
     catch (error) {
@@ -93,12 +102,22 @@ export const likePost = (req, res) => __awaiter(void 0, void 0, void 0, function
 export const dislikePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id: postID } = req.params;
+        if (!req.userId)
+            return res.status(401).send({ message: `Unauthenticated.` });
         if (!mongoose.Types.ObjectId.isValid(postID)) {
             return res.status(404).send({ data: `No post with ID: ${postID}` });
         }
-        ;
         const post = yield PostMeme.findById(postID);
-        const updatedPost = yield PostMeme.findByIdAndUpdate(postID, { dislikes: post.dislikes + 1 }, { new: true });
+        const index = post.dislikes.findIndex((id) => id === String(req.userId));
+        if (index === -1) {
+            post.dislikes.push(req.userId);
+        }
+        else {
+            post.dislikes = post.dislikes.filter((dislike) => dislike !== String(req.userId));
+        }
+        const updatedPost = yield PostMeme.findByIdAndUpdate(postID, post, {
+            new: true,
+        });
         return res.json(updatedPost);
     }
     catch (error) {
