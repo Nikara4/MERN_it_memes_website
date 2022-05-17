@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
@@ -10,7 +10,8 @@ import {
   MenuItem,
   Avatar,
 } from '@mui/material';
-import { Menu, Close, Search, AccountCircle } from '@mui/icons-material';
+import { Menu, Close, Search, Login, Logout } from '@mui/icons-material';
+
 import {
   SearchBox,
   SearchIconBox,
@@ -26,31 +27,27 @@ import {
   ProfileTypography,
 } from './styled';
 import decode from 'jwt-decode';
-
-interface HeaderMobile {
-  showMobileMenu: boolean;
-  isMobile: boolean;
-  setShowMobileMenu: Function;
-}
+import { user } from '../../resources/userProfile';
+import { HeaderProps } from '../../resources/interfaces';
 
 const newLocal =
   'https://raw.githubusercontent.com/Nikara4/MERN_it_memes_website/auth/frontend/public/imgs/code.png';
-
-let userProfile: any;
 
 const Header = ({
   showMobileMenu,
   isMobile,
   setShowMobileMenu,
-}: HeaderMobile) => {
-  if (typeof window !== 'undefined') {
-    userProfile = localStorage.getItem('profile');
-  }
-
+}: HeaderProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [user, setUser] = useState(userProfile && JSON.parse(userProfile));
+  const [userInfo, setUserInfo] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const logout = useCallback(() => {
+    dispatch({ type: 'LOGOUT' });
+    router.push('/');
+    setUserInfo(null);
+  }, [dispatch, router]);
 
   useEffect(() => {
     const token = user?.token;
@@ -61,9 +58,8 @@ const Header = ({
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
 
-    setUser(JSON.parse(userProfile));
-    // eslint-disable-next-line
-  }, [router.route]);
+    setUserInfo(user);
+  }, [logout, router]);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -71,12 +67,6 @@ const Header = ({
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const logout = () => {
-    dispatch({ type: 'LOGOUT' });
-    router.push('/');
-    setUser(null);
   };
 
   return (
@@ -89,6 +79,7 @@ const Header = ({
             </HeaderButtonNav>
           )}
           <Link href='/' passHref>
+          {/* @ts-ignore */}
             <HeaderCardMedia component='img' src={newLocal} title='IT icon' />
           </Link>
           <HeaderTypography variant='h6' noWrap>
@@ -105,11 +96,11 @@ const Header = ({
               </SearchIconBox>
             </SearchBox>
           ) : null}
-          <Box sx={{ display: 'flex', alignItems: 'center', flexBasis: '13%' }}>
-            {user ? (
+          <Box sx={{ display: 'flex', alignItems: 'center', flexBasis: '10%' }}>
+            {userInfo ? (
               <>
                 <ProfileTypography variant='h6' style={{ fontSize: '18px' }}>
-                  {user.result.userName}
+                  {userInfo.result.userName}
                 </ProfileTypography>
                 <IconButton
                   size='large'
@@ -119,22 +110,21 @@ const Header = ({
                   onClick={handleMenu}
                   color='inherit'
                 >
-                  <Avatar alt={user?.result.name} src={user.result.imageUrl}>
-                    {user?.result?.name.charAt(0)}
+                  <Avatar
+                    alt={userInfo?.result.name}
+                    src={userInfo.result.imageUrl}
+                  >
+                    {userInfo?.result?.name.charAt(0)}
                   </Avatar>
                 </IconButton>
+                <HeaderButtonLogin onClick={logout}>
+                  <Logout />
+                </HeaderButtonLogin>
               </>
             ) : (
               <Link href='/auth' passHref>
                 <HeaderButtonLogin size='small' color='inherit'>
-                  {!isMobile ? (
-                    <>
-                      <AccountCircle />
-                      &nbsp;Login
-                    </>
-                  ) : (
-                    <AccountCircle />
-                  )}
+                  {!isMobile ? 'Login' : <Login />}
                 </HeaderButtonLogin>
               </Link>
             )}
@@ -153,9 +143,8 @@ const Header = ({
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              {/* <MenuItem onClick={handleClose}>My Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My memes</MenuItem> */}
-              <MenuItem onClick={logout}>Logout</MenuItem>
+              <MenuItem onClick={handleClose}>My Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My memes</MenuItem>
             </NavMenu>
           </Box>
         </HeaderToolbar>

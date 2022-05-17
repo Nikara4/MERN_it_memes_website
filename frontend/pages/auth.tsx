@@ -4,8 +4,10 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { LockOutlined } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
-import { signUp, signIn } from '../state/actions/auth';
+// import * as api from './api';
+// import { signUp, signIn } from '../state/actions/auth';
 import { Input } from '../components';
 // import Icon from '../resources/icon'
 import { User } from '../resources/interfaces';
@@ -32,14 +34,24 @@ const Auth: NextPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const handleSubmit = () => {
-    if (isSignUp) {
-      dispatch(signUp(userData));
-      router.push('/');
-    } else {
-      dispatch(signIn(userData));
-      router.push('/');
-    }
+  // const signUp = (userData: User) =>
+  // axios.post(`http://localhost:5000/user/signup`, userData)
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+
+  const signUp = () => {
+    axios({
+      method: "POST",
+      data: {
+        userData
+      },
+      withCredentials: true,
+      url: "http://localhost:5000/user/signup",
+    }).then((res) => console.log(res));
   };
 
   const handleShowPassword = () =>
@@ -125,7 +137,7 @@ const Auth: NextPage = () => {
               </>
             )}
             <Grid item xs={12}>
-              <AuthButton fullWidth variant='contained' onClick={handleSubmit}>
+              <AuthButton fullWidth variant='contained' onClick={signUp}>
                 {isSignUp ? `Sign Up` : `Sign In`}
               </AuthButton>
             </Grid>

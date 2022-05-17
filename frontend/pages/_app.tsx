@@ -1,15 +1,17 @@
 import type { AppProps } from 'next/app';
+import { Provider } from 'react-redux';
+
+import { store } from '../state/Store';
 import '../styles/globals.css';
 import Layout from '../layout/layout';
-import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter()
-  
   return (
+    <Provider store={store}>
       <Layout>
-        <Component key={router.asPath} {...pageProps} />
+        <Component {...pageProps} />
       </Layout>
+    </Provider>
   );
 }
 

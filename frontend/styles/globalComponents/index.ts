@@ -12,7 +12,7 @@ export const SearchBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexBasis: '18%',
   marginLeft: '0',
-  marginRight: '5%',
+  marginRight: '1%',
   borderRadius: '7px',
   backgroundColor: 'rgba(250, 249, 246, 0.5)',
   zIndex: '2',

@@ -9,43 +9,62 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import 'dotenv/config';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
+import passport from 'passport';
 import User from '../models/User.js';
-export const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
-    try {
-        const existingUser = yield User.findOne({ email });
-        if (!existingUser)
-            return res.status(404).json({ message: 'User does not exist.' });
-        const isPasswordCorrect = yield bcrypt.compare(password, existingUser.password);
-        if (!isPasswordCorrect)
-            return res.status(400).json({ message: 'Invalid credentials.' });
-        const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env['SECRET_TOKEN'], { expiresIn: '1h' });
-        return res.status(200).json({ result: existingUser, token });
-    }
-    catch (error) {
-        return res.status(500).json(error);
-    }
-});
-export const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { firstName, lastName, userName, email, password, confirmPassword } = req.body;
-    try {
-        const existingUser = yield User.findOne({ email });
-        if (existingUser)
-            return res.status(400).json({ message: 'User already exists.' });
-        if (password !== confirmPassword)
-            return res.status(400).json({ message: 'Passwords do not match' });
-        const hashedPassword = yield bcrypt.hash(password, 12);
-        const result = yield User.create({
-            email,
-            password: hashedPassword,
-            userName,
-            name: `${firstName} ${lastName}`,
+export const signIn = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    passport.authenticate('local', (err, user) => {
+        if (err)
+            throw err;
+        if (!user)
+            res.send('No User Exists');
+        req.logIn(user, (err) => {
+            if (err)
+                throw err;
+            res.send('Successfully Authenticated');
+            console.log(req.user);
         });
-        const token = jwt.sign({ email: result.email, id: result._id }, process.env['SECRET_TOKEN'], { expiresIn: '1h' });
-        return res.status(200).json({ result, token });
+    })(req, res, next);
+});
+export const signUp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { firstName, lastName, userName, email, password } = req.body;
+    User.findOne({ email }, (err, user) => __awaiter(void 0, void 0, void 0, function* () {
+        if (err)
+            throw err;
+        if (user)
+            res.send('User Already Exists');
+        if (!user) {
+            const hashedPassword = yield bcrypt.hash(password, 10);
+            const newUser = new User({
+                name: `${firstName} ${lastName}`,
+                userName,
+                email,
+                password: hashedPassword,
+            });
+            // const token = jwt.sign(
+            //   { email: newUser.email, id: newUser._id },
+            //   process.env['SECRET_TOKEN'],
+            //   { expiresIn: '1h' }
+            // );
+            yield newUser.save();
+            res.send('User Created');
+        }
+    }));
+});
+export const fetchUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id: userId } = req.params;
+        const singleUser = yield User.findById({ userId });
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(404).send({ data: `No user with ID: ${userId}` });
+        }
+        console.log(singleUser);
+        return res.status(200).json(singleUser);
     }
     catch (error) {
-        return res.status(500).json(error);
+        return res.status(404).json(error);
     }
 });
+export const getUser = (req, res) => {
+    res.send(req.user);
+};

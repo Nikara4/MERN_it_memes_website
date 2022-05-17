@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux'
 import { postActionTypes } from '../constants';
-import { PostInterface } from '../../resources/interfaces'
+import { Post } from '../../resources/interfaces'
 
 const {
     FETCH_ALL_POSTS,
@@ -27,11 +27,11 @@ const postsReducer = (
         case UPDATE_POST:
         case LIKE_POST:
         case DISLIKE_POST:
-            return state.map((post: PostInterface) =>
+            return state.map((post: Post) =>
         post._id === action?.['payload']?._id ? action['payload'] : post
       );
         case DELETE_POST:
-            return state.filter((post: PostInterface) => post._id !== action['payload']);
+            return state.filter((post: Post) => post._id !== action['payload']);
         default:
             return state;
     }

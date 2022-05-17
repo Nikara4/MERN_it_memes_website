@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Provider } from 'react-redux';
 
-import { store } from '../state/Store';
 import { Navbar } from '../components';
 import { Header } from '../containers';
 import useMobile from '../utils/hooks/useMobile';
@@ -17,7 +15,7 @@ function Layout({ children }: any) {
   const isMobile = useMobile();
 
   return (
-    <Provider store={store}>
+    <>
       <Header
         showMobileMenu={showMobileMenu}
         isMobile={isMobile}
@@ -37,7 +35,7 @@ function Layout({ children }: any) {
           </LayoutGridItem>
         </LayoutGridContainer>
       </LayoutContainer>
-    </Provider>
+    </>
   );
 }
 

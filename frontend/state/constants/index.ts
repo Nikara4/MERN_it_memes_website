@@ -12,3 +12,4 @@ export const authActionTypes = {
     AUTH: 'AUTH',
     LOGOUT: 'LOGOUT'
 }
+

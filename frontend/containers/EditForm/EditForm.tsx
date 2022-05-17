@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DialogActions, DialogContent } from '@mui/material';
 import FileBase64 from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
-import { PostInterface, PostTypeState } from '../../resources/interfaces';
+import { Post, PostTypeState } from '../../resources/interfaces';
 import { updatePost } from '../../state/actions/posts';
 import { EditDialog, EditDialogContent } from './styled';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../../styles/globalComponents';
 
 const EditForm = ({ post, currentId, handleClose, open }: any) => {
-  const [postData, setPostData] = useState<PostInterface>({
+  const [postData, setPostData] = useState<Post>({
     ...post,
     title: '',
     tags: [],
@@ -32,7 +32,7 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
 
   // const user = JSON.parse(localStorage.getItem('profile'));
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(updatePost(currentId, postData));
     console.log('Post has been updated.');

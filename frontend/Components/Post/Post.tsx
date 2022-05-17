@@ -9,7 +9,7 @@ import {
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { deletePost, likePost, dislikePost } from '../../state/actions/posts';
-import { PostInterface } from '../../resources/interfaces';
+import { Post } from '../../resources/interfaces';
 import {
   PostCard,
   TagsBox,
@@ -24,11 +24,12 @@ import {
   LikesCardActions,
   LikesBox,
 } from './styled';
+import { user } from '../../resources/userProfile';
 
 interface PostPropsInterface {
   currentId: string;
   setCurrentId: Function;
-  post: PostInterface;
+  post: Post;
   handleClickOpen: Function;
 }
 
@@ -44,9 +45,7 @@ const Post = ({
   // currentId ? state?.posts.data.find((post: PostInterface) => post._id === currentId) : null
   // );
 
-  console.log(post.likes.length + post.dislikes.length)
-
-  const user = JSON.parse(localStorage.getItem('profile'));
+  // const user = JSON.parse(localStorage.getItem('profile'));
 
   const Likes = () => {
     if (post.likes.length > 0) {

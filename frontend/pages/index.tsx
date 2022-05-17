@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Grow, CircularProgress } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Post } from '../components';
 import { getPosts } from '../state/actions/posts';
-import { useDispatch, useSelector } from 'react-redux';
 import { EditForm } from '../containers';
 import { PostTypeState } from '../resources/interfaces';
-import { GridItem, MainContainer, MainGrid } from '../styles/indexStyled'
+import { GridItem, MainContainer, MainGrid } from '../styles/indexStyled';
 
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);

@@ -1,66 +1,77 @@
 import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { Request, Response } from 'express';
-import User from '../models/User.js';
+import { NextFunction, Request, Response } from 'express';
+import mongoose from 'mongoose';
+import passport from 'passport';
 
-export const signIn = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+import User, { UserDocument } from '../models/User.js';
 
+export const signIn = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  passport.authenticate('local', (err: Error, user: UserDocument) => {
+    if (err) throw err;
+    if (!user) res.send('No User Exists');
+    req.logIn(user, (err) => {
+      if (err) throw err;
+      res.send('Successfully Authenticated');
+      console.log(req.user);
+    });
+  })(req, res, next);
+};
+
+export const signUp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const { firstName, lastName, userName, email, password } = req.body;
+
+  User.findOne({ email }, async (err: Error, user: UserDocument) => {
+    if (err) throw err;
+    if (user) res.send('User Already Exists');
+    if (!user) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const newUser = new User({
+        name: `${firstName} ${lastName}`,
+        userName,
+        email,
+        password: hashedPassword,
+      });
+
+      // const token = jwt.sign(
+      //   { email: newUser.email, id: newUser._id },
+      //   process.env['SECRET_TOKEN'],
+      //   { expiresIn: '1h' }
+      // );
+
+      await newUser.save();
+      res.send('User Created');
+    }
+  });
+};
+
+export const fetchUser = async (req: Request, res: Response) => {
   try {
-    const existingUser = await User.findOne({ email });
+    const { id: userId } = req.params;
 
-    if (!existingUser)
-      return res.status(404).json({ message: 'User does not exist.' });
+    const singleUser = await User.findById({ userId });
 
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      existingUser.password
-    );
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(404).send({ data: `No user with ID: ${userId}` });
+    }
 
-    if (!isPasswordCorrect)
-      return res.status(400).json({ message: 'Invalid credentials.' });
-
-    const token = jwt.sign(
-      { email: existingUser.email, id: existingUser._id },
-      process.env['SECRET_TOKEN'],
-      { expiresIn: '1h' }
-    );
-    return res.status(200).json({ result: existingUser, token });
+    console.log(singleUser);
+    return res.status(200).json(singleUser);
   } catch (error) {
-    return res.status(500).json(error);
+    return res.status(404).json(error);
   }
 };
 
-export const signUp = async (req: Request, res: Response) => {
-  const { firstName, lastName, userName, email, password, confirmPassword } =
-    req.body;
-
-  try {
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser)
-      return res.status(400).json({ message: 'User already exists.' });
-
-    if (password !== confirmPassword)
-      return res.status(400).json({ message: 'Passwords do not match' });
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const result = await User.create({
-      email,
-      password: hashedPassword,
-      userName,
-      name: `${firstName} ${lastName}`,
-    });
-
-    const token = jwt.sign(
-      { email: result.email, id: result._id },
-      process.env['SECRET_TOKEN'],
-      { expiresIn: '1h' }
-    );
-    return res.status(200).json({ result, token });
-  } catch (error) {
-    return res.status(500).json(error);
-  }
+export const getUser = (req: Request, res: Response) => {
+  res.send(req.user);
 };

@@ -1,10 +1,6 @@
-import { useState } from 'react';
 import FileBase64 from 'react-file-base64';
-import { useDispatch } from 'react-redux';
-import { Alert, Paper, Snackbar, Typography } from '@mui/material';
+import { Snackbar, Typography } from '@mui/material';
 
-import { PostInterface } from '../../resources/interfaces';
-import { uploadPost } from '../../state/actions/posts';
 import { FormPaper, SubmitBox, SuccessAlert } from './styled';
 import {
   FormTitle,
@@ -13,70 +9,27 @@ import {
   FormFileBox,
   Control,
 } from '../../styles/globalComponents';
+import { user } from '../../resources/userProfile';
+import { UploadFormProps } from '../../resources/interfaces';
 
-let userProfile: any;
-
-const UploadForm = ({ post }: any) => {
-  const [postData, setPostData] = useState<PostInterface>({
-    ...post,
-    title: '',
-    tags: [],
-    selectedFile: '',
-  });
-  const [showSnackbar, setShowSnackbar] = useState(false);
-
-  const dispatch = useDispatch();
-
-  if (typeof window !== 'undefined') {
-    userProfile = localStorage.getItem('profile');
-  }
-  const user = userProfile && JSON.parse(userProfile);
-
-  const clearForm = () => {
-    setPostData({
-      ...post,
-      title: '',
-      tags: [],
-      selectedFile: '',
-    });
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-
-    dispatch(uploadPost({ ...postData, userName: user?.result?.userName }));
-    clearForm();
-
-    setShowSnackbar(true);
-  };
-
-  const handleCloseSnackbar = () => setShowSnackbar(!showSnackbar);
-
+const UploadForm = ({
+  postData,
+  setPostData,
+  handleSubmit,
+  clearForm,
+  showSnackbar,
+  handleCloseSnackbar,
+}: UploadFormProps) => {
   if (!user?.result.name) {
     return (
       <FormPaper>
         <Typography variant='h6' align='center'>
-          Please login.
+          You need to be signed in to upload memes to the gallery.
         </Typography>
       </FormPaper>
     );
   }
 
-  // useEffect(() => {
-  //     if (post) setPostData(post);
-  // }, [post]);
-  // if (!user?.result?.name) {
-  //     return (
-  //         <Paper className={classes.paper}>
-  //             <Typography variant="h5" align="center">
-  //                 You need to be signed in to upload memes to the gallery.
-  //             </Typography>
-  //             {/* sign in / sign up button */}
-  //         </Paper>
-  //     )
-  // }
-
-  // console.log(currentId);
   return (
     <FormPaper>
       <Control required>
@@ -129,7 +82,7 @@ const UploadForm = ({ post }: any) => {
         {showSnackbar && (
           <Snackbar open autoHideDuration={6000} onClose={handleCloseSnackbar}>
             <SuccessAlert
-              onClose={handleCloseSnackbar}
+              // onClose={handleCloseSnackbar}
               severity='success'
               sx={{ width: '100%' }}
             >
