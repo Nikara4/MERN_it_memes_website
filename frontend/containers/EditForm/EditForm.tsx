@@ -32,7 +32,7 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
 
   // const user = JSON.parse(localStorage.getItem('profile'));
 
-  const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(updatePost(currentId, postData));
     console.log('Post has been updated.');

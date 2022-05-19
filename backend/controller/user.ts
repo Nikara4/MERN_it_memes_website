@@ -6,14 +6,15 @@ import { NativeError } from 'mongoose';
 import passport from 'passport';
 
 import User, { UserDocument } from '../models/User.js';
+import mongoose from 'mongoose';
 
 export const signIn = (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
+  const { userName, password } = req.body;
 
   passport.authenticate('local', async (err: NativeError) => {
     if (err) throw err;
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ userName });
 
     if (!existingUser) res.status(404).json({ message: 'No user exists with the provided credentials.' });
 
@@ -25,7 +26,7 @@ export const signIn = (req: Request, res: Response, next: NextFunction) => {
     if (!isPasswordCorrect) res.status(400).json({ message: 'Invalid credentials.' });
 
     const token = jwt.sign(
-      { email: existingUser.email, id: existingUser._id },
+      { userName: existingUser.userName, id: existingUser._id },
       process.env['SECRET_TOKEN'],
       { expiresIn: '1h' }
     );
@@ -41,7 +42,7 @@ export const signIn = (req: Request, res: Response, next: NextFunction) => {
 export const signUp = (req: Request, res: Response) => {
   const { firstName, lastName, userName, email, password, confirmPassword } = req.body;
 
-  User.findOne({ email }, async (err: NativeError, user: UserDocument) => {
+  User.findOne({ userName }, async (err: NativeError, user: UserDocument) => {
     if (err) throw err;
     if (user) res.status(400).json({ message: 'User already exists.' });
     if (password !== confirmPassword)
@@ -57,7 +58,7 @@ export const signUp = (req: Request, res: Response) => {
       });
 
       const token = jwt.sign(
-        { email: newUser.email, id: newUser._id },
+        { userName: newUser.userName, id: newUser._id },
         process.env['SECRET_TOKEN'],
         { expiresIn: '1h' }
       );
@@ -69,3 +70,23 @@ export const signUp = (req: Request, res: Response) => {
 export const fetchUser = (req: Request, res: Response) => {
   res.send(req.user);
 };
+
+// export const fetchUser = async (req: Request, res: Response) => {
+//   try {
+//     const { userName } = req.body;
+//     const user = await User.findById({userName});
+
+//     if (!mongoose.Types.ObjectId.isValid(userName)) {
+//       return res.status(200).send({ data: `No post with User Name: ${userName}` });
+//     }
+
+//     return res.status(200).json(user);
+//   } catch (error) {
+//     return null;
+//   }
+// };
+
+export const signOut = ((req: Request, res: Response) => {
+  req.logout();
+  res.send("success")
+});

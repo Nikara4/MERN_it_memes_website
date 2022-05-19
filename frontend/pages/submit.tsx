@@ -28,7 +28,14 @@ const SubmitForm: NextPage = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
-    dispatch(uploadPost({ ...postData, userName: user?.result?.userName }));
+    dispatch(uploadPost({
+      ...postData, userName: user?.result?.userName,
+      _id: '',
+      author: '',
+      likes: [],
+      dislikes: [],
+      createdAt: ''
+    }));
     clearForm();
 
     setShowSnackbar(true);

@@ -13,17 +13,17 @@ import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import User from '../models/User.js';
 export const signIn = (req, res, next) => {
-    const { email, password } = req.body;
+    const { userName, password } = req.body;
     passport.authenticate('local', (err) => __awaiter(void 0, void 0, void 0, function* () {
         if (err)
             throw err;
-        const existingUser = yield User.findOne({ email });
+        const existingUser = yield User.findOne({ userName });
         if (!existingUser)
             res.status(404).json({ message: 'No user exists with the provided credentials.' });
         const isPasswordCorrect = yield bcrypt.compare(password, existingUser.password);
         if (!isPasswordCorrect)
             res.status(400).json({ message: 'Invalid credentials.' });
-        const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env['SECRET_TOKEN'], { expiresIn: '1h' });
+        const token = jwt.sign({ userName: existingUser.userName, id: existingUser._id }, process.env['SECRET_TOKEN'], { expiresIn: '1h' });
         req.logIn(existingUser, (err) => {
             if (err)
                 throw err;
@@ -33,7 +33,7 @@ export const signIn = (req, res, next) => {
 };
 export const signUp = (req, res) => {
     const { firstName, lastName, userName, email, password, confirmPassword } = req.body;
-    User.findOne({ email }, (err, user) => __awaiter(void 0, void 0, void 0, function* () {
+    User.findOne({ userName }, (err, user) => __awaiter(void 0, void 0, void 0, function* () {
         if (err)
             throw err;
         if (user)
@@ -47,10 +47,26 @@ export const signUp = (req, res) => {
             email,
             password: hashedPassword,
         });
-        const token = jwt.sign({ email: newUser.email, id: newUser._id }, process.env['SECRET_TOKEN'], { expiresIn: '1h' });
+        const token = jwt.sign({ userName: newUser.userName, id: newUser._id }, process.env['SECRET_TOKEN'], { expiresIn: '1h' });
         return res.status(200).json({ newUser, token });
     }));
 };
 export const fetchUser = (req, res) => {
     res.send(req.user);
 };
+// export const fetchUser = async (req: Request, res: Response) => {
+//   try {
+//     const { userName } = req.body;
+//     const user = await User.findById({userName});
+//     if (!mongoose.Types.ObjectId.isValid(userName)) {
+//       return res.status(200).send({ data: `No post with User Name: ${userName}` });
+//     }
+//     return res.status(200).json(user);
+//   } catch (error) {
+//     return null;
+//   }
+// };
+export const signOut = ((req, res) => {
+    req.logout();
+    res.send("success");
+});

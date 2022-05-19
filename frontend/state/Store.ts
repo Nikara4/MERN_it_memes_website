@@ -1,18 +1,15 @@
 import thunk, { ThunkMiddleware, ThunkAction } from 'redux-thunk';
 import { createStore, applyMiddleware, AnyAction } from 'redux';
 import postsReducer from './reducers/posts';
-import usersReducer from './reducers/auth';
 import { createLogger } from 'redux-logger';
 
 const initialState: any = {
   posts: [],
-  users: null,
 };
 
 export const rootReducer = (state = initialState, action: AnyAction) => {
   return {
     posts: postsReducer(state.posts, action),
-    users: usersReducer(state.users, action),
   };
 };
 

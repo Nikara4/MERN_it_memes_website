@@ -1,71 +1,74 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import * as api from '../../pages/api';
-import decode from 'jwt-decode';
+import axios, { AxiosResponse } from 'axios';
+
 import { User } from '../interfaces';
-import { useRouter } from 'next/router';
-// import { user } from '../userProfile';
+import { BASE_URL } from '../../pages/api';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }: any) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState('');
   const [userInfo, setUserInfo] = useState(null);
-  const router = useRouter();
-
-  let userProfile: any;
-
-  if (typeof window !== 'undefined') {
-    userProfile = localStorage.getItem('profile');
-  }
-
-  const user = userProfile ? JSON.parse(userProfile) : null;
+  const [token, setToken] = useState('');
 
   useEffect(() => {
-    setUserInfo(user);
-    setToken(user?.token);
+    axios({
+      method: 'GET',
+      withCredentials: true,
+      url: `${BASE_URL}/user`,
+    }).then((res: AxiosResponse) => {
+      setUserInfo(res.data);
+      setToken(res.data.token);
+      setIsLoggedIn(() => (res.data ? true : false));
+    });
+  }, []);
 
-    // console.log(isLoggedIn)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userProfile]);
-
-  const signInUser = (userData: User) => {
-    api.signIn(userData);
-    setUserInfo(user);
-    user ? setIsLoggedIn(true) : console.log('no user');
-    // window.location.reload();
-    router.push('/');
+  const logout = () => {
+    axios({
+      method: 'GET',
+      withCredentials: true,
+      url: `${BASE_URL}/user/logout`,
+    }).then((res: AxiosResponse) => {
+      localStorage.clear();
+      setUserInfo(null);
+      setIsLoggedIn(false);
+    });
   };
 
-  const signUpUser = (userData: User) => {
-    api.signUp(userData);
-    setUserInfo(user);
-    setIsLoggedIn(true);
-    // window.location.reload();
-    router.push('/');
+  const signIn = (userData: User) => {
+    axios({
+      method: 'POST',
+      data: {
+        userName: userData.userName,
+        password: userData.password,
+      },
+      withCredentials: true,
+      url: `${BASE_URL}/user/signin`,
+    }).then((res: AxiosResponse) => {
+      const user = localStorage.setItem('profile', JSON.stringify(res.data));
+      window.location.href = '/';
+      return user;
+    });
   };
 
-  const logoutUser = () => {
-    localStorage.clear();
-    setUserInfo(null);
-    setIsLoggedIn(false);
-    router.push('/');
-    // window.location.reload();
+  const signUp = (userData: User) => {
+    axios({
+      method: 'POST',
+      data: userData,
+      withCredentials: true,
+      url: `${BASE_URL}/user/signup`,
+    }).then((res: AxiosResponse) => {
+      return res.data;
+    });
   };
-
-  if (token) {
-    const decodedToken: any = decode(token);
-
-    if (decodedToken.exp * 1000 < new Date().getTime()) logoutUser();
-  }
 
   const state = {
-    userInfo,
+    signIn,
+    signUp,
     isLoggedIn,
+    userInfo,
     token,
-    logoutUser,
-    signInUser,
-    signUpUser
+    logout,
   };
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;

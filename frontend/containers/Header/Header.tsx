@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import axios, { AxiosResponse } from 'axios';
+import decode from 'jwt-decode';
 import { useAuthState } from '../../resources/context/auth';
 import {
   Box,
@@ -26,7 +27,8 @@ import {
   HeaderButtonLogin,
   ProfileTypography,
 } from './styled';
-import { HeaderProps } from '../../resources/interfaces';
+import { HeaderProps, User } from '../../resources/interfaces';
+const BASE_URL = 'http://localhost:5000';
 
 const newLocal =
   'https://raw.githubusercontent.com/Nikara4/MERN_it_memes_website/auth/frontend/public/imgs/code.png';
@@ -39,25 +41,18 @@ const Header = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   // const [userInfo, setUserInfo] = useState(null);
-  const router = useRouter();  
-  const { userInfo, isLoggedIn, token, logoutUser } = useAuthState();
-  // const logout = useCallback(() => {
-  //   dispatch({ type: 'LOGOUT' });
-  //   router.push('/');
-  //   setUserInfo(null);
-  // }, [dispatch, router]);
-
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     userProfile = localStorage.getItem('profile');
-  //   }
-
-  //   const user = userProfile ? JSON.parse(userProfile) : null;
+const {     isLoggedIn,
+  userInfo,
+  token, logout } = useAuthState()
+  // console.log(userInfo);
 
 
-  //   setUserInfo(user);
-  //   console.log(userInfo)
-  // }, []);
+
+  if (token) {
+    const decodedToken: any = decode(token);
+
+    if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+  }
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -77,7 +72,7 @@ const Header = ({
             </HeaderButtonNav>
           )}
           <Link href='/' passHref>
-          {/* @ts-ignore */}
+            {/* @ts-ignore */}
             <HeaderCardMedia component='img' src={newLocal} title='IT icon' />
           </Link>
           <HeaderTypography variant='h6' noWrap>
@@ -98,7 +93,7 @@ const Header = ({
             {isLoggedIn ? (
               <>
                 <ProfileTypography variant='h6' style={{ fontSize: '18px' }}>
-                  {userInfo?.result?.userName}
+                  {userInfo?.userName}
                 </ProfileTypography>
                 <IconButton
                   size='large'
@@ -108,14 +103,11 @@ const Header = ({
                   onClick={handleMenu}
                   color='inherit'
                 >
-                  <Avatar
-                    alt={userInfo?.result?.name}
-                    src={userInfo?.result?.imageUrl}
-                  >
-                    {userInfo?.result?.userName.charAt(0)}
+                  <Avatar alt={userInfo?.userName} src={userInfo?.imageUrl}>
+                    {userInfo?.userName.charAt(0)}
                   </Avatar>
                 </IconButton>
-                <HeaderButtonLogin onClick={logoutUser}>
+                <HeaderButtonLogin onClick={logout}>
                   <Logout />
                 </HeaderButtonLogin>
               </>

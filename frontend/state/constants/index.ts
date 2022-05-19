@@ -8,8 +8,3 @@ export const postActionTypes = {
     DISLIKE_POST: 'DISLIKE_POST',
 }
 
-export const authActionTypes = {
-    AUTH: 'AUTH',
-    LOGOUT: 'LOGOUT'
-}
-

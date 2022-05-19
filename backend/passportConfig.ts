@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request } from 'express';
 import User, { UserDocument } from './models/User.js';
 import bcrypt from 'bcryptjs';
 import passportLocal from 'passport-local';
@@ -24,30 +24,21 @@ export default (passport: any) => {
     })
   );
 
-  passport.serializeUser(async (req: Request, user: UserDocument, cb: any) => {
-    try {
-      cb(null, user.id);
-    } catch (err) {
-      cb(err);
-    }
+  passport.serializeUser((req: Request, user: UserDocument, cb: any) => {
+    cb(null, user.id);
   });
 
-  passport.deserializeUser(async (id: any, cb: any) => {
-    try {
-      await User.findOne(
-        { _id: id },
-        (err: NativeError, user: UserDocument) => {
-          const userInformation = {
-            email: user.email,
-          };
-          if (!user) {
-            return cb(new Error('user not found'));
-          }
-          cb(null, userInformation);
-        }
-      );
-    } catch (err) {
-      cb(err);
-    }
+  passport.deserializeUser((id: any, cb: any) => {
+    User.findOne({ _id: id }, (err: NativeError, user: UserDocument) => {
+      const userInformation = {
+        userName: user.userName,
+        name: user.name,
+        id: user._id,
+      };
+      if (!user) {
+        return cb(new Error('user not found'));
+      }
+      cb(null, userInformation);
+    });
   });
 };

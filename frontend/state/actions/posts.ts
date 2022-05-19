@@ -15,8 +15,6 @@ const {
     DISLIKE_POST }
     = postActionTypes;
 
-// Action Creators
-
 export const getPosts = (): AppThunk => async (dispatch: Dispatch) => {
     try {
         const { data } = await api.fetchPosts();

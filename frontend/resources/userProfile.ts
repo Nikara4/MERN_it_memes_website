@@ -1,3 +1,5 @@
+// currently unused
+
 let userProfile: any;
 
 if (typeof window !== 'undefined') {

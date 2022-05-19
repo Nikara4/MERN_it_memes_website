@@ -46,4 +46,14 @@ export interface UploadFormProps {
   ) => void;
 }
 
+export interface AuthFormProps {
+  isSignUp: boolean;
+  userData: User;
+  setUserData: Function;
+  handleShowPassword: MouseEventHandler<any>;
+  showPassword: boolean;
+  handleSubmit: MouseEventHandler<HTMLButtonElement>;
+  switchMode: MouseEventHandler<HTMLButtonElement>;
+}
+
 export type PostTypeState = { posts: Post[] };
