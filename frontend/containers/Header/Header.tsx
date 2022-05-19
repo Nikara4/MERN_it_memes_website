@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useAuthState } from '../../resources/context/auth';
 import {
   Box,
   IconButton,
@@ -26,8 +26,6 @@ import {
   HeaderButtonLogin,
   ProfileTypography,
 } from './styled';
-import decode from 'jwt-decode';
-import { user } from '../../resources/userProfile';
 import { HeaderProps } from '../../resources/interfaces';
 
 const newLocal =
@@ -39,27 +37,27 @@ const Header = ({
   setShowMobileMenu,
 }: HeaderProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [userInfo, setUserInfo] = useState(null);
-  const dispatch = useDispatch();
-  const router = useRouter();
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [userInfo, setUserInfo] = useState(null);
+  const router = useRouter();  
+  const { userInfo, isLoggedIn, token, logoutUser } = useAuthState();
+  // const logout = useCallback(() => {
+  //   dispatch({ type: 'LOGOUT' });
+  //   router.push('/');
+  //   setUserInfo(null);
+  // }, [dispatch, router]);
 
-  const logout = useCallback(() => {
-    dispatch({ type: 'LOGOUT' });
-    router.push('/');
-    setUserInfo(null);
-  }, [dispatch, router]);
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     userProfile = localStorage.getItem('profile');
+  //   }
 
-  useEffect(() => {
-    const token = user?.token;
+  //   const user = userProfile ? JSON.parse(userProfile) : null;
 
-    if (token) {
-      const decodedToken: any = decode(token);
 
-      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-    }
-
-    setUserInfo(user);
-  }, [logout, router]);
+  //   setUserInfo(user);
+  //   console.log(userInfo)
+  // }, []);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -97,10 +95,10 @@ const Header = ({
             </SearchBox>
           ) : null}
           <Box sx={{ display: 'flex', alignItems: 'center', flexBasis: '10%' }}>
-            {userInfo ? (
+            {isLoggedIn ? (
               <>
                 <ProfileTypography variant='h6' style={{ fontSize: '18px' }}>
-                  {userInfo.result.userName}
+                  {userInfo?.result?.userName}
                 </ProfileTypography>
                 <IconButton
                   size='large'
@@ -111,13 +109,13 @@ const Header = ({
                   color='inherit'
                 >
                   <Avatar
-                    alt={userInfo?.result.name}
-                    src={userInfo.result.imageUrl}
+                    alt={userInfo?.result?.name}
+                    src={userInfo?.result?.imageUrl}
                   >
-                    {userInfo?.result?.name.charAt(0)}
+                    {userInfo?.result?.userName.charAt(0)}
                   </Avatar>
                 </IconButton>
-                <HeaderButtonLogin onClick={logout}>
+                <HeaderButtonLogin onClick={logoutUser}>
                   <Logout />
                 </HeaderButtonLogin>
               </>

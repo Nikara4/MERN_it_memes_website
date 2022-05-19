@@ -9,16 +9,16 @@ import {
   dislikePost,
   likePost,
 } from '../controller/posts.js';
-import * as passportConfig from '../passportConfig.js';
+import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.get('/', getPosts);
 router.get('/:id', getSinglePost);
-router.post('/', passportConfig.isAuthenticated, uploadPost);
-router.patch('/:id', passportConfig.isAuthenticated, updatePost);
-router.delete('/:id', passportConfig.isAuthenticated, deletePost);
-router.patch('/:id/like', passportConfig.isAuthenticated, likePost);
-router.patch('/:id/dislike', passportConfig.isAuthenticated, dislikePost);
+router.post('/', auth, uploadPost);
+router.patch('/:id', auth, updatePost);
+router.delete('/:id', auth, deletePost);
+router.patch('/:id/like', auth, likePost);
+router.patch('/:id/dislike', auth, dislikePost);
 
 export default router;

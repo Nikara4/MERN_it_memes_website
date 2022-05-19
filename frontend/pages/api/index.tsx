@@ -30,46 +30,39 @@ export const likePost = (id: string) => API.patch(`/posts/${id}/like`);
 
 export const dislikePost = (id: string) => API.patch(`/posts/${id}/dislike`);
 
-// export const signIn = (userData: User) => API.post('/user/signin', userData);
-
-// export const signUp = (userData: User) => API.post('/user/signup', userData);
-
-// export const fetchUser = () => API.get('/user');
-
-export const signUp = (userData: User) =>
-  API.post(`/user/signup`, userData)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-// export const signUp = (userData: User) => {
-//   axios({
-//     method: 'POST',
-//     data: { userData },
-//     withCredentials: true,
-//     url: `${BASE_URL}/user/signup`,
-//   }).then((res) => console.log('co jest'));
-// };
+export const signUp = (userData: User) => {
+  axios({
+    method: 'POST',
+    data: userData,
+    withCredentials: true,
+    url: `${BASE_URL}/user/signup`,
+  }).then((res) => {
+    const user = localStorage.setItem('profile', JSON.stringify(res.data));
+    return user;
+  });
+};
 
 export const signIn = (userData: User) => {
   axios({
     method: 'POST',
-    data: { userData },
+    data: {
+      email: userData.email,
+      password: userData.password,
+    },
     withCredentials: true,
     url: `${BASE_URL}/user/signin`,
-  }).then((res) => console.log(res));
+  }).then((res) => {
+    const user = localStorage.setItem('profile', JSON.stringify(res.data));
+    return user;
+  });
 };
 
-export const getUser = (setData: Function) => {
+export const getUser = () => {
   axios({
     method: 'GET',
     withCredentials: true,
-    url: `${BASE_URL}/user/getuser`,
+    url: `${BASE_URL}/user`,
   }).then((res) => {
-    setData(res.data);
-    console.log(res.data);
+    console.log(res);
   });
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Navbar } from '../components';
 import { Header } from '../containers';
-import useMobile from '../utils/hooks/useMobile';
+import useMobile from '../resources/hooks/useMobile';
 import {
   LayoutContainer,
   LayoutGridContainer,

@@ -9,54 +9,45 @@ const localStrategy = passportLocal.Strategy;
 export default (passport: any) => {
   passport.use(
     new localStrategy((email, password, done) => {
-      User.findOne(
-        { email: email.toLowerCase() },
-        (err: NativeError, user: UserDocument) => {
+      User.findOne({ email }, (err: NativeError, user: UserDocument) => {
+        if (err) throw err;
+        if (!user) return done(null, false);
+        bcrypt.compare(password, user.password, (err: Error, result) => {
           if (err) throw err;
-          if (!user)
-            return done(null, false, {
-              message: `User with email: ${email} not found.`,
-            });
-          bcrypt.compare(
-            password,
-            user.password,
-            (err: Error, result: boolean) => {
-              if (err) return done(err);
-              if (result) {
-                return done(null, user);
-              } else {
-                return done(null, false, {
-                  message: 'Invalid email or password.',
-                });
-              }
-            }
-          );
-        }
-      );
+          if (result === true) {
+            return done(null, user);
+          } else {
+            return done(null, false);
+          }
+        });
+      });
     })
   );
 
-  passport.serializeUser((req: Request, user: Response, done: any) => {
-    done(undefined, user);
+  passport.serializeUser(async (req: Request, user: UserDocument, cb: any) => {
+    try {
+      cb(null, user.id);
+    } catch (err) {
+      cb(err);
+    }
   });
 
-  passport.deserializeUser((id: any, done: any) => {
-    User.findById(id, (err: NativeError, user: UserDocument) => {
-      const userInformation = {
-        email: user.email,
-      };
-      done(err, userInformation);
-    });
+  passport.deserializeUser(async (id: any, cb: any) => {
+    try {
+      await User.findOne(
+        { _id: id },
+        (err: NativeError, user: UserDocument) => {
+          const userInformation = {
+            email: user.email,
+          };
+          if (!user) {
+            return cb(new Error('user not found'));
+          }
+          cb(null, userInformation);
+        }
+      );
+    } catch (err) {
+      cb(err);
+    }
   });
-};
-
-export const isAuthenticated = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  return res.redirect('/auth');
 };

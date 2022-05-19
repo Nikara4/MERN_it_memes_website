@@ -4,6 +4,7 @@ import cors from 'cors';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
+import bodyParser from 'body-parser';
 
 import connectDB from './db/connect.js';
 import postRoutes from './routes/posts.js';
@@ -13,17 +14,17 @@ import passportConfig from "./passportConfig.js";
 const app = express();
 
 app.use(
-  express.json({
+  bodyParser.json({
     limit: '100mb',
   })
 );
 app.use(
-  express.text({
+  bodyParser.text({
     limit: '100mb',
   })
 );
 app.use(
-  express.urlencoded({
+  bodyParser.urlencoded({
     limit: '100mb',
     extended: true,
     parameterLimit: 1000000,

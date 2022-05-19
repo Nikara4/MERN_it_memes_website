@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 
 import { postActionTypes } from '../constants';
 import { AppThunk } from '../Store';
-import { PostInterface } from '../../resources/interfaces'
+import { Post } from '../../resources/interfaces'
 
 const {
     FETCH_ALL_POSTS,
@@ -41,7 +41,7 @@ export const getSinglePost = (id: string): AppThunk => async (dispatch: Dispatch
     }
 }
 
-export const uploadPost = (post: PostInterface): AppThunk => async (dispatch: Dispatch) => {
+export const uploadPost = (post: Post): AppThunk => async (dispatch: Dispatch) => {
     try {
         const { data } = await api.createPost(post);
         dispatch({
@@ -53,7 +53,7 @@ export const uploadPost = (post: PostInterface): AppThunk => async (dispatch: Di
     }
 }
 
-export const updatePost = (id: string, post: PostInterface): AppThunk => async (dispatch: Dispatch) => {
+export const updatePost = (id: string, post: Post): AppThunk => async (dispatch: Dispatch) => {
     try {
         const { data } = await api.updatePost(id, post);
         dispatch({

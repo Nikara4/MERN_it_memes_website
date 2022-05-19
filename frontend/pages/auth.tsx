@@ -3,13 +3,9 @@ import { Container, Grid } from '@mui/material';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { LockOutlined } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
 
-// import * as api from './api';
-// import { signUp, signIn } from '../state/actions/auth';
+import * as api from './api';
 import { Input } from '../components';
-// import Icon from '../resources/icon'
 import { User } from '../resources/interfaces';
 import {
   AuthPaper,
@@ -19,6 +15,7 @@ import {
   SwitchButton,
 } from '../styles/authStyled';
 import { Control } from '../styles/globalComponents';
+import { useAuthState } from '../resources/context/auth';
 
 const Auth: NextPage = () => {
   const [userData, setUserData] = useState<User>({
@@ -31,27 +28,16 @@ const Auth: NextPage = () => {
   });
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
   const router = useRouter();
+  const { signInUser, signUpUser } = useAuthState();
 
-  // const signUp = (userData: User) =>
-  // axios.post(`http://localhost:5000/user/signup`, userData)
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-
-  const signUp = () => {
-    axios({
-      method: "POST",
-      data: {
-        userData
-      },
-      withCredentials: true,
-      url: "http://localhost:5000/user/signup",
-    }).then((res) => console.log(res));
+  const handleSubmit = async () => {
+    if (isSignUp) {
+      signUpUser(userData);
+    } else {
+      signInUser(userData);
+    }
+    // router.push('/');
   };
 
   const handleShowPassword = () =>
@@ -137,7 +123,7 @@ const Auth: NextPage = () => {
               </>
             )}
             <Grid item xs={12}>
-              <AuthButton fullWidth variant='contained' onClick={signUp}>
+              <AuthButton fullWidth variant='contained' onClick={handleSubmit}>
                 {isSignUp ? `Sign Up` : `Sign In`}
               </AuthButton>
             </Grid>
