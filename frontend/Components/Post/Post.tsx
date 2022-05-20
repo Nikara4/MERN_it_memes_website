@@ -8,8 +8,9 @@ import {
 } from '@mui/icons-material';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
+
 import { deletePost, likePost, dislikePost } from '../../state/actions/posts';
-import { Post } from '../../resources/interfaces';
+import { Post, PostProps } from '../../resources/interfaces';
 import {
   PostCard,
   TagsBox,
@@ -26,26 +27,16 @@ import {
 } from './styled';
 import { user } from '../../resources/userProfile';
 
-interface PostPropsInterface {
-  currentId: string;
-  setCurrentId: Function;
-  post: Post;
-  handleClickOpen: Function;
-}
-
 const Post = ({
-  currentId,
   setCurrentId,
   post,
   handleClickOpen,
-}: PostPropsInterface) => {
+}: PostProps) => {
   const dispatch = useDispatch();
 
   // const currentPost = useSelector((state: { posts: PostTypeState}) =>
   // currentId ? state?.posts.data.find((post: PostInterface) => post._id === currentId) : null
   // );
-
-  // const user = JSON.parse(localStorage.getItem('profile'));
 
   const Likes = () => {
     if (post.likes.length > 0) {

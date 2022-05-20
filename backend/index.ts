@@ -1,8 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import session from 'express-session';
-import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import bodyParser from 'body-parser';
 
@@ -36,15 +34,6 @@ app.use(
     credentials: true,
   })
 );
-app.use(
-  session({
-    secret: process.env['SESSION_CODE'],
-    resave: false,
-    saveUninitialized: false,
-    cookie: { sameSite: 'strict' }
-  })
-);
-app.use(cookieParser(process.env['SESSION_CODE']));
 app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport);

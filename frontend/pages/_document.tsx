@@ -1,6 +1,12 @@
 /* eslint-disable react/display-name */
-import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
-import { SheetsRegistry, JssProvider, createGenerateId } from "react-jss";
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from 'next/document';
+import { SheetsRegistry, JssProvider, createGenerateId } from 'react-jss';
 
 class MyDocument extends Document {
   static override async getInitialProps(ctx: DocumentContext) {
@@ -9,11 +15,12 @@ class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage;
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App) => (props) => (
-          <JssProvider registry={registry} generateId={generateId}>
-            <App {...props} />
-          </JssProvider>
-        ),
+        enhanceApp: (App) => (props) =>
+          (
+            <JssProvider registry={registry} generateId={generateId}>
+              <App {...props} />
+            </JssProvider>
+          ),
       });
     const initialProps = await Document.getInitialProps(ctx);
     return {
@@ -21,7 +28,7 @@ class MyDocument extends Document {
       styles: (
         <>
           {initialProps.styles}
-          <style id="server-side-styles">{registry.toString()}</style>
+          <style id='server-side-styles'>{registry.toString()}</style>
         </>
       ),
     };
@@ -30,7 +37,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="link to favicon" />
+          <link rel='icon' href='link to favicon' />
         </Head>
         <body>
           <Main />

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import { useRouter } from 'next/router';
 
 import { User } from '../interfaces';
 import { BASE_URL } from '../../pages/api';
@@ -11,6 +12,7 @@ export function AuthProvider({ children }: any) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [token, setToken] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     axios({
@@ -18,17 +20,19 @@ export function AuthProvider({ children }: any) {
       withCredentials: true,
       url: `${BASE_URL}/user`,
     }).then((res: AxiosResponse) => {
-      setUserInfo(res.data);
-      setToken(user?.token);
-
-      if(res.data) {
+      if(user) {
         setIsLoggedIn(true);
+        setUserInfo(res.data);
+        setToken(user?.token);
+        console.log('user should be logged in')
       } else {
-        setIsLoggedIn(false);
-        localStorage.clear();
+        // setIsLoggedIn(false);
+        // localStorage.clear();
+        console.log('user should be logged out')
       }
     });
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const logout = () => {
     axios({
@@ -39,6 +43,7 @@ export function AuthProvider({ children }: any) {
       localStorage.clear();
       setUserInfo(null);
       setIsLoggedIn(false);
+      console.log('user should be logged out and cleared from localStorage')
     });
   };
 
@@ -52,9 +57,9 @@ export function AuthProvider({ children }: any) {
       withCredentials: true,
       url: `${BASE_URL}/user/signin`,
     }).then((res: AxiosResponse) => {
-      const user = localStorage.setItem('profile', JSON.stringify(res.data));
-      window.location.href = '/';
-      return user;
+      localStorage.setItem('profile', JSON.stringify(res.data));
+      router.push('/');
+      console.log('user should be signed in')
     });
   };
 
@@ -65,6 +70,8 @@ export function AuthProvider({ children }: any) {
       withCredentials: true,
       url: `${BASE_URL}/user/signup`,
     }).then((res: AxiosResponse) => {
+      router.push('/');
+      console.log('user should be created')
       return res.data;
     }).catch((err) => console.log(err))
   };

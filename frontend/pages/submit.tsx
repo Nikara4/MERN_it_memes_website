@@ -2,6 +2,7 @@ import { Container } from '@mui/material';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Head from 'next/head';
 
 import { UploadPost } from '../resources/interfaces';
 import { uploadPost } from '../state/actions/posts';
@@ -16,9 +17,7 @@ const SubmitForm: NextPage = () => {
     selectedFile: '',
   });
   const { open, setOpen, closeDialog } = useDialogState();
-  const uploadResult = useSelector(
-    (state: any) => state
-  );
+  const uploadResult = useSelector((state: any) => state);
   const dispatch = useDispatch();
 
   const clearForm = () => {
@@ -44,24 +43,29 @@ const SubmitForm: NextPage = () => {
   };
 
   return (
-    <Container maxWidth='lg'>
-      <UploadForm
-        postData={postData}
-        setPostData={setPostData}
-        handleSubmit={handleSubmit}
-        clearForm={clearForm}
-      />
-      {open && (
-        <Dialog
-          setOpen={setOpen}
-          open={open}
-          closeDialog={closeDialog}
-          title='Meme upload'
-        >
-          {uploadResult?.posts?.info}
-        </Dialog>
-      )}
-    </Container>
+    <>
+      <Head>
+        <title>Upload a Meme | IT Memes World</title>
+      </Head>
+      <Container maxWidth='lg'>
+        <UploadForm
+          postData={postData}
+          setPostData={setPostData}
+          handleSubmit={handleSubmit}
+          clearForm={clearForm}
+        />
+        {open && (
+          <Dialog
+            setOpen={setOpen}
+            open={open}
+            closeDialog={closeDialog}
+            title='Meme upload'
+          >
+            {uploadResult?.posts?.info}
+          </Dialog>
+        )}
+      </Container>
+    </>
   );
 };
 

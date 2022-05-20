@@ -28,6 +28,12 @@ export interface UploadPost {
   selectedFile: string;
 }
 
+export interface PostProps {
+  setCurrentId: Function;
+  post: Post;
+  handleClickOpen: Function;
+}
+
 export interface HeaderProps {
   showMobileMenu: boolean;
   isMobile: boolean;

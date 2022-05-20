@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { DialogActions, DialogContent } from '@mui/material';
+import { DialogActions } from '@mui/material';
 import FileBase64 from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { Post, PostTypeState } from '../../resources/interfaces';
 import { updatePost } from '../../state/actions/posts';
 import { EditDialog, EditDialogContent } from './styled';
@@ -30,30 +31,13 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
     setPostData(updatedPost);
   }, [updatedPost]);
 
-  // const user = JSON.parse(localStorage.getItem('profile'));
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(updatePost(currentId, postData));
     console.log('Post has been updated.');
     handleClose();
-
-    //name: user?.result?.name
   };
 
-  // useEffect(() => {
-  //     if (post) setPostData(post);
-  // }, [post]);
-  // if (!user?.result?.name) {
-  //     return (
-  //         <Paper className={classes.paper}>
-  //             <Typography variant="h5" align="center">
-  //                 You need to be signed in to upload memes to the gallery.
-  //             </Typography>
-  //             {/* sign in / sign up button */}
-  //         </Paper>
-  //     )
-  // }
   return (
     <EditDialog open={open} onClose={handleClose} maxWidth='sm' fullWidth>
       <FormTitle>Edit post</FormTitle>

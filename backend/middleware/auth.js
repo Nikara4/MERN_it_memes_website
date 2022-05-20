@@ -23,7 +23,6 @@ const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
             decodedData = jwt.decode(token);
             req.userId = decodedData === null || decodedData === void 0 ? void 0 : decodedData.sub;
         }
-        console.log(token);
         next();
     }
     catch (error) {
