@@ -4,48 +4,36 @@ import { useRouter } from 'next/router';
 
 import { User } from '../interfaces';
 import { BASE_URL } from '../../pages/api';
-import { user } from '../userProfile';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }: any) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   const [token, setToken] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    axios({
-      method: 'GET',
-      withCredentials: true,
-      url: `${BASE_URL}/user`,
-    }).then((res: AxiosResponse) => {
-      if(user) {
-        setIsLoggedIn(true);
-        setUserInfo(res.data);
-        setToken(user?.token);
-        console.log('user should be logged in')
-      } else {
-        // setIsLoggedIn(false);
-        // localStorage.clear();
-        console.log('user should be logged out')
-      }
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+    const userProfile = localStorage.getItem('profile');
+    const user = userProfile ? JSON.parse(userProfile) : null;
 
-  const logout = () => {
-    axios({
-      method: 'GET',
-      withCredentials: true,
-      url: `${BASE_URL}/user/logout`,
-    }).then((res: AxiosResponse) => {
-      localStorage.clear();
-      setUserInfo(null);
+    // axios({
+    //   method: 'GET',
+    //   withCredentials: true,
+    //   url: `${BASE_URL}/protected`,
+    //   headers: { Authorization: `${user?.token}` },
+    // })
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+
+    if (user) {
+      setIsLoggedIn(true);
+      setUserInfo(user?.user);
+      setToken(user?.token);
+    } else {
       setIsLoggedIn(false);
-      console.log('user should be logged out and cleared from localStorage')
-    });
-  };
+    }
+  }, [router]);
 
   const signIn = (userData: User) => {
     axios({
@@ -59,21 +47,33 @@ export function AuthProvider({ children }: any) {
     }).then((res: AxiosResponse) => {
       localStorage.setItem('profile', JSON.stringify(res.data));
       router.push('/');
-      console.log('user should be signed in')
     });
   };
 
-  const signUp = (userData: User) => {
+  const signUp = (userData: any) => {
     axios({
       method: 'POST',
       data: userData,
       withCredentials: true,
       url: `${BASE_URL}/user/signup`,
+    })
+      .then((res: AxiosResponse) => {
+        router.push('/');
+        return res.data;
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const logout = () => {
+    axios({
+      method: 'GET',
+      withCredentials: true,
+      url: `${BASE_URL}/user/logout`,
     }).then((res: AxiosResponse) => {
-      router.push('/');
-      console.log('user should be created')
-      return res.data;
-    }).catch((err) => console.log(err))
+      localStorage.clear();
+      setUserInfo(null);
+      setIsLoggedIn(false);
+    });
   };
 
   const state = {
@@ -92,7 +92,7 @@ export function useAuthState() {
   const state = useContext(AuthContext);
 
   if (state === undefined) {
-    throw new Error('useAuthState must be used within a UserProvider');
+    throw new Error('useAuthState must be used within a AuthProvider');
   }
 
   return state;

@@ -7,7 +7,7 @@ const API = axios.create({ baseURL: BASE_URL });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
-    req.headers['Authorization'] = `Bearer ${
+    req.headers['Authorization'] = `${
       JSON.parse(localStorage.getItem('profile')).token
     }`;
   }
@@ -17,15 +17,15 @@ API.interceptors.request.use((req) => {
 
 export const fetchPosts = () => API.get('/posts');
 
-export const getSinglePost = (id: string) => API.get(`/posts/${id}`);
+export const getSinglePost = (id: string) => API.get(`/protected/posts/${id}`);
 
-export const createPost = (newPost: Post) => API.post('/posts', newPost);
+export const createPost = (newPost: Post) => API.post('/protected/posts', newPost);
 
 export const updatePost = (id: string, updatedPost: Post) =>
-  API.patch(`/posts/${id}`, updatedPost);
+  API.patch(`/protected/posts/${id}`, updatedPost);
 
-export const deletePost = (id: string) => API.delete(`/posts/${id}`);
+export const deletePost = (id: string) => API.delete(`/protected/posts/${id}`);
 
-export const likePost = (id: string) => API.patch(`/posts/${id}/like`);
+export const likePost = (id: string) => API.patch(`/protected/posts/${id}/like`);
 
-export const dislikePost = (id: string) => API.patch(`/posts/${id}/dislike`);
+export const dislikePost = (id: string) => API.patch(`/protected/posts/${id}/dislike`);

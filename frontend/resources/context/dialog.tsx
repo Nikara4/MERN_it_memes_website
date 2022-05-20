@@ -27,7 +27,7 @@ export function useDialogState() {
   const state = useContext(DialogContext);
 
   if (state === undefined) {
-    throw new Error('useDialogState must be used within a UserProvider');
+    throw new Error('useDialogState must be used within a DialogProvider');
   }
 
   return state;

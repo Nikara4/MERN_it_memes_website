@@ -7,8 +7,7 @@ import Head from 'next/head';
 import { UploadPost } from '../resources/interfaces';
 import { uploadPost } from '../state/actions/posts';
 import { Dialog, UploadForm } from '../components';
-import { user } from '../resources/userProfile';
-import { useDialogState } from '../resources/context';
+import { useDialogState, useAuthState } from '../resources/context';
 
 const SubmitForm: NextPage = () => {
   const [postData, setPostData] = useState<UploadPost>({
@@ -17,6 +16,7 @@ const SubmitForm: NextPage = () => {
     selectedFile: '',
   });
   const { open, setOpen, closeDialog } = useDialogState();
+  const { userInfo } = useAuthState();
   const uploadResult = useSelector((state: any) => state);
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ const SubmitForm: NextPage = () => {
     dispatch(
       uploadPost({
         ...postData,
-        userName: user?.result?.userName,
+        userName: userInfo?.user?.userName,
       })
     );
     clearForm();
@@ -53,6 +53,7 @@ const SubmitForm: NextPage = () => {
           setPostData={setPostData}
           handleSubmit={handleSubmit}
           clearForm={clearForm}
+          user={userInfo}
         />
         {open && (
           <Dialog

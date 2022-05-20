@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 
 import {
   getPosts,
@@ -9,16 +10,15 @@ import {
   dislikePost,
   likePost,
 } from '../controller/posts.js';
-import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
 router.get('/', getPosts);
-router.get('/:id', getSinglePost);
-router.post('/', auth, uploadPost);
-router.patch('/:id', auth, updatePost);
-router.delete('/:id', auth, deletePost);
-router.patch('/:id/like', auth, likePost);
-router.patch('/:id/dislike', auth, dislikePost);
+// router.get('/:id', passport.authenticate('jwt', { session: false }), getSinglePost);
+// router.post('/', passport.authenticate('jwt', { session: false }), uploadPost);
+// router.patch('/:id', passport.authenticate('jwt', { session: false }), updatePost);
+// router.delete('/:id', passport.authenticate('jwt', { session: false }), deletePost);
+// router.patch('/:id/like', passport.authenticate('jwt', { session: false }), likePost);
+// router.patch('/:id/dislike', passport.authenticate('jwt', { session: false }), dislikePost);
 
 export default router;

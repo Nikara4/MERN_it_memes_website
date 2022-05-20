@@ -7,22 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import passport from 'passport';
 const auth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
     try {
-        const token = (_b = (_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.split(" ")[1];
-        const isCustomAuth = (token === null || token === void 0 ? void 0 : token.length) < 500;
-        let decodedData;
-        if (token && isCustomAuth) {
-            decodedData = jwt.verify(token, process.env['SECRET_TOKEN']);
-            req.userId = decodedData === null || decodedData === void 0 ? void 0 : decodedData.id;
-        }
-        else {
-            decodedData = jwt.decode(token);
-            req.userId = decodedData === null || decodedData === void 0 ? void 0 : decodedData.sub;
-        }
+        passport.authenticate('jwt', { session: false });
         next();
     }
     catch (error) {

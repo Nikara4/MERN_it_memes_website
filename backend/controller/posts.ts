@@ -31,9 +31,11 @@ export const uploadPost = async (req: Request, res: Response) => {
     const post = req.body;
     const newPost = new PostMeme({
       ...post,
-      author: req.userId,
+      author: req.user,
       createdAt: new Date().toString(),
     });
+
+    console.log(req.user)
 
     await newPost.save();
     return res.status(201).json(newPost);
@@ -85,8 +87,9 @@ export const deletePost = async (req: Request, res: Response) => {
 export const likePost = async (req: Request, res: Response) => {
   try {
     const { id: postID } = req.params;
+    const { _id: userID } = req.user;
 
-    if (!req.userId)
+    if (!req.user)
       return res.status(401).send({ message: `Unauthenticated.` });
 
     if (!mongoose.Types.ObjectId.isValid(postID)) {
@@ -100,7 +103,7 @@ export const likePost = async (req: Request, res: Response) => {
     );
 
     if (index === -1) {
-      post.likes.push(req.userId);
+      post.likes.push(userID);
     } else {
       post.likes = post.likes.filter((like: string) => like !== String(req.userId));
     }

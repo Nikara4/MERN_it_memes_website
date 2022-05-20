@@ -25,13 +25,8 @@ import {
   LikesCardActions,
   LikesBox,
 } from './styled';
-import { user } from '../../resources/userProfile';
 
-const Post = ({
-  setCurrentId,
-  post,
-  handleClickOpen,
-}: PostProps) => {
+const Post = ({ setCurrentId, post, handleClickOpen, user }: PostProps) => {
   const dispatch = useDispatch();
 
   // const currentPost = useSelector((state: { posts: PostTypeState}) =>
@@ -41,7 +36,7 @@ const Post = ({
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(
-        (like) => like === (user?.result?.googleId || user?.result?._id)
+        (like) => like === (user?.googleId || user?._id)
       ) ? (
         <>
           <ThumbUpAlt fontSize='small' />
@@ -70,7 +65,7 @@ const Post = ({
   const Dislikes = () => {
     if (post.dislikes.length > 0) {
       return post.dislikes.find(
-        (like) => like === (user?.result?.googleId || user?.result?._id)
+        (like) => like === (user?.googleId || user?._id)
       ) ? (
         <>
           <ThumbDown fontSize='small' />
@@ -100,6 +95,7 @@ const Post = ({
     );
   };
 
+console.log(user?._id === post.author)
   return (
     <PostCard>
       <TagsBox>
@@ -115,8 +111,7 @@ const Post = ({
       </OverlayTypography>
       <PostCardMedia image={post.selectedFile} title={post.title} />
       <PostCardActions>
-        {(user?.result?.googleId === post.author ||
-          user?.result?._id === post.author) && (
+        {(user?.googleId === post.author || user?._id === post.author) && (
           <ActionsBox>
             <PostButton
               size='small'
@@ -143,20 +138,19 @@ const Post = ({
           <PostButton
             size='small'
             onClick={() => dispatch(likePost(post._id))}
-            disabled={!user?.result}
+            disabled={!user?._id}
           >
             <Likes />
           </PostButton>
           <PostButton
             size='small'
             onClick={() => dispatch(dislikePost(post._id))}
-            disabled={!user?.result}
+            disabled={!user?._id}
           >
             <Dislikes />
           </PostButton>
         </LikesBox>
-        {(user?.result?.googleId === post.author ||
-          user?.result?._id === post.author) && (
+        {(user?.googleId === post.author || user?._id === post.author) && (
           <PostButton
             size='small'
             onClick={() => dispatch(deletePost(post._id))}

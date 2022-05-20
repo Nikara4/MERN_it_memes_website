@@ -9,7 +9,6 @@ import {
   Control,
   Text,
 } from '../../styles/globalComponents';
-import { user } from '../../resources/userProfile';
 import { UploadFormProps } from '../../resources/interfaces';
 
 const UploadForm = ({
@@ -17,8 +16,9 @@ const UploadForm = ({
   setPostData,
   handleSubmit,
   clearForm,
+  user,
 }: UploadFormProps) => {
-  if (!user?.result.name) {
+  if (!user) {
     return (
       <FormPaper>
         <Text sx={{ textAlign: 'center' }}>

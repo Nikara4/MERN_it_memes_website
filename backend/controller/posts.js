@@ -34,7 +34,8 @@ export const getSinglePost = (req, res) => __awaiter(void 0, void 0, void 0, fun
 export const uploadPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = req.body;
-        const newPost = new PostMeme(Object.assign(Object.assign({}, post), { author: req.userId, createdAt: new Date().toString() }));
+        const newPost = new PostMeme(Object.assign(Object.assign({}, post), { author: req.user, createdAt: new Date().toString() }));
+        console.log(req.user);
         yield newPost.save();
         return res.status(201).json(newPost);
     }
@@ -75,7 +76,8 @@ export const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, functi
 export const likePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id: postID } = req.params;
-        if (!req.userId)
+        const { _id: userID } = req.user;
+        if (!req.user)
             return res.status(401).send({ message: `Unauthenticated.` });
         if (!mongoose.Types.ObjectId.isValid(postID)) {
             return res.status(404).send({ data: `No post with ID: ${postID}` });
@@ -83,7 +85,7 @@ export const likePost = (req, res) => __awaiter(void 0, void 0, void 0, function
         const post = yield PostMeme.findById(postID);
         const index = post.likes.findIndex((id) => id === String(req.userId));
         if (index === -1) {
-            post.likes.push(req.userId);
+            post.likes.push(userID);
         }
         else {
             post.likes = post.likes.filter((like) => like !== String(req.userId));

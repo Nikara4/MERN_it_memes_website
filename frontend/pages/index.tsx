@@ -9,10 +9,12 @@ import { getPosts } from '../state/actions/posts';
 import { EditForm } from '../containers';
 import { PostTypeState } from '../resources/interfaces';
 import { GridItem, MainContainer, MainGrid } from '../styles/indexStyled';
+import { useAuthState } from '../resources/context';
 
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
+  const { userInfo } = useAuthState();
   const posts = useSelector((state: PostTypeState) => state);
   const dispatch = useDispatch();
 
@@ -55,6 +57,7 @@ const Home: NextPage = () => {
                     post={post}
                     setCurrentId={setCurrentId}
                     handleClickOpen={handleClickOpen}
+                    user={userInfo}
                   />
                 </GridItem>
               ))

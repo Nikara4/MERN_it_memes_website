@@ -24,7 +24,6 @@ import {
   HeaderTypography,
   HeaderButtonLogin,
   ProfileTypography,
-  ProfileBox,
 } from './styled';
 import { HeaderProps } from '../../resources/interfaces';
 import userIcon from '../../public/imgs/user.png';

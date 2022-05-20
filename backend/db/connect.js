@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
-export default (url) => {
-    return mongoose.connect(url);
+import 'dotenv/config';
+const mongoDB = process.env['MONGO_URI'];
+export default () => {
+    return mongoose.connect(mongoDB);
 };

@@ -3,11 +3,13 @@ import express from 'express';
 import cors from 'cors';
 import passport from 'passport';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 import connectDB from './db/connect.js';
 import postRoutes from './routes/posts.js';
 import userRoutes from './routes/user.js';
-import passportConfig from "./passportConfig.js";
+import postsProtectedRoutes from './routes/postsProtected.js';
+import passportConfig from "./config/passportConfig.js";
 
 const app = express();
 
@@ -34,23 +36,23 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use(passport.initialize());
-app.use(passport.session());
 passportConfig(passport);
 
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
+app.use('/protected', postsProtectedRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello to Memes API');
 });
 
 const PORT = process.env['PORT'] || 5000;
-const mongoDB: string = process.env['MONGO_URI'];
 
 const start = async () => {
   try {
-    await connectDB(mongoDB);
+    await connectDB();
     app.listen(PORT);
     console.log(`Server is running on port: ${PORT}...`);
   } catch (error) {
