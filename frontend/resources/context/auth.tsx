@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 
 import { User } from '../interfaces';
 import { BASE_URL } from '../../pages/api';
+import { user } from '../userProfile';
 
 const AuthContext = createContext(null);
 
@@ -18,8 +19,14 @@ export function AuthProvider({ children }: any) {
       url: `${BASE_URL}/user`,
     }).then((res: AxiosResponse) => {
       setUserInfo(res.data);
-      setToken(res.data.token);
-      setIsLoggedIn(() => (res.data ? true : false));
+      setToken(user?.token);
+
+      if(res.data) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+        localStorage.clear();
+      }
     });
   }, []);
 
@@ -59,7 +66,7 @@ export function AuthProvider({ children }: any) {
       url: `${BASE_URL}/user/signup`,
     }).then((res: AxiosResponse) => {
       return res.data;
-    });
+    }).catch((err) => console.log(err))
   };
 
   const state = {

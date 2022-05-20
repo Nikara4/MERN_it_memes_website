@@ -32,7 +32,6 @@ export const uploadPost = async (req: Request, res: Response) => {
     const newPost = new PostMeme({
       ...post,
       author: req.userId,
-      // userName: ,
       createdAt: new Date().toString(),
     });
 

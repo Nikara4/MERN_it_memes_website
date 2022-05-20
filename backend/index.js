@@ -36,8 +36,9 @@ app.use(cors({
 }));
 app.use(session({
     secret: process.env['SESSION_CODE'],
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { sameSite: 'strict' }
 }));
 app.use(cookieParser(process.env['SESSION_CODE']));
 app.use(passport.initialize());

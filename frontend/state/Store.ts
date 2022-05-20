@@ -4,7 +4,11 @@ import postsReducer from './reducers/posts';
 import { createLogger } from 'redux-logger';
 
 const initialState: any = {
-  posts: [],
+  posts: {
+    posts: [],
+    info: '',
+    isError: false,
+  },
 };
 
 export const rootReducer = (state = initialState, action: AnyAction) => {

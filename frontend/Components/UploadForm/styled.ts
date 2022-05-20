@@ -6,7 +6,7 @@ export const FormPaper = styled(Paper)(({ theme }) => ({
   fontFamily: 'Poppins, sans-serif',
   borderRadius: '0',
   backgroundColor: 'transparent',
-  marginLeft: 30,
+  marginLeft: 0,
   width: '100%',
   '& .MuiDialog-paper': {
     backgroundColor: '#1D1D1D',

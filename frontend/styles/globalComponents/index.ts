@@ -5,19 +5,20 @@ import {
   TextField,
   Button,
   FormControl,
+  Typography
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const SearchBox = styled(Box)(({ theme }) => ({
   display: 'flex',
-  flexBasis: '18%',
+  flexBasis: '17%',
   marginLeft: '0',
   marginRight: '1%',
   borderRadius: '7px',
-  backgroundColor: 'rgba(250, 249, 246, 0.5)',
+  backgroundColor: 'rgba(250, 249, 246, 0.4)',
   zIndex: '2',
   '&:hover': {
-    backgroundColor: 'rgba(250, 249, 246, 0.6)',
+    backgroundColor: 'rgba(250, 249, 246, 0.5)',
   },
   '& input::placeholder': {
     color: '#F9F6EE',
@@ -151,6 +152,31 @@ export const FormFileBox = styled(Box)(({ theme }) => ({
   margin: '15px',
   '& input': {
     fontSize: '16px',
+  },
+  [theme.breakpoints.down('lg')]: {
+    width: '90%',
+    cursor: 'none',
+    '& input': {
+      fontSize: '14px',
+    },
+  },
+  [theme.breakpoints.down('md')]: {
+    width: '90%',
+    cursor: 'none',
+  },
+}));
+
+export const Text = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Poppins, sans-serif',
+  fontSize: '18px',
+  fontWeight: 300,
+  lineHeight: '30px',
+  margin: '10px 10px 10px 0',
+  '& a': {
+    color: '#50C878',
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   },
   [theme.breakpoints.down('lg')]: {
     width: '90%',

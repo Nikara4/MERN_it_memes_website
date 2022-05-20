@@ -54,7 +54,8 @@ export const signUp = (req, res) => {
 export const fetchUser = (req, res) => {
     res.send(req.user);
 };
-// export const fetchUser = async (req: Request, res: Response) => {
+// for profile page implementation
+// export const fetchSingleUser = async (req: Request, res: Response) => {
 //   try {
 //     const { userName } = req.body;
 //     const user = await User.findById({userName});

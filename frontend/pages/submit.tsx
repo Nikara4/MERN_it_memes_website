@@ -1,12 +1,13 @@
 import { Container } from '@mui/material';
 import { NextPage } from 'next';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { UploadPost } from '../resources/interfaces';
 import { uploadPost } from '../state/actions/posts';
-import { UploadForm } from '../components';
+import { Dialog, UploadForm } from '../components';
 import { user } from '../resources/userProfile';
+import { useDialogState } from '../resources/context';
 
 const SubmitForm: NextPage = () => {
   const [postData, setPostData] = useState<UploadPost>({
@@ -14,7 +15,10 @@ const SubmitForm: NextPage = () => {
     tags: [],
     selectedFile: '',
   });
-  const [showSnackbar, setShowSnackbar] = useState(false);
+  const { open, setOpen, closeDialog } = useDialogState();
+  const uploadResult = useSelector(
+    (state: any) => state
+  );
   const dispatch = useDispatch();
 
   const clearForm = () => {
@@ -28,20 +32,16 @@ const SubmitForm: NextPage = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
-    dispatch(uploadPost({
-      ...postData, userName: user?.result?.userName,
-      _id: '',
-      author: '',
-      likes: [],
-      dislikes: [],
-      createdAt: ''
-    }));
+    dispatch(
+      uploadPost({
+        ...postData,
+        userName: user?.result?.userName,
+      })
+    );
     clearForm();
 
-    setShowSnackbar(true);
+    setOpen(true);
   };
-
-  const handleCloseSnackbar = () => setShowSnackbar(!showSnackbar);
 
   return (
     <Container maxWidth='lg'>
@@ -50,9 +50,17 @@ const SubmitForm: NextPage = () => {
         setPostData={setPostData}
         handleSubmit={handleSubmit}
         clearForm={clearForm}
-        showSnackbar={showSnackbar}
-        handleCloseSnackbar={handleCloseSnackbar}
       />
+      {open && (
+        <Dialog
+          setOpen={setOpen}
+          open={open}
+          closeDialog={closeDialog}
+          title='Meme upload'
+        >
+          {uploadResult?.posts?.info}
+        </Dialog>
+      )}
     </Container>
   );
 };

@@ -1,13 +1,13 @@
 import FileBase64 from 'react-file-base64';
-import { Snackbar, Typography } from '@mui/material';
 
-import { FormPaper, SubmitBox, SuccessAlert } from './styled';
+import { FormPaper, SubmitBox } from './styled';
 import {
   FormTitle,
   FormTextField,
   FormButton,
   FormFileBox,
   Control,
+  Text,
 } from '../../styles/globalComponents';
 import { user } from '../../resources/userProfile';
 import { UploadFormProps } from '../../resources/interfaces';
@@ -17,15 +17,13 @@ const UploadForm = ({
   setPostData,
   handleSubmit,
   clearForm,
-  showSnackbar,
-  handleCloseSnackbar,
 }: UploadFormProps) => {
   if (!user?.result.name) {
     return (
       <FormPaper>
-        <Typography variant='h6' align='center'>
+        <Text sx={{ textAlign: 'center' }}>
           You need to be signed in to upload memes to the gallery.
-        </Typography>
+        </Text>
       </FormPaper>
     );
   }
@@ -79,17 +77,6 @@ const UploadForm = ({
             Clear
           </FormButton>
         </SubmitBox>
-        {showSnackbar && (
-          <Snackbar open autoHideDuration={6000} onClose={handleCloseSnackbar}>
-            <SuccessAlert
-              // onClose={handleCloseSnackbar}
-              severity='success'
-              sx={{ width: '100%' }}
-            >
-              New meme has been added successfully. Thank you!
-            </SuccessAlert>
-          </Snackbar>
-        )}
       </Control>
     </FormPaper>
   );

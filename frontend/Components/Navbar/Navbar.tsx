@@ -53,7 +53,7 @@ const Navbar = ({
               <NavLink
                 to='/about'
                 icon={<LightbulbOutlined />}
-                path='About us'
+                path='About'
                 setShowMobileMenu={setShowMobileMenu}
               />
               <NavLink
@@ -93,7 +93,7 @@ const Navbar = ({
               <NavLink
                 to='/about'
                 icon={<LightbulbOutlined />}
-                path='About us'
+                path='About'
               />
               <NavLink
                 to='/submit'

@@ -1,4 +1,11 @@
-import { Typography, AppBar, Toolbar, Button, CardMedia } from '@mui/material';
+import {
+  Typography,
+  AppBar,
+  Toolbar,
+  Button,
+  CardMedia,
+  Box,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const HeaderAppBar = styled(AppBar)(({ theme }) => ({
@@ -50,7 +57,7 @@ export const HeaderTypography = styled(Typography)(({ theme }) => ({
   fontSize: '32px',
   fontFamily: 'Poppins, sans-serif',
   fontWeight: '600',
-  flexBasis: '65%',
+  flexBasis: '50%',
   [theme.breakpoints.down('lg')]: {
     fontSize: '22px',
   },
@@ -67,7 +74,6 @@ export const HeaderButtonLogin = styled(Button)(({ theme }) => ({
   fontFamily: 'Poppins, sans-serif',
   fontWeight: 600,
   justifyContent: 'flex-start',
-  margin: '0 20px',
   '&:hover': {
     color: '#50C878',
   },
@@ -87,7 +93,7 @@ export const HeaderButtonLogin = styled(Button)(({ theme }) => ({
 }));
 
 export const ProfileTypography = styled(Typography)(({ theme }) => ({
-  fontSize: '18px',
+  fontSize: '16px',
   fontFamily: 'Poppins, sans-serif',
   fontWeight: '300',
   flexBasis: '80%',
@@ -99,3 +105,16 @@ export const ProfileTypography = styled(Typography)(({ theme }) => ({
   },
 }));
 
+export const ProfileBox = styled(Box)(({ theme }) => ({
+  backgroundColor: 'transparent',
+  display: 'flex',
+  alignItems: 'center',
+  flexBasis: '15%',
+  // [theme.breakpoints.down('lg')]: {
+  //   height: '10vh',
+  // },
+  [theme.breakpoints.down('md')]: {
+    margin: '0 !important',
+    backgroundColor: 'transparent !important',
+  },
+}));

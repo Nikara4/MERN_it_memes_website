@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogContentText } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const AuthDialog = styled(Dialog)(({ theme }) => ({
+export const CustomDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     backgroundColor: '#1D1D1D',
     margin: 0,
@@ -14,7 +14,7 @@ export const AuthDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export const AuthDialogContent = styled(DialogContent)(({ theme }) => ({
+export const CustomDialogContent = styled(DialogContent)(({ theme }) => ({
   padding: '0 20px',
   margin: 10,
   [theme.breakpoints.down('md')]: {
@@ -23,7 +23,7 @@ export const AuthDialogContent = styled(DialogContent)(({ theme }) => ({
   },
 }));
 
-export const AuthDialogContentText = styled(DialogContentText)(({ theme }) => ({
+export const CustomDialogContentText = styled(DialogContentText)(({ theme }) => ({
   color:  '#F9F6EE',
   fontFamily: 'Poppins, sans-serif',
   textAlign: 'center',

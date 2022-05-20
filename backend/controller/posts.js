@@ -34,9 +34,7 @@ export const getSinglePost = (req, res) => __awaiter(void 0, void 0, void 0, fun
 export const uploadPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = req.body;
-        const newPost = new PostMeme(Object.assign(Object.assign({}, post), { author: req.userId, 
-            // userName: ,
-            createdAt: new Date().toString() }));
+        const newPost = new PostMeme(Object.assign(Object.assign({}, post), { author: req.userId, createdAt: new Date().toString() }));
         yield newPost.save();
         return res.status(201).json(newPost);
     }

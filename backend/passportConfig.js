@@ -28,7 +28,6 @@ export default (passport) => {
         User.findOne({ _id: id }, (err, user) => {
             const userInformation = {
                 userName: user.userName,
-                name: user.name,
                 id: user._id,
             };
             if (!user) {

@@ -32,7 +32,6 @@ export default (passport: any) => {
     User.findOne({ _id: id }, (err: NativeError, user: UserDocument) => {
       const userInformation = {
         userName: user.userName,
-        name: user.name,
         id: user._id,
       };
       if (!user) {

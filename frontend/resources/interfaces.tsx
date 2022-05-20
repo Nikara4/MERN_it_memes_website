@@ -11,15 +11,15 @@ export interface User {
 }
 
 export interface Post {
-  _id: string;
-  author: string;
+  _id?: string;
+  author?: string;
   userName: string;
   title: string;
   tags: string[];
   selectedFile: string;
-  likes: string[];
-  dislikes: string[];
-  createdAt: string;
+  likes?: string[];
+  dislikes?: string[];
+  createdAt?: string;
 }
 
 export interface UploadPost {
@@ -39,11 +39,6 @@ export interface UploadFormProps {
   setPostData: Function;
   handleSubmit: MouseEventHandler<HTMLButtonElement>;
   clearForm: MouseEventHandler<HTMLButtonElement>;
-  showSnackbar: boolean;
-  handleCloseSnackbar: (
-    event: React.SyntheticEvent<any> | Event,
-    reason: SnackbarCloseReason
-  ) => void;
 }
 
 export interface AuthFormProps {

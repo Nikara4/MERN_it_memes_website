@@ -1,18 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
-import { useState, useEffect, useContext } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import axios, { AxiosResponse } from 'axios';
 import decode from 'jwt-decode';
-import { useAuthState } from '../../resources/context/auth';
 import {
   Box,
   IconButton,
-  Menu as NavMenu,
-  MenuItem,
+  // Menu as NavMenu,
+  // MenuItem,
   Avatar,
 } from '@mui/material';
 import { Menu, Close, Search, Login, Logout } from '@mui/icons-material';
 
+import { useAuthState } from '../../resources/context/auth';
 import {
   SearchBox,
   SearchIconBox,
@@ -26,12 +24,11 @@ import {
   HeaderTypography,
   HeaderButtonLogin,
   ProfileTypography,
+  ProfileBox,
 } from './styled';
-import { HeaderProps, User } from '../../resources/interfaces';
-const BASE_URL = 'http://localhost:5000';
-
-const newLocal =
-  'https://raw.githubusercontent.com/Nikara4/MERN_it_memes_website/auth/frontend/public/imgs/code.png';
+import { HeaderProps } from '../../resources/interfaces';
+import userIcon from '../../public/imgs/user.png';
+import logoIcon from '../../public/imgs/code.png';
 
 const Header = ({
   showMobileMenu,
@@ -39,14 +36,7 @@ const Header = ({
   setShowMobileMenu,
 }: HeaderProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [userInfo, setUserInfo] = useState(null);
-const {     isLoggedIn,
-  userInfo,
-  token, logout } = useAuthState()
-  // console.log(userInfo);
-
-
+  const { isLoggedIn, userInfo, token, logout } = useAuthState();
 
   if (token) {
     const decodedToken: any = decode(token);
@@ -58,9 +48,9 @@ const {     isLoggedIn,
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -72,8 +62,12 @@ const {     isLoggedIn,
             </HeaderButtonNav>
           )}
           <Link href='/' passHref>
-            {/* @ts-ignore */}
-            <HeaderCardMedia component='img' src={newLocal} title='IT icon' />
+            <HeaderCardMedia
+              //  @ts-ignore
+              component='img'
+              src={logoIcon.src}
+              title='IT icon'
+            />
           </Link>
           <HeaderTypography variant='h6' noWrap>
             Memes from IT
@@ -89,10 +83,18 @@ const {     isLoggedIn,
               </SearchIconBox>
             </SearchBox>
           ) : null}
-          <Box sx={{ display: 'flex', alignItems: 'center', flexBasis: '10%' }}>
+          <div
+            style={{
+              backgroundColor: 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              flexBasis: '15%',
+              margin: '0 !important',
+            }}
+          >
             {isLoggedIn ? (
               <>
-                <ProfileTypography variant='h6' style={{ fontSize: '18px' }}>
+                <ProfileTypography variant='h6'>
                   {userInfo?.userName}
                 </ProfileTypography>
                 <IconButton
@@ -102,10 +104,12 @@ const {     isLoggedIn,
                   aria-haspopup='true'
                   onClick={handleMenu}
                   color='inherit'
+                  sx={{ padding: '12px 25px' }}
                 >
-                  <Avatar alt={userInfo?.userName} src={userInfo?.imageUrl}>
-                    {userInfo?.userName.charAt(0)}
-                  </Avatar>
+                  <Avatar
+                    alt={userInfo?.userName}
+                    src={userInfo?.imageUrl ? userInfo?.imageUrl : userIcon.src}
+                  />
                 </IconButton>
                 <HeaderButtonLogin onClick={logout}>
                   <Logout />
@@ -118,7 +122,8 @@ const {     isLoggedIn,
                 </HeaderButtonLogin>
               </Link>
             )}
-            <NavMenu
+            {/* function under development
+             <NavMenu
               id='menu-appbar'
               anchorEl={anchorEl}
               anchorOrigin={{
@@ -135,8 +140,8 @@ const {     isLoggedIn,
             >
               <MenuItem onClick={handleClose}>My Profile</MenuItem>
               <MenuItem onClick={handleClose}>My memes</MenuItem>
-            </NavMenu>
-          </Box>
+            </NavMenu> */}
+          </div>
         </HeaderToolbar>
       </HeaderAppBar>
     </Box>

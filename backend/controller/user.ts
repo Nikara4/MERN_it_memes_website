@@ -6,7 +6,6 @@ import { NativeError } from 'mongoose';
 import passport from 'passport';
 
 import User, { UserDocument } from '../models/User.js';
-import mongoose from 'mongoose';
 
 export const signIn = (req: Request, res: Response, next: NextFunction) => {
   const { userName, password } = req.body;
@@ -71,7 +70,9 @@ export const fetchUser = (req: Request, res: Response) => {
   res.send(req.user);
 };
 
-// export const fetchUser = async (req: Request, res: Response) => {
+// for profile page implementation
+
+// export const fetchSingleUser = async (req: Request, res: Response) => {
 //   try {
 //     const { userName } = req.body;
 //     const user = await User.findById({userName});
