@@ -17,15 +17,6 @@ export function AuthProvider({ children }: any) {
     const userProfile = localStorage.getItem('profile');
     const user = userProfile ? JSON.parse(userProfile) : null;
 
-    // axios({
-    //   method: 'GET',
-    //   withCredentials: true,
-    //   url: `${BASE_URL}/protected`,
-    //   headers: { Authorization: `${user?.token}` },
-    // })
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-
     if (user) {
       setIsLoggedIn(true);
       setUserInfo(user?.user);

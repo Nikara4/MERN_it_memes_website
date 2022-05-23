@@ -95,7 +95,7 @@ const Post = ({ setCurrentId, post, handleClickOpen, user }: PostProps) => {
     );
   };
 
-console.log(user?._id === post.author)
+console.log(post)
   return (
     <PostCard>
       <TagsBox>

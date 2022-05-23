@@ -29,13 +29,13 @@ export const getSinglePost = async (req: Request, res: Response) => {
 export const uploadPost = async (req: Request, res: Response) => {
   try {
     const post = req.body;
+    const { _id: userID, userName } = req.user;
     const newPost = new PostMeme({
       ...post,
-      author: req.user,
+      author: userID,
+      userName,
       createdAt: new Date().toString(),
     });
-
-    console.log(req.user)
 
     await newPost.save();
     return res.status(201).json(newPost);
@@ -99,13 +99,13 @@ export const likePost = async (req: Request, res: Response) => {
     const post = await PostMeme.findById(postID);
 
     const index = post.likes.findIndex(
-      (id: string) => id === String(req.userId)
+      (id: string) => id === String(userID)
     );
 
     if (index === -1) {
       post.likes.push(userID);
     } else {
-      post.likes = post.likes.filter((like: string) => like !== String(req.userId));
+      post.likes = post.likes.filter((like: string) => like !== String(userID));
     }
 
     const updatedPost = await PostMeme.findByIdAndUpdate(postID, post, {
@@ -121,8 +121,9 @@ export const likePost = async (req: Request, res: Response) => {
 export const dislikePost = async (req: Request, res: Response) => {
   try {
     const { id: postID } = req.params;
+    const { _id: userID } = req.user;
 
-    if (!req.userId)
+    if (!userID)
       return res.status(401).send({ message: `Unauthenticated.` });
 
     if (!mongoose.Types.ObjectId.isValid(postID)) {
@@ -132,13 +133,13 @@ export const dislikePost = async (req: Request, res: Response) => {
     const post = await PostMeme.findById(postID);
 
     const index = post.dislikes.findIndex(
-      (id: string) => id === String(req.userId)
+      (id: string) => id === String(userID)
     );
 
     if (index === -1) {
-      post.dislikes.push(req.userId);
+      post.dislikes.push(userID);
     } else {
-      post.dislikes = post.dislikes.filter((dislike: string) => dislike !== String(req.userId));
+      post.dislikes = post.dislikes.filter((dislike: string) => dislike !== String(userID));
     }
 
     const updatedPost = await PostMeme.findByIdAndUpdate(postID, post, {

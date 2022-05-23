@@ -16,7 +16,6 @@ import cookieParser from 'cookie-parser';
 import connectDB from './db/connect.js';
 import postRoutes from './routes/posts.js';
 import userRoutes from './routes/user.js';
-import postsProtectedRoutes from './routes/postsProtected.js';
 import passportConfig from "./config/passportConfig.js";
 const app = express();
 app.use(bodyParser.json({
@@ -39,7 +38,6 @@ app.use(passport.initialize());
 passportConfig(passport);
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
-app.use('/protected', postsProtectedRoutes);
 app.get('/', (req, res) => {
     res.send('Hello to Memes API');
 });

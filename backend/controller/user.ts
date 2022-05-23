@@ -45,6 +45,7 @@ export const signUp = (req: Request, res: Response) => {
   // console.log(!!existingUser)
   // if (existingUser)
   //   return res.status(400).json({ message: 'User already exists.' });
+  
   if (password !== confirmPassword)
     return res.status(400).json({ message: 'Passwords do not match' });
 
