@@ -23,7 +23,7 @@ export const FormPaper = styled(Paper)(({ theme }) => ({
     borderRadius: 0,
   },
   '& .Mui-focused': {
-    color: '#F9F6EE',
+    color: '#F9F6EE !important',
   },
   [theme.breakpoints.down('md')]: {
     '& .MuiDialog-paper': {

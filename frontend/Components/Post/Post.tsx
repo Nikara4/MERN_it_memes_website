@@ -95,7 +95,6 @@ const Post = ({ setCurrentId, post, handleClickOpen, user }: PostProps) => {
     );
   };
 
-console.log(post)
   return (
     <PostCard>
       <TagsBox>

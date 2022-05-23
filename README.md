@@ -74,6 +74,8 @@ COMPLETED:
 
 The following are planned to be implemented:
 
+- **media queries**: final fixes with mobile views,
+- **information dialogs**: creating client side information dialogs/snackbars for success/info/warning/error informations from the backend,
 - **pagination**: separating the amount of visible posts and creating pages,
 - **search engine**: searching through tags,
 - **comments section**: comments will be available for logged in users; the post will show itself in a lightbox window with a comments section
