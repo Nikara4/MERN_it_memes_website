@@ -9,13 +9,13 @@ import { getPosts } from '../state/actions/posts';
 import { EditForm } from '../containers';
 import { PostTypeState } from '../resources/interfaces';
 import { GridItem, MainContainer, MainGrid } from '../styles/indexStyled';
+import { useAuthState } from '../resources/context';
 
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
-  const posts = useSelector(
-    (state: PostTypeState) => state
-  );
+  const { userInfo } = useAuthState();
+  const posts = useSelector((state: PostTypeState) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,28 +48,28 @@ const Home: NextPage = () => {
             alignItems='stretch'
             spacing={3}
           >
-              {!posts?.posts.length ? (
-                <CircularProgress />
-              ) : (
-                    posts.posts.map((post: any) => (
-                    <GridItem item key={post.id} xs={12} sm={12}>
-                      <Post
-                        post={post}
-                        currentId={currentId}
-                        setCurrentId={setCurrentId}
-                        handleClickOpen={handleClickOpen}
-                      />
-                    </GridItem>
-                  ))
-              )}
-              {open && (
-                <EditForm
-                  currentId={currentId}
-                  handleClose={handleClose}
-                  open={open}
-                />
-              )}
-            </MainGrid>
+            {!posts?.posts.length ? (
+              <CircularProgress />
+            ) : (
+              posts.posts.map((post: any) => (
+                <GridItem item key={post.id} xs={12} sm={12}>
+                  <Post
+                    post={post}
+                    setCurrentId={setCurrentId}
+                    handleClickOpen={handleClickOpen}
+                    user={userInfo}
+                  />
+                </GridItem>
+              ))
+            )}
+            {open && (
+              <EditForm
+                currentId={currentId}
+                handleClose={handleClose}
+                open={open}
+              />
+            )}
+          </MainGrid>
         </Grow>
       </MainContainer>
     </>

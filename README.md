@@ -42,11 +42,9 @@ For now the project is in completed in the basic stage, which makes it usable an
 - uuid
 - bcryptjs
 - body-parser
-- cookie-parser
 - cors
 - dotenv
 - express
-- express-session
 - jsonwebtoken
 - mongoose
 - passport
@@ -86,11 +84,15 @@ The following are planned to be implemented:
 
 ## Updates
 
+**<ins>Update 23/05/2022<ins>** fix of re-render of page after login/implementation passport-jwt strategy with refactor
+
 **<ins>Update 20/05/2022<ins>** merge of working branch with main
 
 ## Deployment
 
-[IT Memes World] ()
+[IT Memes World](https://itmemesworld.netlify.app/)
+
+**<ins>Update 23/05/2022<ins>** second deployment after fixes
 
 **<ins>Update 20/05/2022<ins>** first deployment
 

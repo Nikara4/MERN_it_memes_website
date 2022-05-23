@@ -1,46 +1,30 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import { useRouter } from 'next/router';
 
 import { User } from '../interfaces';
 import { BASE_URL } from '../../pages/api';
-import { user } from '../userProfile';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }: any) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   const [token, setToken] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
-    axios({
-      method: 'GET',
-      withCredentials: true,
-      url: `${BASE_URL}/user`,
-    }).then((res: AxiosResponse) => {
-      setUserInfo(res.data);
+    const userProfile = localStorage.getItem('profile');
+    const user = userProfile ? JSON.parse(userProfile) : null;
+
+    if (user) {
+      setIsLoggedIn(true);
+      setUserInfo(user?.user);
       setToken(user?.token);
-
-      if(res.data) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-        localStorage.clear();
-      }
-    });
-  }, []);
-
-  const logout = () => {
-    axios({
-      method: 'GET',
-      withCredentials: true,
-      url: `${BASE_URL}/user/logout`,
-    }).then((res: AxiosResponse) => {
-      localStorage.clear();
-      setUserInfo(null);
+    } else {
       setIsLoggedIn(false);
-    });
-  };
+    }
+  }, [router]);
 
   const signIn = (userData: User) => {
     axios({
@@ -52,21 +36,35 @@ export function AuthProvider({ children }: any) {
       withCredentials: true,
       url: `${BASE_URL}/user/signin`,
     }).then((res: AxiosResponse) => {
-      const user = localStorage.setItem('profile', JSON.stringify(res.data));
-      window.location.href = '/';
-      return user;
+      localStorage.setItem('profile', JSON.stringify(res.data));
+      router.push('/');
     });
   };
 
-  const signUp = (userData: User) => {
+  const signUp = (userData: any) => {
     axios({
       method: 'POST',
       data: userData,
       withCredentials: true,
       url: `${BASE_URL}/user/signup`,
+    })
+      .then((res: AxiosResponse) => {
+        router.push('/');
+        return res.data;
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const logout = () => {
+    axios({
+      method: 'GET',
+      withCredentials: true,
+      url: `${BASE_URL}/user/logout`,
     }).then((res: AxiosResponse) => {
-      return res.data;
-    }).catch((err) => console.log(err))
+      localStorage.clear();
+      setUserInfo(null);
+      setIsLoggedIn(false);
+    });
   };
 
   const state = {
@@ -85,7 +83,7 @@ export function useAuthState() {
   const state = useContext(AuthContext);
 
   if (state === undefined) {
-    throw new Error('useAuthState must be used within a UserProvider');
+    throw new Error('useAuthState must be used within a AuthProvider');
   }
 
   return state;

@@ -1,7 +1,7 @@
-import { SnackbarCloseReason } from '@mui/material';
 import { MouseEventHandler } from 'react';
 
 export interface User {
+  _id?: string;
   firstName: string;
   lastName: string;
   userName: string;
@@ -28,6 +28,13 @@ export interface UploadPost {
   selectedFile: string;
 }
 
+export interface PostProps {
+  setCurrentId: Function;
+  post: Post;
+  handleClickOpen: Function;
+  user: any;
+}
+
 export interface HeaderProps {
   showMobileMenu: boolean;
   isMobile: boolean;
@@ -39,6 +46,7 @@ export interface UploadFormProps {
   setPostData: Function;
   handleSubmit: MouseEventHandler<HTMLButtonElement>;
   clearForm: MouseEventHandler<HTMLButtonElement>;
+  user: User,
 }
 
 export interface AuthFormProps {

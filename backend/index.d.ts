@@ -1,4 +1,4 @@
 declare module 'bcryptjs';
 declare module 'jsonwebtoken';
-declare module 'express-session';
-declare module 'cookie-parser'
+declare module 'passport-jwt';
+declare module 'cookie-parser';

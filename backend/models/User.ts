@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 export type UserDocument = mongoose.Document & {
+  _id?: string;
   name?: string;
   userName?: string;
   email?: string;
@@ -10,7 +11,6 @@ export type UserDocument = mongoose.Document & {
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    unique: true,
     required: true,
 },
   userName: {
@@ -25,7 +25,6 @@ const userSchema = new mongoose.Schema({
 },
   password: {
     type: String,
-    unique: true,
     required: true,
 },
 });
