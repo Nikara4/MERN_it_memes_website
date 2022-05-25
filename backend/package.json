@@ -6,7 +6,8 @@
   "type": "module",
   "exports": "./dist/index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
     "tsc": "tsc --watch"
   },
   "keywords": [

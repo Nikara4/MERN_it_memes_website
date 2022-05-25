@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import User, { UserDocument }  from '../models/User.js';
-import { NativeError } from 'mongoose';
 
 interface OptionsInterface {
   jwtFromRequest: any;
@@ -24,7 +23,7 @@ export default (passport: any) => {
     ) {
       User.findOne(
         { id: jwt_payload.sub },
-        function (err: NativeError, user: UserDocument) {
+        function (err: Error, user: UserDocument) {
           if (err) {
             return done(err, false);
           }
