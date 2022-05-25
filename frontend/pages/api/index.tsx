@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Post } from '../../resources/interfaces';
 
-export const BASE_URL = 'http://localhost:5000';
+export const BASE_URL = 'https://it-memes-app.herokuapp.com';
 
 const API = axios.create({ baseURL: BASE_URL });
 
