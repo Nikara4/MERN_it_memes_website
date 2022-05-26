@@ -5,8 +5,10 @@ import {
   Button,
   CardMedia,
   Box,
+  InputBase,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+
 
 export const HeaderAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: '#4b4b4b !important',
@@ -17,16 +19,18 @@ export const HeaderAppBar = styled(AppBar)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     height: '8vh',
   },
+  '@media (max-width: 850px) and (orientation: landscape)': {
+    height: '12vh',
+  }
 }));
 
-export const HeaderToolbar = styled(Toolbar)(({ theme }) => ({
+export const HeaderToolbar = styled(Toolbar)(() => ({
   position: 'relative',
   width: '100%',
   margin: '0 auto',
   padding: '0 5px',
   maxWidth: '1200px',
   justifyContent: 'space-between',
-  [theme.breakpoints.down('md')]: {},
 }));
 
 export const HeaderButtonNav = styled(Button)(({ theme }) => ({
@@ -51,6 +55,9 @@ export const HeaderCardMedia = styled(CardMedia)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     width: '10% !important',
   },
+  '@media (max-width: 850px) and (orientation: landscape)': {
+    width: '4% !important',
+  }
 }));
 
 export const HeaderTypography = styled(Typography)(({ theme }) => ({
@@ -105,16 +112,30 @@ export const ProfileTypography = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const ProfileBox = styled(Box)(({ theme }) => ({
-  backgroundColor: 'transparent',
+export const SearchIconBox = styled(Box)(({theme}) => ({
   display: 'flex',
-  alignItems: 'center',
   flexBasis: '15%',
-  // [theme.breakpoints.down('lg')]: {
-  //   height: '10vh',
-  // },
+  alignItems: 'center',
+  backgroundColor: 'transparent',
+  overflow: 'hidden',
+  '& svg': {
+    color: 'white',
+    display: 'block',
+  },
   [theme.breakpoints.down('md')]: {
-    margin: '0 !important',
-    backgroundColor: 'transparent !important',
+    display: 'none'
+  },
+}));
+
+export const SearchInputBase = styled(InputBase)(({ theme }) => ({
+  flexBasis: '85%',
+  fontFamily: 'Poppins, sans-serif',
+  fontSize: '13px',
+  zIndex: '2',
+  '& input': {
+    padding: '7px 10px',
+  },
+  [theme.breakpoints.down('md')]: {
+    display: 'none'
   },
 }));

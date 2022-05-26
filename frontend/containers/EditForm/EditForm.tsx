@@ -3,7 +3,7 @@ import { DialogActions } from '@mui/material';
 import FileBase64 from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Post, PostTypeState } from '../../resources/interfaces';
+import { PostInterface, PostTypeState } from '../../resources/interfaces';
 import { updatePost } from '../../state/actions/posts';
 import { EditDialog, EditDialogContent } from './styled';
 import {
@@ -15,7 +15,7 @@ import {
 } from '../../styles/globalComponents';
 
 const EditForm = ({ post, currentId, handleClose, open }: any) => {
-  const [postData, setPostData] = useState<Post>({
+  const [postData, setPostData] = useState<PostInterface>({
     ...post,
     title: '',
     tags: [],
