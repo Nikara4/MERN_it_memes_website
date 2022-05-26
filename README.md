@@ -68,13 +68,13 @@ COMPLETED:
 - backend for handling posts and authentication,
 - MongoDB connection,
 - creating user accounts,
-- upload of memes, deletion and liking/disliking as a logged in user
+- upload of memes, deletion and liking/disliking as a logged in user,
+- final fixes with mobile views.
 
 ## Planned implementations
 
 The following are planned to be implemented:
 
-- **media queries**: final fixes with mobile views,
 - **information dialogs**: creating client side information dialogs/snackbars for success/info/warning/error informations from the backend,
 - **pagination**: separating the amount of visible posts and creating pages,
 - **search engine**: searching through tags,
@@ -86,6 +86,8 @@ The following are planned to be implemented:
 
 ## Updates
 
+**<ins>Update 26/05/2022<ins>** final fixes with mobile views
+
 **<ins>Update 23/05/2022<ins>** fix of re-render of page after login/implementation passport-jwt strategy with refactor
 
 **<ins>Update 20/05/2022<ins>** merge of working branch with main
@@ -93,6 +95,8 @@ The following are planned to be implemented:
 ## Deployment
 
 [IT Memes World](https://itmemesworld.netlify.app/)
+  
+**<ins>Update 26/05/2022<ins>** deployment after fixes
 
 **<ins>Update 23/05/2022<ins>** second deployment after fixes
 
