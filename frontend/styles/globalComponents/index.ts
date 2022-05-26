@@ -1,6 +1,5 @@
 import {
   Box,
-  InputBase,
   DialogTitle,
   TextField,
   Button,
@@ -8,55 +7,6 @@ import {
   Typography
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
-export const SearchBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexBasis: '17%',
-  marginLeft: '0',
-  marginRight: '1%',
-  borderRadius: '7px',
-  backgroundColor: 'rgba(250, 249, 246, 0.4)',
-  zIndex: '2',
-  '&:hover': {
-    backgroundColor: 'rgba(250, 249, 246, 0.5)',
-  },
-  '& input::placeholder': {
-    color: '#F9F6EE',
-  },
-  [theme.breakpoints.down('md')]: {
-    alignItems: 'center',
-    flexBasis: '4%',
-    margin: '70px 10px 0 10px',
-  },
-}));
-
-export const SearchIconBox = styled(Box)(() => ({
-  display: 'flex',
-  flexBasis: '15%',
-  alignItems: 'center',
-  backgroundColor: 'transparent',
-  overflow: 'hidden',
-  '& svg': {
-    color: 'white',
-    display: 'block',
-  },
-}));
-
-export const SearchInputBase = styled(InputBase)(({ theme }) => ({
-  flexBasis: '85%',
-  fontFamily: 'Poppins, sans-serif',
-  fontSize: '13px',
-  zIndex: '2',
-  '& input': {
-    padding: '7px 10px',
-  },
-  [theme.breakpoints.down('lg')]: {
-    flexGrow: '1',
-    '& input': {
-      padding: '5px 10px',
-    },
-  },
-}));
 
 export const FormTitle = styled(DialogTitle)(({ theme }) => ({
   margin: 0,
@@ -179,7 +129,10 @@ export const Text = styled(Typography)(({ theme }) => ({
     }
   },
   [theme.breakpoints.down('lg')]: {
-    width: '90%',
+    fontSize: '20px',
+    lineHeight: '30px',
+    margin: '0 auto',
+    width: '100%',
     cursor: 'none',
     '& input': {
       fontSize: '14px',

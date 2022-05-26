@@ -2,7 +2,6 @@ import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
-import { NativeError } from 'mongoose';
 
 import User  from '../models/User.js';
 
@@ -67,7 +66,7 @@ export const signUp = (req: Request, res: Response) => {
         user: newUser,
       });
     })
-    .catch((err: NativeError) => {
+    .catch((err: Error) => {
       res.status(400).send({
         success: false,
         message: 'Something went wrong',

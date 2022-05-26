@@ -23,7 +23,9 @@ const Auth: NextPage = () => {
   const { signIn, signUp } = useAuthState();
   const { open, setOpen, closeDialog } = useDialogState();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    
     if (isSignUp) {
       signUp(userData);
       setOpen(true);

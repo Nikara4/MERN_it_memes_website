@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Post } from '../../resources/interfaces';
+import { PostInterface } from '../../resources/interfaces';
 
 export const BASE_URL = 'https://it-memes-app.herokuapp.com';
 
@@ -19,9 +19,9 @@ export const fetchPosts = () => API.get('/posts');
 
 export const getSinglePost = (id: string) => API.get(`/posts/${id}`);
 
-export const createPost = (newPost: Post) => API.post('/posts', newPost);
+export const createPost = (newPost: PostInterface) => API.post('/posts', newPost);
 
-export const updatePost = (id: string, updatedPost: Post) =>
+export const updatePost = (id: string, updatedPost: PostInterface) =>
   API.patch(`/posts/${id}`, updatedPost);
 
 export const deletePost = (id: string) => API.delete(`/posts/${id}`);
