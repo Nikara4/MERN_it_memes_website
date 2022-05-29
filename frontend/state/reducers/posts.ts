@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { postActionTypes } from '../constants';
-import { Post } from '../../resources/interfaces';
+import { PostInterface } from '../../resources/interfaces';
 
 const {
   FETCH_ALL_POSTS,
@@ -13,7 +13,6 @@ const {
   DISLIKE_POST,
 } = postActionTypes;
 
-// eslint-disable-next-line import/no-anonymous-default-export
 const postsReducer = (state: any, action: AnyAction) => {
   switch (action.type) {
     case FETCH_ALL_POSTS:
@@ -30,11 +29,11 @@ const postsReducer = (state: any, action: AnyAction) => {
     case UPDATE_POST:
     case LIKE_POST:
     case DISLIKE_POST:
-      return state.map((post: Post) =>
+      return state.map((post: PostInterface) =>
         post._id === action?.['payload']?._id ? action['payload'] : post
       );
     case DELETE_POST:
-      return state.filter((post: Post) => post._id !== action['payload']);
+      return state.filter((post: PostInterface) => post._id !== action['payload']);
     default:
       return state;
   }

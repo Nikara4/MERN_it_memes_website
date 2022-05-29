@@ -1,4 +1,6 @@
-import { MouseEventHandler } from 'react';
+import { FormEventHandler, MouseEventHandler } from 'react';
+
+type T = any;
 
 export interface User {
   _id?: string;
@@ -10,7 +12,7 @@ export interface User {
   confirmPassword: string;
 }
 
-export interface Post {
+export interface PostInterface {
   _id?: string;
   author?: string;
   userName: string;
@@ -30,7 +32,7 @@ export interface UploadPost {
 
 export interface PostProps {
   setCurrentId: Function;
-  post: Post;
+  post: PostInterface;
   handleClickOpen: Function;
   user: any;
 }
@@ -55,8 +57,8 @@ export interface AuthFormProps {
   setUserData: Function;
   handleShowPassword: MouseEventHandler<any>;
   showPassword: boolean;
-  handleSubmit: MouseEventHandler<HTMLButtonElement>;
+  handleSubmit: FormEventHandler<T> | undefined;
   switchMode: MouseEventHandler<HTMLButtonElement>;
 }
 
-export type PostTypeState = { posts: Post[] };
+export type PostTypeState = { posts: PostInterface[] };

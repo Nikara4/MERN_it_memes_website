@@ -10,7 +10,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 
 import { deletePost, likePost, dislikePost } from '../../state/actions/posts';
-import { Post, PostProps } from '../../resources/interfaces';
+import { PostProps } from '../../resources/interfaces';
 import {
   PostCard,
   TagsBox,
@@ -36,7 +36,7 @@ const Post = ({ setCurrentId, post, handleClickOpen, user }: PostProps) => {
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(
-        (like) => like === (user?.googleId || user?._id)
+        (like: any) => like === (user?.googleId || user?._id)
       ) ? (
         <>
           <ThumbUpAlt fontSize='small' />
@@ -65,7 +65,7 @@ const Post = ({ setCurrentId, post, handleClickOpen, user }: PostProps) => {
   const Dislikes = () => {
     if (post.dislikes.length > 0) {
       return post.dislikes.find(
-        (like) => like === (user?.googleId || user?._id)
+        (like: any) => like === (user?.googleId || user?._id)
       ) ? (
         <>
           <ThumbDown fontSize='small' />
@@ -98,7 +98,7 @@ const Post = ({ setCurrentId, post, handleClickOpen, user }: PostProps) => {
   return (
     <PostCard>
       <TagsBox>
-        {post.tags.map((tag) => (
+        {post.tags.map((tag: any) => (
           <TagBox key={uuidv4()}>
             <TagTypography variant='body2'>{tag}</TagTypography>
           </TagBox>

@@ -6,31 +6,27 @@ import Document, {
   NextScript,
   DocumentContext,
 } from 'next/document';
-import { SheetsRegistry, JssProvider, createGenerateId } from 'react-jss';
+import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
   static override async getInitialProps(ctx: DocumentContext) {
-    const registry = new SheetsRegistry();
-    const generateId = createGenerateId();
+    const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
+
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App) => (props) =>
-          (
-            <JssProvider registry={registry} generateId={generateId}>
-              <App {...props} />
-            </JssProvider>
-          ),
+        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
       });
+
     const initialProps = await Document.getInitialProps(ctx);
     return {
       ...initialProps,
-      styles: (
+      styles: [
         <>
           {initialProps.styles}
-          <style id='server-side-styles'>{registry.toString()}</style>
+          {sheet.getStyleElement()}
         </>
-      ),
+      ],
     };
   }
   override render() {
