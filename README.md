@@ -1,6 +1,10 @@
 # IT Memes World & Memes Generator
 
-IT Memes World is a website providing you with the best memes from IT industry. You can create your own account, add new memes and like/dislike posts. Future development of the app involved a gallery of all memes, meme generator and weekly subscription. See below the full Readme for more information, changes in code and deployment updates.
+IT Memes World is a website providing you with the best memes from IT industry. You can create your own account, add new memes, edit or delete them and like/dislike posts. Future development of the app involves a gallery of all memes, meme generator and weekly subscription. See below for more information, changes in code and deployment updates.
+
+[IT Memes World](https://itmemesworld.netlify.app/)
+
+![IT Memes World](https://i.ibb.co/yBxRzKP/it-memes-world.png)
 
 ## Table of contents
 
@@ -11,16 +15,13 @@ IT Memes World is a website providing you with the best memes from IT industry. 
 - [Status](#status)
 - [Planned implementations](#planned-implementations)
 - [Updates](#updates)
-- [Deployment](#deployment)
 - [Inspiration](#inspiration)
 
 ## General info
 
-The project has been created as part of my 'Szkoła Reacta' course, later extended with new technologies that I have learnt. It was intended to be my final individual project.
+The project has been created as part of my 'Szkoła Reacta' course and has later been extended with new technologies. The scope of the course is to use what I have learned during the course about React, API, Next.js, etc. Full list of used technologies, languages and libraries you will find below.
 
-The scope of the course is to use what I have learned during the course about React, API, Next.js, etc. Full list of used technologies, languages and libraries you will find below.
-
-For now the project is in completed in the basic stage, which makes it usable and available for others. Full list of planned updates and functions is below.
+For now the project is completed in the basic stage, which makes it usable and available for others. Full list of planned updates and functions is below.
 
 ## Technologies
 
@@ -68,13 +69,13 @@ COMPLETED:
 - backend for handling posts and authentication,
 - MongoDB connection,
 - creating user accounts,
-- upload of memes, deletion and liking/disliking as a logged in user
+- upload of memes, deletion and liking/disliking as a logged in user,
+- final fixes with mobile views.
 
 ## Planned implementations
 
 The following are planned to be implemented:
 
-- **media queries**: final fixes with mobile views,
 - **information dialogs**: creating client side information dialogs/snackbars for success/info/warning/error informations from the backend,
 - **pagination**: separating the amount of visible posts and creating pages,
 - **search engine**: searching through tags,
@@ -86,17 +87,11 @@ The following are planned to be implemented:
 
 ## Updates
 
-**<ins>Update 23/05/2022<ins>** fix of re-render of page after login/implementation passport-jwt strategy with refactor
+**<ins>Update 26/05/2022<ins>** deployment after fixes / final fixes with mobile views
 
-**<ins>Update 20/05/2022<ins>** merge of working branch with main
+**<ins>Update 23/05/2022<ins>** second deployment after fixes / fix of re-render of page after login/implementation passport-jwt strategy with refactor
 
-## Deployment
-
-[IT Memes World](https://itmemesworld.netlify.app/)
-
-**<ins>Update 23/05/2022<ins>** second deployment after fixes
-
-**<ins>Update 20/05/2022<ins>** first deployment
+**<ins>Update 20/05/2022<ins>** first deployment / merge of working branch with main
 
 ## Inspiration
 
