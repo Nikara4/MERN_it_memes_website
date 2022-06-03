@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 
-import Input from './Input/Input';
+import Input from '../Input/Input';
 import { FormTitle, AuthButton, SwitchButton } from './styled';
 import { Control } from '../../styles/globalComponents';
 import { AuthFormProps } from '../../resources/interfaces';
@@ -17,60 +17,70 @@ const AuthForm = ({
   return (
     <>
       <FormTitle variant='h5'>{isSignUp ? `Sign Up` : `Sign In`}</FormTitle>
-      <Control>
+      <Control
+        //  @ts-ignore
+        component={'form'} 
+        onSubmit={handleSubmit}
+      >
         <Grid container spacing={2}>
           {isSignUp && (
             <>
               <Input
+                required
                 value={userData.firstName}
                 half
                 handleChange={(e: any) =>
                   setUserData({ ...userData, firstName: e.target.value })
                 }
-                name='firstName'
-                label='First Name'
+                name={'firstName'}
+                label={'First Name'}
               />
               <Input
+                required
                 value={userData.lastName}
                 half
                 handleChange={(e: any) =>
                   setUserData({ ...userData, lastName: e.target.value })
                 }
-                name='secondName'
-                label='Second Name'
+                name={'secondName'}
+                label={'Second Name'}
               />
               <Input
+                required
                 value={userData.email}
                 handleChange={(e: any) =>
                   setUserData({ ...userData, email: e.target.value })
                 }
-                name='email'
-                label='Email'
-                type='email'
+                name={'email'}
+                label={'Email'}
+                type={'email'}
               />
             </>
           )}
           <Input
+            required
             value={userData.userName}
             handleChange={(e: any) =>
               setUserData({ ...userData, userName: e.target.value })
             }
-            name='userName'
-            label='User Name'
+            name={'userName'}
+            label={'User Name'}
           />
           <Input
+            required
             value={userData.password}
             handleChange={(e: any) =>
               setUserData({ ...userData, password: e.target.value })
             }
-            name='password'
-            label='Password'
+            name={'password'}
+            label={'Password'}
             type={showPassword ? 'text' : 'password'}
             handleShowPassword={handleShowPassword}
           />
           {isSignUp && (
             <>
               <Input
+                required
                 value={userData.confirmPassword}
                 handleChange={(e: any) =>
                   setUserData({
@@ -78,15 +88,15 @@ const AuthForm = ({
                     confirmPassword: e.target.value,
                   })
                 }
-                name='confirmPassword'
-                label='Repeat Password'
+                name={'confirmPassword'}
+                label={'Repeat Password'}
                 type={showPassword ? 'text' : 'password'}
                 handleShowPassword={handleShowPassword}
               />
             </>
           )}
           <Grid item xs={12}>
-            <AuthButton fullWidth variant='contained' onClick={handleSubmit}>
+            <AuthButton fullWidth variant={'contained'} type={'submit'}>
               {isSignUp ? `Sign Up` : `Sign In`}
             </AuthButton>
           </Grid>

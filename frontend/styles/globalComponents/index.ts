@@ -3,8 +3,8 @@ import {
   DialogTitle,
   TextField,
   Button,
-  FormControl,
-  Typography
+  Typography,
+  FormControl
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 

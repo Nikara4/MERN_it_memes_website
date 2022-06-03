@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 import { NextPage } from 'next';
@@ -8,6 +8,7 @@ import { AuthPaper, AuthAvatar } from '../styles/authStyled';
 import { User } from '../resources/interfaces';
 import { useAuthState, useDialogState } from '../resources/context';
 import { AuthForm, Dialog } from '../components';
+import { useSelector } from 'react-redux';
 
 const Auth: NextPage = () => {
   const [userData, setUserData] = useState<User>({
@@ -20,16 +21,16 @@ const Auth: NextPage = () => {
   });
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const resultDialog = useSelector((state: any) => state.dialog);
   const { signIn, signUp } = useAuthState();
   const { open, setOpen, closeDialog } = useDialogState();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    
+
     if (isSignUp) {
-      signUp(userData);
-      setOpen(true);
-      return;
+        signUp(userData);
+        setOpen(true);
     } else {
       signIn(userData);
     }
@@ -66,7 +67,7 @@ const Auth: NextPage = () => {
               closeDialog={closeDialog}
               title='Auth result'
             >
-              Your account has been successfully created. You can now login.
+              {resultDialog?.dialog?.message}
             </Dialog>
           )}
         </AuthPaper>

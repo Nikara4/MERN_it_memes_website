@@ -14,4 +14,10 @@ export const infoText= {
     failure: `There is something wrong and we could not upload the information you provided. Please try again or contact me via email.`
 }
 
+export const dialogContent = {
+   DIALOG_ADD: "SNACKBAR_ADD",
+   DIALOG_REMOVE: "SNACKBAR_REMOVE",
+}
+
+
 
