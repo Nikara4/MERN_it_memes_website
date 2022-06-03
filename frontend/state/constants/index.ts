@@ -16,7 +16,6 @@ export const infoText= {
 
 export const dialogContent = {
    DIALOG_ADD: "SNACKBAR_ADD",
-   DIALOG_REMOVE: "SNACKBAR_REMOVE",
 }
 
 

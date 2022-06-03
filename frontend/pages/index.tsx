@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Grow, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { Snackbar, Alert } from '@mui/material';
 
 import { Post } from '../components';
 import { getPosts } from '../state/actions/posts';
@@ -14,8 +15,10 @@ import { useAuthState } from '../resources/context';
 const Home: NextPage = () => {
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
+  const [showSnackbar, setShowSnackbar] = useState(false);
   const { userInfo } = useAuthState();
   const posts = useSelector((state: PostTypeState) => state);
+  const resultDialog = useSelector((state: any) => state.dialog);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,6 +34,8 @@ const Home: NextPage = () => {
     setOpen(false);
   };
 
+  const handleCloseSnackbar = () => setShowSnackbar(!showSnackbar);
+  console.log(resultDialog?.dialog?.severity);
   return (
     <>
       <Head>
@@ -67,7 +72,29 @@ const Home: NextPage = () => {
                 currentId={currentId}
                 handleClose={handleClose}
                 open={open}
+                setShowSnackbar={setShowSnackbar}
               />
+            )}
+
+            {showSnackbar && (
+              <Snackbar
+                open
+                autoHideDuration={4000}
+                onClose={handleCloseSnackbar}
+              >
+                <Alert
+                  onClose={handleCloseSnackbar}
+                  severity={resultDialog?.dialog?.severity}
+                  sx={{
+                    width: '100%',
+                    backgroundColor: `${
+                      resultDialog?.dialog?.severity === 'error' ? '#D32F2F' : '#2E7D32'
+                    }`,
+                  }}
+                >
+                  {resultDialog?.dialog?.message}
+                </Alert>
+              </Snackbar>
             )}
           </MainGrid>
         </Grow>

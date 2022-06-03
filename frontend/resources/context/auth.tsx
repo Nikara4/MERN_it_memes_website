@@ -20,12 +20,12 @@ export function AuthProvider({ children }: any) {
     const userProfile = localStorage.getItem('profile');
     const user = userProfile ? JSON.parse(userProfile) : null;
 
-    dispatch(
-      addDialog({
-        message: '',
-        severity: '',
-      })
-    );
+    // dispatch(
+    //   addDialog({
+    //     message: '',
+    //     severity: 'success',
+    //   })
+    // );
 
     if (user) {
       setIsLoggedIn(true);
@@ -34,6 +34,7 @@ export function AuthProvider({ children }: any) {
     } else {
       setIsLoggedIn(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   const signIn = (userData: User) => {

@@ -64,12 +64,13 @@ export interface AuthFormProps {
 export type PostTypeState = { posts: PostInterface[] };
 
 export interface InputProps {
-  value: string,
+  value?: any,
   half?: boolean;
-  handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  name: string;
-  label: string;
+  handleChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  name?: string;
+  label?: string;
   type?: string;
   handleShowPassword?: MouseEventHandler<T> | undefined;
   required?: boolean;
+  fullWidth?: boolean;
 }
