@@ -11,16 +11,18 @@ const Input = ({
   label,
   type,
   handleShowPassword,
-  required
+  required,
+  fullWidth,
 }: InputProps) => {
   return (
     <Grid item xs={12} sm={half ? 6 : 12}>
       <FormInput
+        fullWidth={fullWidth}
+        variant={'standard'}
         value={value}
         name={name}
         label={label}
         onChange={handleChange}
-        variant={'standard'}
         autoFocus
         required={required}
         type={type}

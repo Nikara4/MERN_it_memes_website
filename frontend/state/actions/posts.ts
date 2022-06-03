@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import { postActionTypes, infoText } from '../constants';
 import { AppThunk } from '../Store';
 import { PostInterface } from '../../resources/interfaces';
+import { addDialog } from './dialog';
 
 const {
   FETCH_ALL_POSTS,
@@ -74,8 +75,20 @@ export const updatePost =
         type: UPDATE_POST,
         payload: data,
       });
+      dispatch(
+        addDialog({
+          message: 'The post has been updated.',
+          severity: 'success',
+        })
+      );
     } catch (e) {
       console.log(e);
+      dispatch(
+        addDialog({
+          message: 'The has been a problem with updating the post.',
+          severity: 'error',
+        })
+      );
     }
   };
 

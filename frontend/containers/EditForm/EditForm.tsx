@@ -8,13 +8,20 @@ import { updatePost } from '../../state/actions/posts';
 import { EditDialog, EditDialogContent } from './styled';
 import {
   FormTitle,
-  FormTextField,
   FormButton,
   FormFileBox,
   Control,
 } from '../../styles/globalComponents';
 
-const EditForm = ({ post, currentId, handleClose, open }: any) => {
+import Input from '../../components/Input/Input';
+
+const EditForm = ({
+  post,
+  currentId,
+  handleClose,
+  open,
+  setShowSnackbar,
+}: any) => {
   const [postData, setPostData] = useState<PostInterface>({
     ...post,
     title: '',
@@ -33,33 +40,38 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
     dispatch(updatePost(currentId, postData));
-    console.log('Post has been updated.');
     handleClose();
+    setShowSnackbar(true);
   };
 
   return (
     <EditDialog open={open} onClose={handleClose} maxWidth='sm' fullWidth>
       <FormTitle>Edit post</FormTitle>
       <EditDialogContent>
-        <Control required onSubmit={handleSubmit}>
-          <FormTextField
-            name='title'
-            variant='standard'
-            label='Title'
+        <Control
+          //  @ts-ignore
+          component={'form'}
+          onSubmit={handleSubmit}
+        >
+          <Input
+            required
+            name={'title'}
+            label={'Title'}
             fullWidth
             value={postData?.title}
-            onChange={(e) =>
+            handleChange={(e) =>
               setPostData({ ...postData, title: e.target.value })
             }
           />
-          <FormTextField
+          <Input
+            required
             name='tags'
-            variant='standard'
             label='Tags (separated by comma)'
             fullWidth
             value={postData?.tags}
-            onChange={(e) =>
+            handleChange={(e) =>
               setPostData({ ...postData, tags: e.target.value.split(',') })
             }
           />
@@ -72,12 +84,12 @@ const EditForm = ({ post, currentId, handleClose, open }: any) => {
               }
             />
           </FormFileBox>
+          <DialogActions>
+            <FormButton onClick={handleClose}>Cancel</FormButton>
+            <FormButton type={'submit'}>Submit</FormButton>
+          </DialogActions>
         </Control>
       </EditDialogContent>
-      <DialogActions>
-        <FormButton onClick={handleClose}>Cancel</FormButton>
-        <FormButton onClick={handleSubmit}>Submit</FormButton>
-      </DialogActions>
     </EditDialog>
   );
 };
