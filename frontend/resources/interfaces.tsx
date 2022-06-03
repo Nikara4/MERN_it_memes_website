@@ -1,4 +1,4 @@
-import { FormEventHandler, MouseEventHandler } from 'react';
+import { FormEventHandler, MouseEventHandler, ChangeEventHandler } from 'react';
 
 type T = any;
 
@@ -62,3 +62,14 @@ export interface AuthFormProps {
 }
 
 export type PostTypeState = { posts: PostInterface[] };
+
+export interface InputProps {
+  value: string,
+  half?: boolean;
+  handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  name: string;
+  label: string;
+  type?: string;
+  handleShowPassword?: MouseEventHandler<T> | undefined;
+  required?: boolean;
+}

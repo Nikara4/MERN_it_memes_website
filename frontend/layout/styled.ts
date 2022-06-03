@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 
 export const LayoutContainer = styled(Container)(({ theme }) => ({
   marginTop: '10vh',
-  [theme.breakpoints.down('lg')]: {
+  [theme.breakpoints.down('xl')]: {
     marginTop: '15vh',
     padding: '0',
   },

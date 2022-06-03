@@ -1,9 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 
 import { User } from '../interfaces';
 import { BASE_URL } from '../../pages/api';
+import { addDialog } from '../../state/actions/dialog';
 
 const AuthContext = createContext(null);
 
@@ -12,10 +14,18 @@ export function AuthProvider({ children }: any) {
   const [userInfo, setUserInfo] = useState(null);
   const [token, setToken] = useState('');
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const userProfile = localStorage.getItem('profile');
     const user = userProfile ? JSON.parse(userProfile) : null;
+
+    dispatch(
+      addDialog({
+        message: '',
+        severity: '',
+      })
+    );
 
     if (user) {
       setIsLoggedIn(true);
@@ -49,10 +59,28 @@ export function AuthProvider({ children }: any) {
       url: `${BASE_URL}/user/signup`,
     })
       .then((res: AxiosResponse) => {
-        router.push('/');
+        // alert('Your account has been successfully created. You can now login.')
+        dispatch(
+          addDialog({
+            message:
+              'Your account has been successfully created. You can now login.',
+            severity: 'success',
+          })
+        );
         return res.data;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        dispatch(
+          addDialog({
+            message: 'Something went wrong with the Sign Up. Please try again or contact us.',
+            severity: 'failure',
+          })
+        );
+        // alert(
+        //   'Something went wrong with the Sign Up. Please try again or contact us.'
+        // );
+        return console.log(err);
+      });
   };
 
   const logout = () => {
