@@ -10,6 +10,7 @@ import {
   Text,
 } from '../../styles/globalComponents';
 import { UploadFormProps } from '../../resources/interfaces';
+import { Input } from '../../components';
 
 const UploadForm = ({
   postData,
@@ -30,27 +31,27 @@ const UploadForm = ({
 
   return (
     <FormPaper>
-      <Control required>
+      <Control
+        // @ts-ignore
+        component='form'
+        onSubmit={handleSubmit}
+      >
         <FormTitle>Upload a new meme</FormTitle>
-        <FormTextField
+        <Input
           name='title'
-          variant='standard'
           label='Title'
           fullWidth
-          size='small'
           value={postData.title}
-          onChange={(e: any) =>
+          handleChange={(e: any) =>
             setPostData({ ...postData, title: e.target.value })
           }
         />
-        <FormTextField
+        <Input
           name='tags'
-          variant='standard'
           label='Tags (separated by comma)'
           fullWidth
-          size='small'
           value={postData.tags}
-          onChange={(e: any) =>
+          handleChange={(e: any) =>
             setPostData({ ...postData, tags: e.target.value.split(',') })
           }
         />
@@ -65,12 +66,7 @@ const UploadForm = ({
           />
         </FormFileBox>
         <SubmitBox>
-          <FormButton
-            variant='outlined'
-            size='medium'
-            type='submit'
-            onClick={handleSubmit}
-          >
+          <FormButton variant='outlined' size='medium' type='submit'>
             Submit
           </FormButton>
           <FormButton variant='outlined' size='medium' onClick={clearForm}>

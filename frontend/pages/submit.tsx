@@ -17,7 +17,7 @@ const SubmitForm: NextPage = () => {
   });
   const { open, setOpen, closeDialog } = useDialogState();
   const { userInfo } = useAuthState();
-  const uploadResult = useSelector((state: any) => state);
+  const resultDialog = useSelector((state: any) => state.dialog);
   const dispatch = useDispatch();
 
   const clearForm = () => {
@@ -62,7 +62,7 @@ const SubmitForm: NextPage = () => {
             closeDialog={closeDialog}
             title='Meme upload'
           >
-            {uploadResult?.posts?.info}
+            {resultDialog?.dialog?.message}
           </Dialog>
         )}
       </Container>

@@ -20,13 +20,6 @@ export function AuthProvider({ children }: any) {
     const userProfile = localStorage.getItem('profile');
     const user = userProfile ? JSON.parse(userProfile) : null;
 
-    // dispatch(
-    //   addDialog({
-    //     message: '',
-    //     severity: 'success',
-    //   })
-    // );
-
     if (user) {
       setIsLoggedIn(true);
       setUserInfo(user?.user);
@@ -60,7 +53,6 @@ export function AuthProvider({ children }: any) {
       url: `${BASE_URL}/user/signup`,
     })
       .then((res: AxiosResponse) => {
-        // alert('Your account has been successfully created. You can now login.')
         dispatch(
           addDialog({
             message:
@@ -77,9 +69,6 @@ export function AuthProvider({ children }: any) {
             severity: 'failure',
           })
         );
-        // alert(
-        //   'Something went wrong with the Sign Up. Please try again or contact us.'
-        // );
         return console.log(err);
       });
   };

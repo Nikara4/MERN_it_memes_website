@@ -7,8 +7,6 @@ import { createLogger } from 'redux-logger';
 const initialState: any = {
   posts: {
     posts: [],
-    info: '',
-    isError: false,
   },
   dialog: {},
 };

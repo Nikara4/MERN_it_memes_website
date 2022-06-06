@@ -1,11 +1,26 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+
+import { addDialog } from '../../state/actions/dialog';
 
 const DialogContext = createContext(null);
 
 export function DialogProvider({ children }: any) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      addDialog({
+        message: '',
+        severity: 'success',
+      })
+    );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router]);
 
   const closeDialog = () => {
     setOpen((prevOpen: any) => !prevOpen);

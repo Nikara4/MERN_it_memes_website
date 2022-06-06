@@ -31,7 +31,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: process.env['ORIGIN_URL'],
+    origin: process.env['ORIGIN_URL'] || 'http://localhost:3000',
     credentials: true,
   })
 );
@@ -59,3 +59,4 @@ const start = async () => {
 };
 
 start();
+3

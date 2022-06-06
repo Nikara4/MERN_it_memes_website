@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PostInterface } from '../../resources/interfaces';
 
 export const BASE_URL = 'https://it-memes-app.herokuapp.com';
-//http://localhost:5000
+//https://it-memes-app.herokuapp.com
 
 const API = axios.create({ baseURL: BASE_URL });
 
@@ -15,6 +15,8 @@ API.interceptors.request.use((req) => {
 
   return req;
 });
+
+// export const getUser = () => API.get(`/user/protected`);
 
 export const fetchPosts = () => API.get('/posts');
 

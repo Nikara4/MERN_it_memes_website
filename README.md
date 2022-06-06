@@ -71,13 +71,13 @@ COMPLETED:
 - creating user accounts,
 - upload of memes, deletion and liking/disliking as a logged in user,
 - final fixes with mobile views, 
-- **information dialogs**: creating client side information dialogs/snackbars for success/info/warning/error informations from the backend.
+- **information dialogs**: creating client side information dialogs/snackbars for success/info/warning/error informations from the backend,
+- **refactor of all dialogs and forms**.
 
 ## Planned implementations
 
 The following are planned to be implemented:
 
-- **refactor of all dialogs and forms**,
 - **pagination**: separating the amount of visible posts and creating pages,
 - **search engine**: searching through tags,
 - **comments section**: comments will be available for logged in users; the post will show itself in a lightbox window with a comments section
@@ -87,6 +87,8 @@ The following are planned to be implemented:
 - how to instructions.
 
 ## Updates
+
+**<ins>Update 06/06/2022<ins>** refactor of dialog forms / disabling like/dislike functionality for creators under their posts
 
 **<ins>Update 03/06/2022<ins>** deployment after fixes / created client side information dialogs/snackbars for informations from the backend; refactor of Auth and Edit forms
 
