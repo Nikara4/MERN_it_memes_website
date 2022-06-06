@@ -2,9 +2,9 @@
 
 IT Memes World is a website providing you with the best memes from IT industry. You can create your own account, add new memes, edit or delete them and like/dislike posts. Future development of the app involves a gallery of all memes, meme generator and weekly subscription. See below for more information, changes in code and deployment updates.
 
-[IT Memes World](https://itmemesworld.netlify.app/)
+Live view: [IT Memes World](https://itmemesworld.netlify.app/)
 
-![IT Memes World](https://i.ibb.co/yBxRzKP/it-memes-world.png)
+![IT Memes World](https://i.ibb.co/mDCc6k2/it-memes-world.png)
 
 ## Table of contents
 
