@@ -46,7 +46,7 @@ export interface HeaderProps {
 export interface UploadFormProps {
   postData: UploadPost;
   setPostData: Function;
-  handleSubmit: MouseEventHandler<HTMLButtonElement>;
+  handleSubmit: any;
   clearForm: MouseEventHandler<HTMLButtonElement>;
   user: User,
 }

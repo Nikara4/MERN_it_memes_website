@@ -7,6 +7,7 @@ import User from '../models/User.js';
 
 export const signIn = (req: Request, res: Response) => {
   const { userName, password } = req.body;
+
   User.findOne({ userName }).then((user) => {
     if (!user) {
       return res.status(401).send({
@@ -42,20 +43,16 @@ export const signUp = async (req: Request, res: Response) => {
     const existingUser = await User.findOne({ email });
 
     if (existingUser)
-      return res
-        .status(400)
-        .json({
-          message:
-            'A user with this username already exists. Please choose different username.',
-        });
+      return res.status(400).json({
+        message:
+          'A user with this username already exists. Please choose different username.',
+      });
 
     if (password !== confirmPassword)
-      return res
-        .status(400)
-        .json({
-          message:
-            'Passwords do not match. Please make sure your password is the same in both fields.',
-        });
+      return res.status(400).json({
+        message:
+          'Passwords do not match. Please make sure your password is the same in both fields.',
+      });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -66,15 +63,12 @@ export const signUp = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
 
-
-
     return res.status(200).send({
       success: true,
       message: 'User created successfully.',
       user: newUser,
     });
   } catch (err) {
-    // console.log(firstName, lastName, userName, email, password, confirmPassword)
     return res.status(400).send({
       success: false,
       message: 'Something went wrong, please try again.',
@@ -83,47 +77,13 @@ export const signUp = async (req: Request, res: Response) => {
   }
 };
 
-// const existingUser = User.findOne({ userName });
-
-// console.log(!!existingUser)
-// if (existingUser)
-//   return res.status(400).json({ message: 'User already exists.' });
-
-// if (password !== confirmPassword)
-//   return res.status(400).json({ message: 'Passwords do not match' });
-
-// const hashedPassword = bcrypt.hash(password, 10);
-
-// const newUser = new User({
-//   name: `${firstName} ${lastName}`,
-//   userName,
-//   email,
-//   password: hashedPassword,
-// });
-
-// return newUser
-//   .save()
-//   .then((user: any) => {
-//     res.status(200).send({
-//       success: true,
-//       message: 'User created successfully.',
-//       user: user,
-//     });
-//   })
-//   .catch((err: Error) => {
-//     res.status(400).send({
-//       success: false,
-//       message: 'Something went wrong, please try again.',
-//       error: err,
-//     });
-//   });
-
-export const authUser = (req: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    msg: 'You are successfully authenticated to this route!',
-  });
-};
+// export const authUser = (req: Request, res: Response) => {
+  //   res.status(200).json({
+  //     success: true,
+  //     msg: 'You are successfully authenticated to this route!',
+  //     user: req.user
+  //   });
+  // };
 
 // for profile page implementation
 

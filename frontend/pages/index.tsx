@@ -35,7 +35,7 @@ const Home: NextPage = () => {
   };
 
   const handleCloseSnackbar = () => setShowSnackbar(!showSnackbar);
-  console.log(resultDialog?.dialog?.severity);
+
   return (
     <>
       <Head>

@@ -1,7 +1,7 @@
 import * as api from '../../pages/api';
 import { Dispatch } from 'redux';
 
-import { postActionTypes, infoText } from '../constants';
+import { postActionTypes } from '../constants';
 import { AppThunk } from '../Store';
 import { PostInterface } from '../../resources/interfaces';
 import { addDialog } from './dialog';
@@ -10,19 +10,11 @@ const {
   FETCH_ALL_POSTS,
   FETCH_SINGLE_POST,
   UPLOAD_POST,
-  UPLOAD_POST_RESULT,
   UPDATE_POST,
   DELETE_POST,
   LIKE_POST,
   DISLIKE_POST,
 } = postActionTypes;
-
-const { success, failure } = infoText;
-
-export const uploadPostResult = (data: string) => ({
-  type: UPLOAD_POST_RESULT,
-  payload: data,
-});
 
 export const getPosts = (): AppThunk => async (dispatch: Dispatch) => {
   try {
@@ -59,10 +51,20 @@ export const uploadPost =
         type: UPLOAD_POST,
         payload: data,
       });
-      dispatch(uploadPostResult(success));
+      dispatch(
+        addDialog({
+          message: 'Your meme has been uploaded to the database. You can now go back to the home page to see it.',
+          severity: 'success',
+        })
+      );
     } catch (e) {
       console.log(e);
-      dispatch(uploadPostResult(failure));
+      dispatch(
+        addDialog({
+          message: 'There is something wrong and we could not upload the information you provided. Please try again or contact the creator via email.',
+          severity: 'error',
+        })
+      );
     }
   };
 

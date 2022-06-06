@@ -10,13 +10,6 @@ const dialogReducer = (state: any, action: AnyAction) => {
         ...state,
         dialog: action['payload'],
       };
-    // case DIALOG_REMOVE:
-    //   return {
-    //     ...state,
-    //     dialogs: state.dialogs.filter(
-    //       (dialog: any) => dialog.id !== action['payload']
-    //     ),
-    //   };
     default:
       return state;
   }

@@ -137,14 +137,14 @@ const Post = ({ setCurrentId, post, handleClickOpen, user }: PostProps) => {
           <PostButton
             size='small'
             onClick={() => dispatch(likePost(post._id))}
-            disabled={!user?._id}
+            disabled={(!user?._id) || (user?.googleId === post.author || user?._id === post.author)}
           >
             <Likes />
           </PostButton>
           <PostButton
             size='small'
             onClick={() => dispatch(dislikePost(post._id))}
-            disabled={!user?._id}
+            disabled={(!user?._id) || (user?.googleId === post.author || user?._id === post.author)}
           >
             <Dislikes />
           </PostButton>

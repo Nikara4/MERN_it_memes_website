@@ -6,7 +6,6 @@ const {
   FETCH_ALL_POSTS,
   FETCH_SINGLE_POST,
   UPLOAD_POST,
-  UPLOAD_POST_RESULT,
   UPDATE_POST,
   DELETE_POST,
   LIKE_POST,
@@ -21,11 +20,6 @@ const postsReducer = (state: any, action: AnyAction) => {
       return action['payload'];
     case UPLOAD_POST:
       return [...state, action['payload']];
-    case UPLOAD_POST_RESULT:
-      return (state = {
-        ...state,
-        info: action['payload'],
-      });
     case UPDATE_POST:
     case LIKE_POST:
     case DISLIKE_POST:

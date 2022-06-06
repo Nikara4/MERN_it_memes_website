@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
     parameterLimit: 1000000,
 }));
 app.use(cors({
-    origin: process.env['ORIGIN_URL'],
+    origin: process.env['ORIGIN_URL'] || 'http://localhost:3000',
     credentials: true,
 }));
 app.use(cookieParser());
@@ -53,3 +53,4 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 start();
+3;
