@@ -70,7 +70,7 @@ COMPLETED:
 - MongoDB connection,
 - creating user accounts,
 - upload of memes, deletion and liking/disliking as a logged in user,
-- final fixes with mobile views, 
+- final fixes with mobile views,
 - **information dialogs**: creating client side information dialogs/snackbars for success/info/warning/error informations from the backend,
 - **refactor of all dialogs and forms**.
 
@@ -80,6 +80,8 @@ The following are planned to be implemented:
 
 - **pagination**: separating the amount of visible posts and creating pages,
 - **search engine**: searching through tags,
+- **passport authentication strategies for Google and Facebook**,
+- **terms of service, privacy and site rules**,
 - **comments section**: comments will be available for logged in users; the post will show itself in a lightbox window with a comments section
 - **gallery**: a full gallery like view of all memes with lightbox,
 - **generator**: meme generator from blank pictures available in the database (or uploaded by the user)/ a generated meme can be either uploaded to the site or downloaded for private use,
